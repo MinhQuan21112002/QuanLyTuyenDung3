@@ -75,6 +75,7 @@ const AllRoutesAd = () => {
         <Route path="/pyramid" element={<Pyramid />} />
         <Route path="/stacked" element={<Stacked />} />
 
+        {/* khanh */}
         <Route path="/event" element={<K_Event />} />
         <Route path="/event/add" element={<EventAdd />} />
         <Route path="/event/edit/:id" element={<EventEdit />} />
@@ -84,6 +85,11 @@ const AllRoutesAd = () => {
         <Route path="/add-position" element={<AddPosition />} />
         <Route path="/edit-position/:id" element={<EditPosition />} />
         <Route path="/question" element={<Question />} />
+        <Route path="/question/add" element={<AddQuestion />} />
+        <Route path="/question/edit/:id" element={<EditQuestion />} />
+        <Route path="/interview" element={<Interview />} />
+
+
       </Routes>
     );
   };

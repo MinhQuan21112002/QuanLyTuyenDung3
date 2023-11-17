@@ -117,7 +117,7 @@ export const EventAdd = () => {
                 pauseOnHover
                 theme="light"
             />
-           <div className="m-4 md:m-10 mt-24 p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
+            <div className="m-4 md:m-10 mt-24 p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
                 <Header category="Add Event" title="Editor" />
 
                 <Stack spacing={5}>
@@ -171,14 +171,24 @@ export const EventAdd = () => {
                         borderRadius="10px"
                         onClick={handleUpload}
                     >
-                        Save img s
+                        Save img
                     </Button>
 
-                    <DatePickerComponent
+                    {/* <DatePickerComponent
                         id="datepicker"
                         placeholder="Time"
                         name="time"
                         value={form.time}
+                        onChange={handleOnChangeForm}
+                    /> */}
+
+                    <Input
+                        id="datepicker"
+                        placeholder="Select Date and Time"
+                        name="time"
+                        value={form.time}
+                        size="md"
+                        type="datetime-local"
                         onChange={handleOnChangeForm}
                     />
                     <br />

@@ -7,11 +7,9 @@ const Companies = () => (
   <VStack>
     <SlideFade in={true} offsetY={20}>
       <Heading size={"lg"} m={"6"} mt={24}>
-        Top companies hiring now
       </Heading>
     </SlideFade>
-    <HStack align={"flex-start"} w={"90vw"}>
-      <FiltersContainer />
+    <HStack align={"flex-start"} w={"80vw"} >
       <CompaniesContainer />
     </HStack>
   </VStack>

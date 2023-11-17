@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { Header } from "../../Components-admin";
-import { Box, List, ListIcon, ListItem, Text } from "@chakra-ui/react";
+import {
+    Box,
+    IconButton,
+    List,
+    ListIcon,
+    ListItem,
+    Text,
+} from "@chakra-ui/react";
 import { MdCheckCircle, MdSettings } from "react-icons/md";
 import { questionService } from "../../Service/question.service";
 import { DropDownListComponent } from "@syncfusion/ej2-react-dropdowns";
@@ -8,6 +15,8 @@ import { Exposure } from "@mui/icons-material";
 import { skillPositionService } from "../../Service/skillPosition.service";
 import { Pagination } from "react-bootstrap";
 import { PaginationItem } from "@mui/material";
+import { AddIcon, ArrowBackIcon, ArrowForwardIcon, DeleteIcon, EditIcon } from "@chakra-ui/icons";
+import { useNavigate } from "react-router-dom";
 
 export const dropdownField = [
     {
@@ -44,6 +53,7 @@ export const dropdownPosition = (positions) => {
 };
 
 export const Question = () => {
+    const navigate = useNavigate();
     const [allQuestions, setAllQuestions] = useState([]);
     const accessToken = JSON.parse(localStorage.getItem("data")).access_token;
     const [skills, setSkill] = useState([]);
@@ -124,6 +134,14 @@ export const Question = () => {
         <>
             <div className="m-4 md:m-10 mt-24 p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl">
                 <Header category="App" title="Question" />
+                <IconButton
+                    color="#03C9D7"
+                    backgroundColor="#f7f7f7"
+                    aria-label="Search database"
+                    icon={<AddIcon />}
+                    onClick={() => navigate("/question/add")}
+                />
+
                 <div className="flex flex-col md:flex-row justify-between items-center gap-4">
                     <div className="flex items-center gap-2">
                         <p className="text-xl font-semibold">Filter</p>
@@ -183,12 +201,19 @@ export const Question = () => {
                                 <Text>Creator: {item.creatorName}</Text>
                                 <Text>Field: {item.fieldEnum}</Text>
                                 <Text>Answer: {item.answer}</Text>
-                                <Text>
-                                    Skill: {item.skillIds.map((p) => p)}
-                                </Text>
-                                <Text>
-                                    Position: {item.positionIds.map((p) => p)}
-                                </Text>
+                                <Text>Skill: {item.skillIds.map((id) => {
+                                    return `${skills.find(s => s.id===id).skillName}, `
+                                })}</Text>
+                                <Text>Position: {item.positionIds.map((id) => {
+                                    return `${positions.find(s => s.id===id).positionName}, `
+                                })}</Text>
+                                <IconButton
+                                    color="#e06cae"
+                                    backgroundColor="#f7f7f7"
+                                    aria-label="Search database"
+                                    icon={<EditIcon />}
+                                    onClick={() => navigate(`/question/edit/${item.id}`)}
+                                />
                             </Box>
                         </ListItem>
                     ))}
@@ -198,10 +223,10 @@ export const Question = () => {
                     count={10}
                     renderItem={(allQuestions) => (
                         <PaginationItem
-                            // slots={{
-                            //     previous: ArrowBackIcon,
-                            //     next: ArrowForwardIcon,
-                            // }}
+                            slots={{
+                                previous: ArrowBackIcon,
+                                next: ArrowForwardIcon,
+                            }}
                             {...allQuestions}
                         />
                     )}

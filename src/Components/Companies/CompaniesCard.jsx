@@ -1,83 +1,55 @@
 import { StarIcon } from "@chakra-ui/icons";
 import {
-  Box,
-  Card,
-  CardBody,
-  Flex,
-  Heading,
-  HStack,
-  Image,
-  SlideFade,
-  Stack,
-  Text,
-  Wrap,
-  WrapItem,
+    Badge,
+    Box,
+    Card,
+    CardBody,
+    Flex,
+    Heading,
+    HStack,
+    Image,
+    SlideFade,
+    Stack,
+    Text,
+    Wrap,
+    WrapItem,
 } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const CompaniesCard = ({ logo, name, rating, reviewsCount, industry, _id }) => {
-  const navigate = useNavigate();
-  return (
-    <SlideFade in={true} offsetX='-20px'>
-      <Card
-        direction={"row"}
-        overflow='hidden'
-        variant='outline'
-        align={"center"}
-        justify={"center"}
-        p={"1.5"}
-        transition='all 0.2s ease-in-out'
-        cursor={"pointer"}
-        _hover={{
-          boxShadow: "xl",
-          transition: "all 0.2s ease-in-out",
-          transform: "translate(1px, -2px)",
-        }}
-        onClick={() => {
-          navigate("/companies/" + _id);
-        }}
-      >
-        <Image src={logo} maxW='60px' maxH='60px' />
-        <Stack>
-          <CardBody as={Flex} direction={"column"} align={"flex-start"}>
-            <Heading size={"md"}>{name}</Heading>
-            <HStack align={"center"} mt='2' justify={"flex-start"}>
-              <Box display='flex' alignItems='center'>
-                {Array(5)
-                  .fill("")
-                  .map((_, i) => (
-                    <StarIcon
-                      boxSize={"3"}
-                      key={i}
-                      color={i < rating ? "gold" : "gray.300"}
-                    />
-                  ))}
-              </Box>
-              <Text fontSize={"smaller"} opacity={0.9}>
-                || Reviews: {reviewsCount}
-              </Text>
-            </HStack>
-            <Wrap mt={"4"}>
-              {industry.map((industryItem, index) => (
-                <WrapItem
-                  key={index}
-                  borderColor={"gray.200"}
-                  borderWidth={"1px"}
-                  borderRadius={"md"}
-                  px={2}
-                  fontSize={"xs"}
-                  opacity={0.8}
+const CompaniesCard = ({ id, name, avatar, website, address, phone, info }) => {
+    const navigate = useNavigate();
+    return (
+        <Box
+            maxW="700px"
+            borderWidth="1px"
+            borderRadius="lg"
+            overflow="hidden"
+            transition="transform 0.3s ease-in-out"
+            _hover={{ transform: "scale(1.05)" }}
+            onClick={() => navigate("/companies/" + id)}
+        >
+            <Image src={avatar} alt="" height={"180px"} />
+
+            <Box p="6">
+                <Box
+                    mt="1"
+                    fontWeight="semibold"
+                    as="h4"
+                    lineHeight="tight"
+                    noOfLines={1}
                 >
-                  {industryItem}
-                </WrapItem>
-              ))}
-            </Wrap>
-          </CardBody>
-        </Stack>
-      </Card>
-    </SlideFade>
-  );
+                    {name}
+                </Box>
+
+                <Box>
+                    <Box as="span" color="gray.600" fontSize="sm">
+                        <Box noOfLines={4}>{info}</Box>
+                    </Box>
+                </Box>
+            </Box>
+        </Box>
+    );
 };
 
 export default CompaniesCard;

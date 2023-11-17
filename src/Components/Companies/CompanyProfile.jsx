@@ -2,124 +2,205 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useParams, useSearchParams } from "react-router-dom";
 import {
-  Avatar,
-  Box,
-  Center,
-  Heading,
-  HStack,
-  SimpleGrid,
-  Slide,
-  SlideFade,
-  Spinner,
-  Stack,
-  Text,
-  VStack,
-  Wrap,
-  WrapItem,
+    Avatar,
+    Box,
+    Center,
+    Flex,
+    FormLabel,
+    Heading,
+    HStack,
+    IconButton,
+    Image,
+    Link,
+    ListItem,
+    OrderedList,
+    SimpleGrid,
+    Slide,
+    SlideFade,
+    Spinner,
+    Stack,
+    Text,
+    VStack,
+    Wrap,
+    WrapItem,
 } from "@chakra-ui/react";
-import { StarIcon } from "@chakra-ui/icons";
-// import * as dotenv from "dotenv";
-// dotenv.config();
+import {
+    EmailIcon,
+    InfoOutlineIcon,
+    LinkIcon,
+    SearchIcon,
+    StarIcon,
+} from "@chakra-ui/icons";
+import { companyService } from "../../Service/company.service";
+import { blue } from "@mui/material/colors";
+import { ItemJobInCompany } from "./ItemJobInCompany";
 
 const CompanyProfile = () => {
-  const { id } = useParams();
-  const [data, setData] = useState(null);
+    const params = useParams();
+    const [company, setCompany] = useState();
+    const [listJob, setListJob] = useState([]);
 
-  useEffect(() => {
-    axios
-      .get(`https://rich-puce-peacock-kilt.cyclic.app/api/companies/${id}`)
-      .then((response) => {
-        const data = response.data;
-        setData(data);
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
-  }, []);
-  console.log(data);
 
-  if (!data) {
-    return (
-      <Center h={"100vh"} direction='row' spacing={4}>
-        <Spinner color='blue.500' size='xl' />
-      </Center>
-    );
-  } else {
-    return (
-      <Center h={"full"} w={"80vw"} margin={"auto"}>
-        <VStack my={"24"}>
-          <SlideFade in={true} offsetY={20}>
-            <HStack gap={6}>
-              <SlideFade in={true} offsetY={-40}>
-                <Avatar
-                  src={data.logo}
-                  size={"2xl"}
-                  name={data.name}
-                  borderColor={"gray.200"}
-                  borderWidth={"1px"}
-                  p={"1"}
-                />
-              </SlideFade>
-              <VStack align={"flex-start"}>
-                <Heading size={"lg"}>{data.name}</Heading>
-                <Wrap mt={"4"} maxWidth={"500px"}>
-                  {data.industry.map((industryItem, index) => (
-                    <WrapItem
-                      borderColor={"gray.200"}
-                      borderWidth={"1px"}
-                      borderRadius={"xl"}
-                      px={3}
-                      py={1}
-                      fontSize={"sm"}
-                      opacity={0.8}
-                      key={index}
-                    >
-                      {industryItem}
-                    </WrapItem>
-                  ))}
-                </Wrap>
-              </VStack>
-              {/* About */}
-            </HStack>
-            <VStack align={"flex-start"} mt={10}>
-              <Heading fontSize={"2xl"} fontWeight={"semibold"}>
-                About {data.name}
-              </Heading>
-              <Text align={"justify"} opacity={0.9}>
-                {data.about}
-              </Text>
-              <Heading fontSize={"2xl"} fontWeight={"semibold"}>
-                More Information
-              </Heading>
-              <VStack align={"flex-start"} opacity={0.9}>
-                <HStack>
-                  <Text align={"justify"}>Rating: </Text>
-                  <Box display='flex' alignItems='center'>
-                    {Array(5)
-                      .fill("")
-                      .map((_, i) => (
-                        <StarIcon
-                          boxSize={"3"}
-                          key={i}
-                          color={i < data.rating ? "gold" : "gray.300"}
-                        />
-                      ))}
-                  </Box>
-                  <Text>{`(${data.rating}/5)`}</Text>
-                </HStack>
-                <Text align={"justify"}>Location: {data.location}</Text>
-                <Text align={"justify"}>
-                  Company Size: {">"}
-                  {data.companysize}
-                </Text>
-              </VStack>
-            </VStack>
-          </SlideFade>
-        </VStack>
-      </Center>
-    );
-  }
+    useEffect(() => {
+        companyService.getCompanyById(params.id).then((res) => setCompany(res));
+        companyService.getJobByCompany(params.id).then((res) => setListJob(res));
+    }, []);
+
+
+
+    if (!company) {
+        return (
+            <Center h={"100vh"} direction="row" spacing={4}>
+                <Spinner color="blue.500" size="xl" />
+            </Center>
+        );
+    } else {
+        return (
+            <>
+                <VStack fontFamily={"sans-serif"}>
+                    <SlideFade in={true} offsetY={20}>
+                        <Heading size={"lg"} m={"6"} mt={24}></Heading>
+                    </SlideFade>
+                    <HStack m={5} align={"flex-start"} w={"70vw"} p={3}>
+                        <Box
+                            maxW="100%"
+                            borderWidth="1px"
+                            borderRadius="lg"
+                            overflow="hidden"
+                            boxShadow="md"
+                            align={"flex-start"}
+                            w={"100vw"}
+                            m={2}
+                            backgroundColor={"#99d3e9"}
+                        >
+                            <Image
+                                src={company.avatar}
+                                alt={company.name}
+                                width="100%"
+                                height="200px"
+                                objectFit="cover"
+                            />
+
+                            <Box p={4}>
+                                <Text fontWeight="bold" fontSize="lg" mt="2">
+                                    {company.name}
+                                </Text>
+
+                                <Flex w={"60%"} p={2}>
+                                    <Text flex="1">
+                                        <Link
+                                            href={company.website}
+                                            isExternal
+                                            color="blue.500"
+                                        >
+                                            <IconButton
+                                                m={2}
+                                                aria-label="Search database"
+                                                icon={<SearchIcon />}
+                                            />
+                                            {company.website}
+                                        </Link>
+                                    </Text>
+                                    <Text>
+                                        <IconButton
+                                            aria-label="Send email"
+                                            m={2}
+                                            icon={<EmailIcon />}
+                                        />
+                                        {company.phone}
+                                    </Text>
+                                </Flex>
+                            </Box>
+                        </Box>
+                    </HStack>
+
+                    <HStack m={5} align={"flex-start"} w={"70vw"} p={5}>
+                        <VStack w={"70%"} pr={3} spacing={12}>
+                            <Box
+                                w={"100%"}
+                                borderWidth="1px"
+                                borderRadius="lg"
+                                overflow="hidden"
+                                boxShadow="md"
+                                align={"flex-start"}
+                            >
+                                <FormLabel
+                                    fontWeight={"bold"}
+                                    fontSize={18}
+                                    color={"white"}
+                                    w={"100%"}
+                                    p={4}
+                                    style={{ backgroundColor: "#99d3e9" }}
+                                >
+                                    Company Information
+                                </FormLabel>
+                                <Text p={4}>{company.info}</Text>
+                            </Box>
+                            <Box
+                                w={"100%"}
+                                borderWidth="1px"
+                                borderRadius="lg"
+                                overflow="hidden"
+                                boxShadow="md"
+                                align={"flex-start"}
+                            >
+                                <FormLabel
+                                    fontWeight={"bold"}
+                                    fontSize={18}
+                                    color={"white"}
+                                    w={"100%"}
+                                    p={4}
+                                    style={{ backgroundColor: "#99d3e9" }}
+                                >
+                                    JobPosting
+                                </FormLabel>
+                                {listJob.map((job) => (
+                                       < ItemJobInCompany {...job} />
+                                ))}
+                            </Box>
+                        </VStack>
+
+                        <Box
+                            w={"30%"}
+                            borderWidth="1px"
+                            borderRadius="lg"
+                            overflow="hidden"
+                            boxShadow="md"
+                            align={"flex-start"}
+                            m={2}
+                        >
+                            <FormLabel
+                                fontWeight={"bold"}
+                                fontSize={18}
+                                color={"white"}
+                                w={"100%"}
+                                p={4}
+                                style={{ backgroundColor: "#99d3e9" }}
+                            >
+                                Company Contact{" "}
+                            </FormLabel>
+
+                            <VStack p={3} w={"100%"} m={2}>
+                                <HStack w={"100%"}>
+                                    <IconButton
+                                        aria-label="Send email"
+                                        icon={<InfoOutlineIcon />}
+                                        mr={2}
+                                    />
+                                    <Text>
+                                        Company Address <br />
+                                    </Text>
+                                </HStack>
+                                <VStack>
+                                    <Text>{company.address}</Text>
+                                </VStack>
+                            </VStack>
+                        </Box>
+                    </HStack>
+                </VStack>
+            </>
+        );
+    }
 };
 
 export default CompanyProfile;
-

@@ -37,6 +37,10 @@ import { EditPosition } from "../pages-admin/PositionSkill/EditPosition";
 import { Question } from "../pages-admin/Question/Question";
 import RoomListInterviewer  from "../pages-admin/RoomInterviewer/RoomListInterviewer";
 import RoomDetail  from "../pages-admin/RoomInterviewer/RoomDetail";
+import { AddQuestion } from "../pages-admin/Question/AddQuestion";
+import { EditQuestion } from "../pages-admin/Question/EditQuestion";
+import { Interview } from "../pages-admin/Interview/Interview";
+
 const AllRoutesAd = () => {
     return (
         <Routes>

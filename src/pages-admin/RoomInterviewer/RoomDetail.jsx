@@ -61,7 +61,7 @@ const RoomDetail = () => {
  
   
   return (
-    <>
+    <div style={{margin:"20px"}}>
      {listCandidate.map(candidate => {
     return (
  
@@ -71,18 +71,9 @@ const RoomDetail = () => {
         <Box p='6'>
           <Box display='flex' alignItems='baseline'>
             <Badge borderRadius='full' px='2' colorScheme='teal'>
-              New
+            {candidate.status}
             </Badge>
-            <Box
-              color='gray.500'
-              fontWeight='semibold'
-              letterSpacing='wide'
-              fontSize='xs'
-              textTransform='uppercase'
-              ml='2'
-            >
-              {property.beds} beds &bull; {property.baths} baths
-            </Box>
+          
           </Box>
   
           <Box
@@ -92,7 +83,7 @@ const RoomDetail = () => {
             lineHeight='tight'
             noOfLines={1}
           >
-            {property.title}
+            {candidate.email}
           </Box>
   
           <Box>
@@ -123,7 +114,7 @@ const RoomDetail = () => {
   })
   }
   
-    </>
+    </div>
   );
 };
 

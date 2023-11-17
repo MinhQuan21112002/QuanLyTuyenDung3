@@ -13,6 +13,10 @@ import Signup from "../Components/Signup/Signup";
 import Verify from "../Components/Signup/verify";
 import Logout from "../Components/Logout/Logout";
 import UserInfo from "../Components/UserInfo/UserInfo";
+import { Events } from "../Components/Events/Event";
+import { EventDetailHome } from "../Components/Events/EventDetailHome";
+import { CurriculumVitae } from "../Components/CVBuild/CurriculumVitae";
+
 // import JobPosting from "../Components/Job-recruiter/Job-Posting";
 // import JobDetailRecruiter from "../Components/Job-recruiter/JobDetail";
 // import AllJob from  "../Components/Job-recruiter/AllJob";

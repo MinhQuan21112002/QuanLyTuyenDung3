@@ -14,6 +14,11 @@ import { Text} from "@chakra-ui/react";
 import { loadRoom } from '../../redux/Room/Action';
 import { loadJobDetail } from '../../redux/JobDetail/Action';
 import { loadInterviewer } from '../../redux/Interviewer/Action';
+import { AssignCandidate } from "../Assign/AssignCandidate";
+
+import { useDisclosure } from '@chakra-ui/react'
+import { AssignInterviewer } from "../Assign/AssignInterviewer";
+
 const RoomAddCandidate = () => {
 
 
@@ -207,6 +212,7 @@ const RoomAddCandidate = () => {
       }
     }
   
+    
 
 
   return (
@@ -254,9 +260,14 @@ const RoomAddCandidate = () => {
                 </select>
                 }
               </div>
+
+
               <button onClick={handleSubmitCandidate} className="btn3">
                 Thêm ứng viên
               </button>
+              <AssignCandidate jobId={params.id}/>
+
+
             </form>
 
             <hr  style={{
@@ -276,7 +287,8 @@ const RoomAddCandidate = () => {
               >
                Thêm người phỏng vấn
               </h2>
-            </div>
+   
+            </div>  
 
 
 
@@ -306,6 +318,7 @@ const RoomAddCandidate = () => {
               <button onClick={handleSubmitInterviewer} style={{width:"250px"}}className="btn3">
                 Thêm Người phỏng vấn
               </button>
+              <AssignInterviewer roomId={params.idRoom}/>
             </form>
 
 

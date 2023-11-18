@@ -9,6 +9,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { storage } from "../../firebase";
 import alt_img from "../../data/product9.jpg";
 import { useNavigate, useParams } from "react-router-dom";
+import { Spinner } from '@chakra-ui/react'
 
 export const EventEdit = () => {
     const params = useParams();
@@ -25,6 +26,8 @@ export const EventEdit = () => {
         content: "",
     });
     const [errors, setErrors] = useState({});
+    const [loading, setLoading] = useState(false);
+
     const handleOnChangeForm = (event) => {
         const { name, value } = event.target;
         setForm((prevForm) => ({ ...prevForm, [name]: value }));
@@ -55,17 +58,18 @@ export const EventEdit = () => {
                 const percent = Math.round(
                     (snapshot.bytesTransferred / snapshot.totalBytes) * 100
                 );
-                // setLoading(true);
+                setLoading(true);
             },
             (err) => console.log(err),
             () => {
                 getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-                    // setLoading(false);
+                    setLoading(false);
                     setForm((prevForm) => ({ ...prevForm, image: url }));
                     toast.success("image to fire base");
                 });
             }
         );
+
     };
 
     const handleSubmit = async (e) => {
@@ -180,9 +184,9 @@ export const EventEdit = () => {
                         borderRadius="10px"
                         onClick={handleUpload}
                     >
-                        Save img
+                         {loading ? (<Spinner />) :(<>Save Img</>) }   
                     </Button>
-
+                   
                     {/* <DatePickerComponent
                         id="datepicker"
                         placeholder="Time"

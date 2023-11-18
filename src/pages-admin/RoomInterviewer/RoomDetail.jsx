@@ -87,10 +87,8 @@ const RoomDetail = () => {
           </Box>
   
           <Box>
-            {property.formattedPrice}
-            <Box as='span' color='gray.600' fontSize='sm'>
-              / wk
-            </Box>
+           Tên: {candidate.name}
+     
           </Box>
   
           <Box display='flex' mt='2' alignItems='center'>

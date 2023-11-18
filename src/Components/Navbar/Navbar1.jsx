@@ -433,7 +433,7 @@ const Navbar1 = () => {
                     justifyContent={"space-between"}
                 >
                     {data !== null ? (
-                        <div style={{ width: "100%" }}>
+                        <div style={{ width: "100%",display:"flex" }}>
                             <Button
                                 border={"1px"}
                                 borderColor={"#457eff"}
@@ -441,7 +441,7 @@ const Navbar1 = () => {
                                 color={"#457eff"}
                                 bg={"white"}
                                 h={"40px"}
-                                w={"80px"}
+                                w={"auto"}
                                 fontWeight={"600"}
                                 // onclick={()=>navigate("/login")}
                             >

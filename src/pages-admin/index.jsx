@@ -19,3 +19,4 @@ export { default as RoomList } from "./RoomList";
 export { default as RoomAdd } from "./RoomEdit/RoomAdd";
 export { default as RoomListInterviewer } from "./RoomInterviewer/RoomListInterviewer";
 export { default as RoomDetail } from "./RoomInterviewer/RoomDetail";
+export { default as CandidateInfo } from "./CandidateInfo/CandidateInfo";

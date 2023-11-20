@@ -1,27 +1,14 @@
-import { Alert, AlertDialogCloseButton, AlertIcon, Box, Button, Image,Stack, Text, useDisclosure } from "@chakra-ui/react"
+import { Box, Button, Image,Text,Badge } from "@chakra-ui/react"
 import React, { useState } from "react"
 import { useEffect } from "react"
 import {useParams} from "react-router-dom"
-import { BsBag ,BsFillStarFill} from 'react-icons/bs';
-import { CiLocationOn } from 'react-icons/ci';
 import { loadJobDetail } from '../../redux/JobDetail/Action';
-import {
-    
-    AlertTitle,
-    AlertDescription,
-  } from '@chakra-ui/react'
+
   import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
-import {
-    AlertDialog,
-    AlertDialogBody,
-    AlertDialogFooter,
-    AlertDialogHeader,
-    AlertDialogContent,
-    AlertDialogOverlay,
-  } from '@chakra-ui/react'
+
 function JobDetailRecruiter() {
     const params = useParams()
     const cancelRef = React.useRef()
@@ -34,6 +21,7 @@ function JobDetailRecruiter() {
       },[params.id]);
     const data = useSelector((store) => store.jobDetail.data);
 
+   
 
     const accessToken = JSON.parse(localStorage.getItem("data")).access_token;
     const [name, setName] = useState(data.name);
@@ -48,11 +36,33 @@ function JobDetailRecruiter() {
     const [detailLocation, setDetailLocation] = useState(data.detailLocation);
     const [detailJob, setDetailJob] = useState(data.detailJob);
     const [interest, setInterest] = useState(data.interest);
-    const [image, setImage] = useState(data.image);
+    const [testImage, setTestImage] = useState();
     const [status, setStatus] = useState(data.status);
     const [language, setLanguage] = useState(data.language);
 
+    let img=[]
     const onOpen = async (e) => {
+
+      
+      if(testImage!==null)
+      {
+      const formData = new FormData()
+      formData.append("file", testImage)
+
+      const imageResponse = await axios.post(
+          "http://localhost:8080/file/upload",
+          formData,
+          {
+              headers: {
+                  Authorization: `Bearer ${accessToken}`,
+              },
+          }
+      )
+    
+      img.push(imageResponse.data.data)
+     
+      }
+
 
       let data = JSON.stringify({
         "name": name,
@@ -68,7 +78,7 @@ function JobDetailRecruiter() {
     "detailJob": detailJob,
     "requirements": requirements,
     "interest": interest,
-    "image": image,
+    "image": img.at(0),
     "status": status,
       });
   
@@ -101,17 +111,23 @@ function JobDetailRecruiter() {
       navigate("/allJob_Recruiter");
     },2000);
     }
+    if(data!=null)
     return (
         <Box >
-            <Text mb='100px'>hello</Text>
             <Box display='flex' justifyContent='space-evenly'>
                 <Box w='850px' >
-                    <Box ml='50px'  p='20px' boxShadow= 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em' color='RGBA(0, 0, 0, 0.76)' >
-            
+              
+            <Box mt='30px' ml='50px'  p='20px' boxShadow= 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em' color='RGBA(0, 0, 0, 0.76)' backgroundColor="rgb(3, 201, 215)">
+            <Text fontSize="30px" fontWeight='bold'>Thông tin chỉ tiết công việc</Text>
+            <Text width='60%' lineHeight='30px'>{data.dis}</Text>
 
-                    <div className="form_input" >
+            <Box mt="30px">
+
+            <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px"  mt="20px" mb="10px"> Tên công việc </Badge>
+         
+            <div className="form_input" >
                 <div className="two">
-                  <input  style={{width:"30%" ,fontSize:"20px",fontWeight:"bold"}}
+                  <input  style={{width:"80%" ,fontSize:"20px"}}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     type="text"
@@ -122,73 +138,26 @@ function JobDetailRecruiter() {
                
               </div>
 
+
+            <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Hình ảnh </Badge>
             <Image style={{width:"200px"}} src={`${data.image}`} />
-            <div className="two">
-                  <input  style={{width:"100%" ,fontSize:"20px",fontWeight:"bold"}}
-                    value={image}
-                    onChange={(e) =>setImage(e.target.value)}
-                    type="text"
-                    name="image"
-                    id="image"
-                  />
-                </div>
-            <Text fontSize='15px' >{data.language} ({data.position})</Text>
-           <Box display='flex' justifyContent='space-between' mb='20px'>
-            <Box>
-            <Text display='flex' alignContent='center'><Box mt='4px' mr='15px' color='RGBA(0, 0, 0, 0.36)'> <BsBag/> </Box> {data.experience}</Text>
-            <Text display='flex' alignContent='center'><Box mt='4px' mr='15px' color='RGBA(0, 0, 0, 0.36)'> <CiLocationOn/> </Box> {data.location} </Text>
-            
-            </Box>
-            <Box>
-          
-      <AlertDialog
-        motionPreset='slideInBottom'
-        leastDestructiveRef={cancelRef}
-       
-      
-        isCentered
-      >
-        <AlertDialogOverlay />
 
-        <AlertDialogContent>
-        
-          <Alert
-                bg=''
-                status='success'
-                variant='subtle'
-                flexDirection='column'
-                alignItems='center'
-                justifyContent='center'
-                textAlign='center'
-                height='200px'
-                >
-                <AlertIcon boxSize='40px' mr={0} />
-                <AlertTitle mt={4} mb={1} fontSize='lg'>
-                    Application submitted!
-                </AlertTitle>
-                <AlertDescription maxWidth='sm'>
-                    Thanks for submitting your application. Our team will get back to you soon.
-                </AlertDescription>
-            </Alert>
+            <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Chọn hình ảnh </Badge>
          
-        </AlertDialogContent>
-      </AlertDialog>
-               
-            </Box>
-            </Box>
-            <hr/>
-            <Text mt='10px'display='flex' fontSize='12px' >Posted : 14/10/2023<Text ml='10px'  mr='10px' fontWeight='bold'>{data.timetopost}  </Text>jobAplicable : <Text ml='10px'  mr='10px' fontWeight='bold'>less than {data.blanksheet}  </Text></Text>
-                    </Box>
-
-                    <Box mt='30px' ml='50px'  p='20px' boxShadow= 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em' color='RGBA(0, 0, 0, 0.76)'>
-            <Text fontSize="20px" fontWeight='bold'>Job description</Text>
-            <Text width='60%' lineHeight='30px'>{data.dis}</Text>
-
-            <Box >
-
-            <Text mt='30px' color='RGBA(0, 0, 0, 0.50)'>Địa điểm</Text>
             <div className="two">
-                  <input  style={{width:"30%" ,fontSize:"20px",fontWeight:"bold"}}
+            <input
+                  type="file"
+                  onChange={(e) => setTestImage(e.target.files[0])}
+                  name="avatar"
+                  id="avatar"
+                  
+                />
+            </div>
+ 
+ 
+            <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Địa điểm</Badge>
+            <div className="two">
+                  <input  style={{width:"80%" ,fontSize:"20px"}}
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     type="text"
@@ -197,9 +166,10 @@ function JobDetailRecruiter() {
                   />
                 </div>
 
-            <Text mt='30px' color='RGBA(0, 0, 0, 0.50)'>Vị trí</Text>
+            <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Vị trí</Badge>
+           
             <div className="two">
-                  <input  style={{width:"30%" ,fontSize:"20px",fontWeight:"bold"}}
+                  <input  style={{width:"80%" ,fontSize:"20px"}}
                     value={position}
                     onChange={(e) => setPosition(e.target.value)}
                     type="text"
@@ -208,9 +178,10 @@ function JobDetailRecruiter() {
                   />
                 </div>
 
-                <Text mt='30px' color='RGBA(0, 0, 0, 0.50)'>Số lượng</Text>
+
+                <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Số lượng </Badge>
             <div className="two">
-                  <input  style={{width:"30%" ,fontSize:"20px",fontWeight:"bold"}}
+                  <input  style={{width:"80%" ,fontSize:"20px"}}
                     value={number}
                     onChange={(e) => setNumber(e.target.value)}
                     type="text"
@@ -218,9 +189,11 @@ function JobDetailRecruiter() {
                     id="number"
                   />
                 </div>
-                <Text mt='30px' color='RGBA(0, 0, 0, 0.50)'>Giới tính</Text>
+
+
+                <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Giới tính </Badge>
             <div className="two">
-                  <input  style={{width:"30%" ,fontSize:"20px",fontWeight:"bold"}}
+                  <input  style={{width:"80%" ,fontSize:"20px"}}
                     value={sex}
                     onChange={(e) => setSex(e.target.value)}
                     type="text"
@@ -228,9 +201,10 @@ function JobDetailRecruiter() {
                     id="sex"
                   />
                 </div>
-            <Text  color='RGBA(0, 0, 0, 0.50)'>Skill</Text>
+
+                <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Kỹ năng </Badge>
             <div className="two">
-                  <input  style={{width:"30%" ,fontSize:"20px",fontWeight:"bold"}}
+                  <input  style={{width:"80%" ,fontSize:"20px"}}
                     value={requirements}
                     onChange={(e) =>setRequirements(e.target.value)}
                     type="text"
@@ -238,9 +212,11 @@ function JobDetailRecruiter() {
                     id="requirements"
                   />
                 </div>
-            <Text  color='RGBA(0, 0, 0, 0.50)'>Doanh nghiệp</Text>
+      
+      
+            <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Địa chỉ doanh nghiệp </Badge>
             <div className="two">
-                  <input  style={{width:"100%" ,fontSize:"20px",fontWeight:"bold"}}
+                  <input  style={{width:"80%" ,fontSize:"20px"}}
                     value={detailLocation}
                     onChange={(e) =>setDetailLocation(e.target.value)}
                     type="text"
@@ -248,9 +224,10 @@ function JobDetailRecruiter() {
                     id="detailLocation"
                   />
                 </div>
-            <Text  color='RGBA(0, 0, 0, 0.50)'>Công việc</Text>
+                <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px">Hình thưc công việc </Badge>
+
             <div className="two">
-                  <input  style={{width:"100%" ,fontSize:"20px",fontWeight:"bold"}}
+                  <input  style={{width:"80%" ,fontSize:"20px"}}
                     value={workingForm}
                     onChange={(e) =>setWorkingForm(e.target.value)}
                     type="text"
@@ -258,9 +235,12 @@ function JobDetailRecruiter() {
                     id="workingForm"
                   />
                 </div>
-                <Text  color='RGBA(0, 0, 0, 0.50)'>Chi tiết công việc</Text>
+
+
+                <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px">Chi tiết công việc</Badge>
+      
             <div className="two">
-                  <input  style={{width:"100%" ,fontSize:"20px",fontWeight:"bold"}}
+                  <input  style={{width:"80%" ,fontSize:"20px"}}
                     value={detailJob}
                     onChange={(e) =>setDetailJob(e.target.value)}
                     type="text"
@@ -268,9 +248,11 @@ function JobDetailRecruiter() {
                     id="detailJob"
                   />
                 </div>
-            <Text color='RGBA(0, 0, 0, 0.50)'> Kinh nghiệm </Text>
-            <div className="two">
-                  <input  style={{width:"100%" ,fontSize:"20px",fontWeight:"bold"}}
+
+
+            <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px">Kinh nghiệm </Badge>
+                      <div className="two">
+                  <input  style={{width:"80%" ,fontSize:"20px"}}
                     value={experience}
                     onChange={(e) =>setExperience(e.target.value)}
                     type="text"
@@ -279,9 +261,12 @@ function JobDetailRecruiter() {
                   />
                 </div>
 
-                <Text color='RGBA(0, 0, 0, 0.50)'> Mức lương </Text>
-            <div className="two">
-                  <input  style={{width:"100%" ,fontSize:"20px",fontWeight:"bold"}}
+
+
+
+  <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px">  Mức lương </Badge>
+                     <div className="two">
+                  <input  style={{width:"80%" ,fontSize:"20px"}}
                     value={salary}
                     onChange={(e) =>setSalary(e.target.value)}
                     type="text"
@@ -290,9 +275,10 @@ function JobDetailRecruiter() {
                   />
                 </div>
 
-                <Text color='RGBA(0, 0, 0, 0.50)'> Lợi ích </Text>
+                <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Lợi ích </Badge>
+            
             <div className="two">
-                  <input  style={{width:"100%" ,fontSize:"20px",fontWeight:"bold"}}
+                  <input  style={{width:"80%" ,fontSize:"20px"}}
                     value={interest}
                     onChange={(e) =>setInterest(e.target.value)}
                     type="text"
@@ -300,84 +286,20 @@ function JobDetailRecruiter() {
                     id="interest"
                   />
                 </div>
-            <Text  color='RGBA(0, 0, 0, 0.50)'>UG :</Text>
-            <Text>Graduation Not Required</Text>
-
+     
             {
     /* 
     const [image, setImage] = useState(data.image);
     */
     }
-      <Button width='100px' bg='blue.400' onClick={onOpen}>Cập nhật</Button>
+      <Button width='80%' bg='blue.400' mt="30px" onClick={onOpen}>Cập nhật</Button>
             </Box>
                     </Box>
-                    <Box ml='50px' mt='30px'  p='20px' boxShadow= 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em' color='RGBA(0, 0, 0, 0.76)' >
-                        <Text fontSize="20px" fontWeight='bold'>About Compony </Text>
-                        <Text>Our dream is to become an top  in {data.industry}, multi-dimensional service provider in the {data.industry} world. Through industry oriented solutions and next gen technologies,</Text>
-                            <Text mt='30px'><Text color='RGBA(0, 0, 0, 0.40)'>Location :</Text> {data.location}</Text>
-                        </Box>
-
-                        <Box ml='50px' mt='30px'  p='20px' mb='60px' >
-                        <Text fontSize="20px" fontWeight='bold'>Beware of imposters!</Text>
-                        <Text color='RGBA(0, 0, 0, 0.35)'>JobPanda.com does not promise a job or an interview in exchange of money. Fraudsters may ask you to pay in the pretext of registration fee, Refundable Fee...</Text>
-                        </Box>
+                   
               
 
               </Box>
-              <Box width='400px' height='400px'>
-                <Box p='20px' boxShadow= 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em'>
-                    <Text fontSize='18px' mb='20px' fontWeight='bold'> Jobs you might be interested in</Text>
-                    <Text fontSize='15px' fontWeight='bold'> DTP Operator</Text>
-                    
-                     <Text display='flex' textAlign='center'> <Text fontSize='13px' mt='1px' mr='10px' > Brilliant Prakashan </Text> 4.1 <Text mt='2.5px' color='orange' ml='2px' mr='10px'> <BsFillStarFill/>  </Text> (41 reviews)</Text>
-                     <Text display='flex' alignContent='center'><Box mt='4px' mr='15px' color='RGBA(0, 0, 0, 0.36)'> <CiLocationOn/> </Box> {data.location} </Text>
-                    <Text ml='70%' mb='20px'>19 days ago</Text>
-                    <hr/>
-
-                    <Text fontSize='15px' fontWeight='bold'> DTP Operator</Text>
-                    
-                     <Text display='flex' textAlign='center'> <Text fontSize='13px' mt='1px' mr='10px' > Physicswallah </Text> 4.1 <Text mt='2.5px' color='orange' ml='2px' mr='10px'> <BsFillStarFill/>  </Text> (41 reviews)</Text>
-                     <Text display='flex' alignContent='center'><Box mt='4px' mr='15px' color='RGBA(0, 0, 0, 0.36)'> <CiLocationOn/> </Box> Siliguri </Text>
-                    <Text ml='70%' mb='20px'>5 days ago</Text>
-                    <hr/>
-
-                    <Text fontSize='15px' fontWeight='bold'> DTP Designer</Text>
-                    <Text display='flex' textAlign='center'> <Text fontSize='13px' mt='1px' mr='10px' > Edwiser Innovation Hub Pvt. </Text> 4.1 <Text mt='2.5px' color='orange' ml='2px' mr='10px'> <BsFillStarFill/>  </Text> (41 reviews)</Text>
-                    <Text display='flex' alignContent='center'><Box mt='4px' mr='15px' color='RGBA(0, 0, 0, 0.36)'> <CiLocationOn/> </Box> Hydrabad </Text>
-                   <Text ml='70%' mb='20px'>1 day ago</Text>
-                   <hr/>
-
-                   <Text mt='5px' fontWeight='bold' color='blue.500'>View All</Text>
-                </Box>
-                <Box p='20px' mt='20px' boxShadow= 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em'>
-                    <Text fontSize='18px' mb='20px' fontWeight='bold'> Reviews</Text>
-                    <Text fontSize='15px' fontWeight='bold'> H.O.D Mathematics in Rachi</Text>
-                    
-                     <Text display='flex' textAlign='center'> <Text fontSize='13px' mt='1px' mr='10px' > Anonymous </Text> <Text mt='2.5px' color='orange' ml='2px' mr='10px'>   </Text></Text>
-                     <Box display='flex' mt='2' alignItems='center'>
-                        {Array(5)
-                            .fill('')
-                            .map((_, i) => (
-                            <BsFillStarFill
-                                key={i}
-                                color={i < 3 ? 'orange' : 'yellow'}
-                            />
-                            ))}
-                            </Box>
-                  
-                    <Text ml='70%' mb='20px'>19 days ago</Text>
-                    <Text fontSize='16px' fontWeight='bold'>Likes</Text>
-                    <Text fontSize='16px' >Only Clear envirment</Text>
-                    <hr/>
-
-                    
-
-                  
-
-                   <Text mt='5px' fontWeight='bold' color='blue.500'>View All</Text>
-                </Box>
-
-                </Box>
+             
             </Box>
             <ToastContainer />
         </Box>

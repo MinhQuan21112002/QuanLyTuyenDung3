@@ -3,18 +3,17 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Box, Flex, Text ,Image} from "@chakra-ui/react";
-import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-import "./style5.css";
+import "./style.css";
 import { useDispatch,useSelector } from "react-redux";
 import { useEffect } from "react";
-import { loadJob } from '../../redux/Job-posting/Action';
+import { loadJob } from '../../redux/Job-posting/Action.js';
 import uuid from "react-uuid";
 import { Link} from "react-router-dom";
 import {ref,uploadBytes,getDownloadURL} from "firebase/storage"
 import {storage} from "../../firebase.js"
 import {v4} from "uuid";
-const JobPosting = () => {
+const CandidateInfo = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
@@ -194,7 +193,7 @@ const JobPosting = () => {
     <>
       <session>
         <div className="main">
-          <div className="left_session">
+          <div className="left_session2">
             <div
               style={{
                 marginTop: "1px",
@@ -214,7 +213,9 @@ const JobPosting = () => {
               <Box ml='10' width='60%'>
               
              
-                {jobList.map((i) => (
+                {jobList.map((i) => 
+                 {return i.status===true?
+                       
                   <Box key={uuid()}>
                     <Link to={`/jobDetail_Recruiter/${i.id}`}>
                       <Box key={i.id} mt='50px'  boxShadow= 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px'  mb='30px' p='20px'>
@@ -223,8 +224,8 @@ const JobPosting = () => {
                       </Box> 
                     </Link>
                   </Box>
-                  
-              ))}
+                  :<div></div>
+                 })}
 
               <button className="btn4">
               <Link to={`/allJob_Recruiter`}>
@@ -233,7 +234,57 @@ const JobPosting = () => {
               </button>
               </Box>
              </div>
+
+
+
+               <div
+              style={{
+                marginTop: "1px",
+              }}
+            >
+              <img
+                style={{ marginTop: "-80px", marginLeft: "70px" }}
+                src="https://static.naukimg.com/s/7/104/assets/images/green-boy.c8b59289.svg"
+                alt=""
+              />
+               <h2
+                style={{
+                  color: "#000000",
+                  fontSize: "30px",
+                }}
+              >Công việc đăng gần đây</h2>
+              <Box ml='10' width='60%'>
+              
+             
+                {jobList.map((i) => 
+                 {return i.status===true?
+                       
+                  <Box key={uuid()}>
+                    <Link to={`/jobDetail_Recruiter/${i.id}`}>
+                      <Box key={i.id} mt='50px'  boxShadow= 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px'  mb='30px' p='20px'>
+                      <Text fontSize='20px'>{i.name}</Text>
+                      <Image src={i.image} />
+                      </Box> 
+                    </Link>
+                  </Box>
+                  :<div></div>
+                 })}
+
+              <button className="btn4">
+              <Link to={`/allJob_Recruiter`}>
+               Xem thêm
+               </Link>
+              </button>
+              </Box>
+             </div>
+
+
+
           </div>
+
+
+
+
           <div className="form_data1" >
             <div className="form_heading">
               <h2
@@ -447,4 +498,4 @@ const JobPosting = () => {
   );
 };
 
-export default JobPosting;
+export default CandidateInfo;

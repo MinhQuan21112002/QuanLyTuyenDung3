@@ -40,7 +40,7 @@ import RoomDetail  from "../pages-admin/RoomInterviewer/RoomDetail";
 import { AddQuestion } from "../pages-admin/Question/AddQuestion";
 import { EditQuestion } from "../pages-admin/Question/EditQuestion";
 import { Interview } from "../pages-admin/Interview/Interview";
-
+import CandidateInfo from "../pages-admin/CandidateInfo/CandidateInfo"
 const AllRoutesAd = () => {
     return (
         <Routes>
@@ -57,6 +57,7 @@ const AllRoutesAd = () => {
         <Route path="/roomList" element={<RoomList />} />
         <Route path="/roomListInterviewer" element={<RoomListInterviewer />} />
         <Route path="/RoomDetailInterviewer/:id/:idRoom" element={<RoomDetail />} />
+        <Route path="/candidateInfo/:id" element={<CandidateInfo />} />
 
         {/* pages  */}
         <Route path="/orders" element={<Orders />} />

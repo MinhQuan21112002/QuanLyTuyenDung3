@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Box } from "@mui/material";
 import DoneIcon from "@mui/icons-material/Done";
 import axios from "axios";
-import "./Both.css";
+import "./styleLogin.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { hostName } from "../../global";
@@ -52,6 +52,7 @@ const Login = () => {
         );
         
         localStorage.setItem("data", JSON.stringify(data));
+        localStorage.setItem("avatar", JSON.stringify(data.data.userInfo.avatar));
         console.log("user login succesfully done");
         
         if(JSON.parse(localStorage.getItem("data")).data!==null)

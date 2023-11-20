@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from "react";
-import { Image } from '@chakra-ui/react'
+import { Badge, Image, Text } from '@chakra-ui/react'
 import DoneIcon from "@mui/icons-material/Done";
 import axios from "axios";
 import "./Both.css";
@@ -13,7 +13,7 @@ const UserInfo = () => {
 
   const dispatch = useDispatch();
   useEffect(() => {
-    
+
     dispatch(loadUserInfo());
   }, []);
   const user = useSelector((store) => store.userInfo.data);
@@ -30,28 +30,16 @@ const UserInfo = () => {
   const [address, setAddress] = useState(user.address);
   const [phone, setPhone] = useState(user.phone);
   const [gender, setGender] = useState(user.gender);
-  const [cv_pdf, setCv_pdf] = useState(user.cv_pdf);
   const [language, setLanguage] = useState(user.language);
   const [skill, setSkill] = useState(user.skill);
   const [experience, setExperience] = useState(user.experience);
   const [description, setDescription] = useState(user.description);
-  const [avatar, setAvatar] = useState(user.avatar);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(false);
-  const [testAva, setTestAva] = useState("");
-  const [testCV, setTestCV] = useState("");
-  const [imageDataCV, setImageDataCV] = useState();
-  const [imageDataAva, setImageDataAva] = useState(user.description);
-  
-console.log("testCV",testCV)
-console.log("CV" ,cv_pdf)
-console.log("test ava",testAva)
-console.log("Ava",avatar)
- 
-if(testCV=="")
-{
-  console.log("ga vl")
-}
+  const [testAva, setTestAva] = useState();
+  const [testCV, setTestCV] = useState();
+
+  let ImageAva=[]
+  let CV=[]
+
   const submitHandlerPassword = async (e) => {
     e.preventDefault();
     if (oldPassword === "") {
@@ -117,12 +105,17 @@ if(testCV=="")
     navigate("/userInfo");
   }
   const SubmitHandler = async (e) => {
-    e.preventDefault();
+  
    
     try{
       
-      if(testCV!=="")
+      
+      // console.log("test CV null",CV.length==0?"bi null":"ko null")
+      // console.log("test CV ",CV.length)
+      //    console.log("test CV2 ",testCV)
+      if(testCV!=null&&!window.testCV)
       {
+        console.log("vao dc r")
       const formDataCV = new FormData()
       formDataCV.append("file", testCV)
       
@@ -135,30 +128,38 @@ if(testCV=="")
               },
           }
       )
-     
-      setCv_pdf(imageResponseCV.data.data); 
-      console.log(cv_pdf)
+     CV.push(imageResponseCV.data.data)
+     console.log("CV goi ve ",CV.at(0))
+        }
+        else{
+          console.log("cv bi null r ")
         }
 
-      if(testAva!=="")
-      {
-      const formDataAva = new FormData()
-      formDataAva.append("file", testAva)
 
-      const imageResponseAva = await axios.post(
-          "http://localhost:8080/file/upload",
-          formDataAva,
-          {
-              headers: {
-                  Authorization: `Bearer ${accessToken}`,
-              },
+        
+        
+        console.log("test ava null",ImageAva.length==0?"bi null":"ko null")
+        if(testAva!=null&&!window.testAva)
+        {
+          console.log("vao dc r")
+        const formDataAva = new FormData()
+        formDataAva.append("file", testAva)
+        
+        const imageResponseAva = await axios.post(
+            "http://localhost:8080/file/upload",
+            formDataAva,
+            {
+                headers: {
+                    Authorization: `Bearer ${accessToken}`,
+                },
+            }
+        )
+       ImageAva.push(imageResponseAva.data.data)
+       console.log("Ava goi ve ",ImageAva.at(0))
           }
-      )
-    
-        setAvatar(imageResponseAva.data.data)
-        console.log(avatar)
-      }
-
+          else{
+            console.log("ava bi null r ")
+          }
 
       let data = JSON.stringify({
         "fullName": fullName,
@@ -167,8 +168,8 @@ if(testCV=="")
         "gender": gender,
         "address": address ,
         "dob": "",
-        "cv_pdf": cv_pdf,
-        "avatar": avatar,
+        "cv_pdf": CV.length==0?user.cv_pdf:CV.at(0),
+        "avatar": ImageAva.length==0?user.avatar:ImageAva.at(0),
         "language": language,
         "skill": skill,
         "experience": experience,
@@ -197,6 +198,7 @@ if(testCV=="")
         });
       });
 
+      localStorage.setItem("avatar", JSON.stringify( ImageAva.length==0?user.avatar:ImageAva.at(0)));
       toast.success("Update Info Successfuly", {
         position: "top-center",
       });
@@ -211,22 +213,22 @@ if(testCV=="")
     <section className="login_section">
   
       <div style={{ display: "flex" }}>
-        <div className="left_section" elevation={5}>
+      <div className="left_section" elevation={5}>
           <div style={{ marginLeft: "10px" }}>
-            <h2>Thông tin cá nhân</h2>
-            <Image mr={'8px'} w={'100px'} h={'100px'} style={{marginBottom:"10px",marginTop:"20px"}}src={avatar} />
+          <Text fontSize="30px" fontWeight='bold'>Thông tin cá nhân</Text>
+         
+            <Image  borderRadius='full' mr={'8px'} w={'100px'} h={'100px'} style={{marginBottom:"10px",marginTop:"20px"}}src={user.avatar} />
           
           
           
             <div className="form_input">
               
             <label htmlFor="email">  <p style={{marginRight: "5px" ,width:"130px"}}>
-              <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} />
-              Email</p></label>
+            <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' > Email </Badge></p></label>
               
               <input
                 type="text"
-                value={email}
+                value={email!=null?email:user.email}
                 onChange={(e) => setEmail(e.target.value)}
                 name="email"
                 id="email"
@@ -234,13 +236,12 @@ if(testCV=="")
             </div>
             <div className="form_input">
               
-              <label htmlFor="fullName">  <p style={{marginRight: "5px",width:"130px" }}>
-                <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} />
-                Họ tên</p></label>
+              <label htmlFor="fullName"> <p style={{marginRight: "5px" ,width:"130px"}}></p>
+              <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' > Họ tên </Badge></label>
                 
                 <input
                   type="text"
-                  value={fullName}
+                  value={fullName!=null?fullName:user.fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   name="fullName"
                   id="fullName"
@@ -248,13 +249,12 @@ if(testCV=="")
               </div>
               <div className="form_input">
               
-              <label htmlFor="address">  <p style={{marginRight: "5px" ,width:"130px"}}>
-                <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} />
-                Địa chỉ </p></label>
+              <label htmlFor="address">  <p style={{marginRight: "5px" ,width:"130px"}}></p>
+                <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' > Địa chỉ </Badge></label>
                 
                 <input
                   type="text"
-                  value={address}
+                  value={address!=null?address:user.address}
                   onChange={(e) => setAddress(e.target.value)}
                   name="address"
                   id="address"
@@ -262,13 +262,12 @@ if(testCV=="")
               </div>
               <div className="form_input">
               
-              <label htmlFor="phone">  <p style={{marginRight: "5px",width:"130px" }}>
-                <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} />
-                Số điện thoại </p></label>
+              <label htmlFor="phone">   <p style={{marginRight: "5px" ,width:"130px"}}></p>
+                <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' >Số điện thoại </Badge></label>
                 
                 <input
                   type="text"
-                  value={phone}
+                  value={phone!=null?phone:user.phone}
                   onChange={(e) => setPhone(e.target.value)}
                   name="phone"
                   id="phone"
@@ -278,13 +277,12 @@ if(testCV=="")
 
               <div className="form_input">
               
-              <label htmlFor="phone">  <p style={{marginRight: "5px",width:"130px" }}>
-                <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} />
-                Giới tính </p></label>
+              <label htmlFor="phone"> <p style={{marginRight: "5px" ,width:"130px"}}></p>
+                 <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' >Giới tính </Badge></label>
                 
                 <input
                   type="text"
-                  value={gender}
+                  value={gender!=null?gender:user.gender}
                   onChange={(e) => setGender(e.target.value)}
                   name="sex"
                   id="sex"
@@ -294,13 +292,12 @@ if(testCV=="")
 
               <div className="form_input">
               
-              <label htmlFor="phone">  <p style={{marginRight: "5px",width:"130px" }}>
-                <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} />
-                Ngôn ngữ </p></label>
+              <label htmlFor="phone">  <p style={{marginRight: "5px" ,width:"130px"}}></p>
+                 <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' >Ngôn ngữ </Badge></label>
                 
                 <input
                   type="text"
-                  value={language}
+                  value={language!=null?language:user.language}
                   onChange={(e) => setLanguage(e.target.value)}
                   name="language"
                   id="language"
@@ -311,13 +308,12 @@ if(testCV=="")
               
               <div className="form_input">
               
-              <label htmlFor="phone">  <p style={{marginRight: "5px",width:"130px" }}>
-                <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} />
-                Kỹ năng </p></label>
+              <label htmlFor="phone">   <p style={{marginRight: "5px" ,width:"130px"}}></p>
+               <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' > Kỹ năng</Badge></label>
                 
                 <input
                   type="text"
-                  value={skill}
+                  value={skill!=null?skill:user.skill}
                   onChange={(e) => setSkill(e.target.value)}
                   name="skill"
                   id="skill"
@@ -328,13 +324,12 @@ if(testCV=="")
 
               <div className="form_input">
               
-              <label htmlFor="phone">  <p style={{marginRight: "5px",width:"130px" }}>
-                <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} />
-                Kinh nghiệm </p></label>
+              <label htmlFor="phone">    <p style={{marginRight: "5px" ,width:"130px"}}></p>
+              <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' > Kinh nghiệm</Badge></label>
                 
                 <input
                   type="text"
-                  value={experience}
+                  value={experience!=null?experience:user.experience}
                   onChange={(e) => setExperience(e.target.value)}
                   name="experience"
                   id="experience"
@@ -345,13 +340,12 @@ if(testCV=="")
 
                   <div className="form_input">
               
-              <label htmlFor="phone">  <p style={{marginRight: "5px",width:"130px" }}>
-                <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} />
-                Mô tả </p></label>
+              <label htmlFor="phone">   <p style={{marginRight: "5px" ,width:"130px"}}></p>
+               <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' >Mô tả </Badge></label>
                 
                 <input
                   type="text"
-                  value={description}
+                  value={description!=null?description:user.description}
                   onChange={(e) => setDescription(e.target.value)}
                   name="description"
                   id="description"
@@ -361,9 +355,8 @@ if(testCV=="")
 
               <div className="form_input">
               
-              <label htmlFor="phone">  <p style={{marginRight: "5px",width:"130px" }}>
-                <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} />
-                CV </p></label>
+              <label htmlFor="phone">    <p style={{marginRight: "5px" ,width:"130px"}}></p>
+              <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' > CV </Badge></label>
                 
                 <input
                   type="file"
@@ -378,9 +371,8 @@ if(testCV=="")
               
               <div className="form_input">
               
-              <label htmlFor="phone">  <p style={{marginRight: "5px",width:"130px" }}>
-                <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} />
-                Avartar </p></label>
+              <label htmlFor="phone">     <p style={{marginRight: "5px" ,width:"130px"}}></p>
+              <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' > Avatar </Badge></label>
                 
                 <input
                   type="file"

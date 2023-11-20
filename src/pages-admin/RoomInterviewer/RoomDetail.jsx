@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { Box ,Badge,Image} from '@chakra-ui/react'
-import "./Both.css";
+import "./style2.css";
 import { useDispatch,useSelector } from "react-redux";
 import { useEffect } from "react";
 import { loadJob } from '../../redux/Job-posting/Action';
@@ -65,6 +65,7 @@ const RoomDetail = () => {
      {listCandidate.map(candidate => {
     return (
  
+      <Link to={`/CandidateInfo/${candidate.candidateId}`}>
       <Box maxW='sm' borderWidth='1px' borderRadius='lg' overflow='hidden'>
         <Image src={candidate.avatar} alt={property.imageAlt} />
   
@@ -106,7 +107,7 @@ const RoomDetail = () => {
           </Box>
         </Box>
       </Box>
-          
+      </Link>
     );
    
   })

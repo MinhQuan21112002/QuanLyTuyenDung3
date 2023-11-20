@@ -5,10 +5,10 @@ import axios from "axios";
 import { Box, Flex, Text ,Image} from "@chakra-ui/react";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-import "./style5.css";
+import "./Both.css";
 import { useDispatch,useSelector } from "react-redux";
 import { useEffect } from "react";
-import { loadJob } from '../../redux/Job-posting/Action';
+import { loadJob } from '../../redux/Job-posting/Action.js';
 import uuid from "react-uuid";
 import { Link} from "react-router-dom";
 import {ref,uploadBytes,getDownloadURL} from "firebase/storage"
@@ -195,7 +195,7 @@ const JobPosting = () => {
       <session>
         <div className="main">
           <div className="left_session">
-            <div
+            {/* <div
               style={{
                 marginTop: "1px",
               }}
@@ -214,7 +214,9 @@ const JobPosting = () => {
               <Box ml='10' width='60%'>
               
              
-                {jobList.map((i) => (
+                {jobList.map((i) => 
+                 {return i.status===true?
+                       
                   <Box key={uuid()}>
                     <Link to={`/jobDetail_Recruiter/${i.id}`}>
                       <Box key={i.id} mt='50px'  boxShadow= 'rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px'  mb='30px' p='20px'>
@@ -223,8 +225,8 @@ const JobPosting = () => {
                       </Box> 
                     </Link>
                   </Box>
-                  
-              ))}
+                  :<div></div>
+                 })}
 
               <button className="btn4">
               <Link to={`/allJob_Recruiter`}>
@@ -232,7 +234,7 @@ const JobPosting = () => {
                </Link>
               </button>
               </Box>
-             </div>
+             </div> */}
           </div>
           <div className="form_data1" >
             <div className="form_heading">

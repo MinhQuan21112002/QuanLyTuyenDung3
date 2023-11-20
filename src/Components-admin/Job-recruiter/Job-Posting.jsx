@@ -5,7 +5,7 @@ import axios from "axios";
 import { Box, Flex, Text ,Image} from "@chakra-ui/react";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
-import "./Both.css";
+import "./style4.css";
 import { useDispatch,useSelector } from "react-redux";
 import { useEffect } from "react";
 import { loadJob } from '../../redux/Job-posting/Action';
@@ -194,7 +194,7 @@ const JobPosting = () => {
     <>
       <session>
         <div className="main">
-          <div className="left_session">
+          {/* <div className="left_session">
             <div
               style={{
                 marginTop: "1px",
@@ -235,7 +235,7 @@ const JobPosting = () => {
               </button>
               </Box>
              </div>
-          </div>
+          </div> */}
           <div className="form_data1" >
             <div className="form_heading">
               <h2
@@ -276,7 +276,7 @@ const JobPosting = () => {
               </div>
               <div class="flex-container">
                 <div className="form_input flex">
-                  <label htmlFor="salary">Mức lương</label>
+                  <div style={{display:"block",paddingTop:"5%"}} htmlFor="salary">Mức lương</div>
                   
                     <input
                       // value={password}
@@ -287,7 +287,7 @@ const JobPosting = () => {
                     />
                 
                 </div>
-                <div className="form_input flex">
+                <div className="form_input flex" style={{marginLeft:"10px"}}>
                   <label htmlFor="workingForm">Hình thức làm việc</label>
                   
                     <input

@@ -3,7 +3,7 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import "./Both.css";
+import "./style3.css";
 import { useDispatch,useSelector } from "react-redux";
 import { useEffect } from "react";
 import { loadJob } from '../../redux/Job-posting/Action';

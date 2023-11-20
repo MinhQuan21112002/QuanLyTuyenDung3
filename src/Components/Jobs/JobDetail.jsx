@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Box, Button, Image, Text, useDisclosure } from "@chakra-ui/react"
+import { Alert, AlertIcon, Box, Button, Image, Text, useDisclosure ,SimpleGrid,Badge} from "@chakra-ui/react"
 import React, { useState } from "react"
 import { useEffect } from "react"
 import {useParams} from "react-router-dom"
@@ -50,8 +50,6 @@ function JobDetail() {
           }
        
     }
-
-
     const params = useParams()
     const { isOpen, onOpen, onClose } = useDisclosure()
     const cancelRef = React.useRef()
@@ -65,94 +63,70 @@ function JobDetail() {
     const data = useSelector((store) => store.jobDetail.data);
 
 
-    return (
-        <Box >
-          
-            <Text mb='100px'>hello</Text>
+    console.log(data)
+    if(data!=null)
+    {return (
+        <Box mt="100px">
             <Box display='flex' justifyContent='space-evenly'>
                 <Box w='850px' >
                     <Box ml='50px'  p='20px' boxShadow= 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em' color='RGBA(0, 0, 0, 0.76)' >
             
             <Text fontSize='20px' fontWeight='bold'>{data.name}</Text>
-            <Image style={{width:"200px"}} src={`${data.image}`} />
-            <Text fontSize='15px' >{data.language} ({data.position})</Text>
-           <Box display='flex' justifyContent='space-between' mb='20px'>
-            <Box>
-            <Text display='flex' alignContent='center'><Box mt='4px' mr='15px' color='RGBA(0, 0, 0, 0.36)'> <BsBag/> </Box> {data.experience}</Text>
-            <Text display='flex' alignContent='center'><Box mt='4px' mr='15px' color='RGBA(0, 0, 0, 0.36)'> <CiLocationOn/> </Box> {data.location} </Text>
-            
+           
+            <SimpleGrid  w="100%" h="80px"mt="50px" mr="10"columns={3} spacing={"10"}>
+              
+            <Box> <Image pl="25%"   borderRadius="3px" h="80px" src={`${data.image}`} />
             </Box>
-            <Box>
-            <Button width='100px' bg='blue.400' value={data.id} onClick={submitHandler}>Apply</Button>
-      <AlertDialog
-        motionPreset='slideInBottom'
-        leastDestructiveRef={cancelRef}
-        onClose={onClose}
-        isOpen={isOpen}
-        isCentered
-      >
-        <AlertDialogOverlay />
 
-        <AlertDialogContent>
-        
-          <Alert
-                bg=''
-                status='success'
-                variant='subtle'
-                flexDirection='column'
-                alignItems='center'
-                justifyContent='center'
-                textAlign='center'
-                height='200px'
-                >
-                <AlertIcon boxSize='40px' mr={0} />
-                <AlertTitle mt={4} mb={1} fontSize='lg'>
-                    Application submitted!
-                </AlertTitle>
-                <AlertDescription maxWidth='sm'>
-                    Thanks for submitting your application. Our team will get back to you soon.
-                </AlertDescription>
-            </Alert>
+
+            <Box fontSize='15px' justifyItems="center" >
+             
+          <Text display='flex' alignContent='center'><Box mt='4px' mr='15px' color='RGBA(0, 0, 0, 0.36)'><BsBag/>  </Box>Vị trí :  <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px"> ({data.position}) </Badge>
+             </Text>
+
+             <Text display='flex' alignContent='center'><Box mt='4px' mr='15px' color='RGBA(0, 0, 0, 0.36)'><BsBag/>  </Box>Mức lương :  <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px"> {data.salary}  </Badge>
+             </Text>
          
-        </AlertDialogContent>
-      </AlertDialog>
-               
             </Box>
+
+            <Box>
+            <Text display='flex' alignContent='center'><Box mt='4px' mr='15px' color='RGBA(0, 0, 0, 0.36)'><BsBag/>  </Box> Kinh Nghiệm :  <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px">  {data.experience}</Badge>
+             </Text>
+
+            <Text display='flex' alignContent='center'><Box mt='4px' mr='15px' color='RGBA(0, 0, 0, 0.36)'> <CiLocationOn/> </Box> Địa điểm : <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px">  {data.location}</Badge>
+             </Text>
             </Box>
+            </SimpleGrid>
+            
+           <Box  w="100%" mt="30px"mb='20px'>
+        
+            <Button w='100%' bg='teal' value={data.id} onClick={submitHandler}>Apply</Button>
+        
+            </Box>
+
             <hr/>
-            <Text mt='10px'display='flex' fontSize='12px' >Posted : 14/10/2023<Text ml='10px'  mr='10px' fontWeight='bold'>{data.timetopost}  </Text>jobAplicable : <Text ml='10px'  mr='10px' fontWeight='bold'>less than {data.blanksheet}  </Text></Text>
-                    </Box>
+                       </Box>
 
                     <Box mt='30px' ml='50px'  p='20px' boxShadow= 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em' color='RGBA(0, 0, 0, 0.76)'>
             <Text fontSize="20px" fontWeight='bold'>Job description</Text>
             <Text width='60%' lineHeight='30px'>{data.dis}</Text>
 
             <Box >
-            <Text mt='30px' color='RGBA(0, 0, 0, 0.50)'>Vị trí</Text>
-            <Text  > {data.position} </Text>
-            <Text  color='RGBA(0, 0, 0, 0.50)'>Skill</Text>
-            <Text  > {data.requirements} </Text>
-            <Text  color='RGBA(0, 0, 0, 0.50)'>Doanh nghiệp</Text>
-            <Text > {data.detailLocation} </Text>
-            <Text  color='RGBA(0, 0, 0, 0.50)'>Công việc</Text>
-            <Text > {data.name} </Text>
-            <Text mt='30px' fontWeight='bold'> Education </Text>
-            <Text  color='RGBA(0, 0, 0, 0.50)'>UG :</Text>
-            <Text>Graduation Not Required</Text>
+            <Text mt='30px' color='RGBA(0, 0, 0, 0.50)' fontSize="18px" fontWeight="bold">Vị trí</Text>
+            <Text  mb="30px"> {data.position} </Text>
+            <Text  color='RGBA(0, 0, 0, 0.50)'  fontSize="18px" fontWeight="bold">Kỹ năng</Text>
+            <Text  mb="30px"> {data.requirements} </Text>
+            <Text  color='RGBA(0, 0, 0, 0.50)' fontSize="18px" fontWeight="bold">Địa chỉ Doanh nghiệp</Text>
+            <Text   mb="30px"> {data.detailLocation} </Text>
+            <Text  color='RGBA(0, 0, 0, 0.50)' fontSize="18px" fontWeight="bold">Quyền lợi</Text>
+            <Text   mb="30px"> {data.interest} </Text>
+            <Text fontWeight='bold' fontSize="18px"> Mô tả công việc </Text>
+            <Text   mb="10px"> {data.workingForm} </Text>
+            <Text   mb="30px"> {data.detailJob} </Text>
            
             </Box>
-                    </Box>
-                    <Box ml='50px' mt='30px'  p='20px' boxShadow= 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em' color='RGBA(0, 0, 0, 0.76)' >
-                        <Text fontSize="20px" fontWeight='bold'>About Compony </Text>
-                        <Text>Our dream is to become an top  in {data.industry}, multi-dimensional service provider in the {data.industry} world. Through industry oriented solutions and next gen technologies,</Text>
-                            <Text mt='30px'><Text color='RGBA(0, 0, 0, 0.40)'>Location :</Text> {data.location}</Text>
-                        </Box>
+            </Box>
 
-                        <Box ml='50px' mt='30px'  p='20px' mb='60px' >
-                        <Text fontSize="20px" fontWeight='bold'>Beware of imposters!</Text>
-                        <Text color='RGBA(0, 0, 0, 0.35)'>JobPanda.com does not promise a job or an interview in exchange of money. Fraudsters may ask you to pay in the pretext of registration fee, Refundable Fee...</Text>
-                        </Box>
-              
 
               </Box>
               <Box width='400px' height='400px'>
@@ -214,6 +188,6 @@ function JobDetail() {
         </Box>
         
     )
-}
+}}
 
 export default JobDetail

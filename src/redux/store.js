@@ -14,6 +14,7 @@ import {RoomIdJobReducer} from "./Room/Reducer";
 import {InterviewerReducer} from "./Interviewer/Reducer";
 import {UserInfoReducer} from "./UserInfo/Reducer";
 import {UserManageReducer} from "./UserManage/Reducer";
+import { FileReducer } from "./SendFile/Reducer";
 const rootReducer = combineReducers({
     AuthManager: Authreducer,
     job:JobReducer,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
     interviewer:InterviewerReducer,
     userInfo:UserInfoReducer,
     allUser:UserManageReducer,
-    roomIdJob:RoomIdJobReducer
+    roomIdJob:RoomIdJobReducer,
+    File:FileReducer
   });
   const composer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 

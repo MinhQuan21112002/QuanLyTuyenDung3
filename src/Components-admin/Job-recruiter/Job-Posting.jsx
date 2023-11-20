@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import { Box, Flex, Text ,Image} from "@chakra-ui/react";
+import { Box, Flex, Text ,Image, Badge} from "@chakra-ui/react";
 import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import "./style4.css";
@@ -194,7 +194,7 @@ const JobPosting = () => {
     <>
       <session>
         <div className="main">
-          {/* <div className="left_session">
+          <div className="left_session3">
             <div
               style={{
                 marginTop: "1px",
@@ -235,7 +235,7 @@ const JobPosting = () => {
               </button>
               </Box>
              </div>
-          </div> */}
+          </div>
           <div className="form_data1" >
             <div className="form_heading">
               <h2
@@ -253,8 +253,8 @@ const JobPosting = () => {
             
               
               <div className="form_input">
-                <label htmlFor="name">Tên công việc</label>
-                <input
+                <label htmlFor="name"> <Badge borderRadius='full' fontSize="14px" p="2"colorScheme='teal' > Tên công việc </Badge></label>
+                <input style={{width:"100%"}}
                   type="text"
                   // value={email}
                   onChange={(e) => setName(e.target.value)}
@@ -265,18 +265,24 @@ const JobPosting = () => {
               </div>
 
               <div className="form_input">
-                <label htmlFor="position"> Vị trí tuyển dụng</label>
+              <label htmlFor="name"> <Badge borderRadius='full' fontSize="14px" p="2"colorScheme='teal' > Địa điểm chi tiết </Badge></label>
+               
                 <input
+                style={{width:"100%"}}
                   type="position"
                   // value={username}
-                  onChange={(e) => setPosition(e.target.value)}
+                  onChange={(e) => setDetailLocation(e.target.value)}
                   name="position"
                   id="position"
                 />
               </div>
               <div class="flex-container">
-                <div className="form_input flex">
-                  <div style={{display:"block",paddingTop:"5%"}} htmlFor="salary">Mức lương</div>
+                <div className="form_input flex" style={{heigth:"20% !important"}}>
+                <div htmlFor="name" style={{display:"block",paddingTop:"7%",paddingRight:"2%"}}> 
+                <Badge borderRadius='full' fontSize="14px" x p="2"colorScheme='teal' > Mức lương</Badge>
+                </div>
+               
+               
                   
                     <input
                       // value={password}
@@ -288,8 +294,9 @@ const JobPosting = () => {
                 
                 </div>
                 <div className="form_input flex" style={{marginLeft:"10px"}}>
-                  <label htmlFor="workingForm">Hình thức làm việc</label>
-                  
+                <div htmlFor="name" style={{display:"block",paddingTop:"7%",paddingRight:"2%"}}> 
+                <Badge borderRadius='full' fontSize="14px"  p="2"colorScheme='teal' > Hình thức làm việc</Badge>
+                </div>
                     <input
                       // value={password}
                       onChange={(e) => setWorkingForm(e.target.value)}
@@ -303,8 +310,9 @@ const JobPosting = () => {
 
                 <div class="flex-container">
                 <div className="form_input flex">
-                  <label htmlFor="location">Địa điểm</label>
-                  
+                <div htmlFor="name" style={{display:"block",paddingTop:"7%",paddingRight:"2%"}}> 
+                <Badge borderRadius='full' fontSize="14px" p="2"colorScheme='teal' >Địa điểm</Badge>
+                </div>
                     <input
                       // value={password}
                       onChange={(e) => setLocation(e.target.value)}
@@ -314,9 +322,10 @@ const JobPosting = () => {
                     />
                 
                 </div>
-                <div className="form_input flex">
-                  <label htmlFor="language">Ngôn ngữ</label>
-                  
+                <div className="form_input flex" style={{marginLeft:"10px"}}>
+                <div htmlFor="name" style={{display:"block",paddingTop:"7%",paddingRight:"2%"}}> 
+                <Badge borderRadius='full' fontSize="14px" p="2"colorScheme='teal' >Ngôn ngữ</Badge>
+                </div>
                     <input
                       // value={password}
                       onChange={(e) => setLanguage(e.target.value)}
@@ -330,8 +339,9 @@ const JobPosting = () => {
 
               <div class="flex-container">
                 <div className="form_input flex">
-                  <label htmlFor="sex">Giới tính</label>
-                  
+                <div htmlFor="name" style={{display:"block",paddingTop:"7%",paddingRight:"2%"}}> 
+                <Badge borderRadius='full' fontSize="14px" x p="2"colorScheme='teal' > Giới tính</Badge>
+                </div>
                     <input
                       // value={password}
                       onChange={(e) => setSex(e.target.value)}
@@ -341,9 +351,10 @@ const JobPosting = () => {
                     />
                 
                 </div>
-                <div className="form_input flex">
-                  <label htmlFor="number">Số lượng ứng tuyển</label>
-                  
+                <div className="form_input flex" style={{marginLeft:"10px"}}>
+                <div htmlFor="name" style={{display:"block",paddingTop:"7%",paddingRight:"2%"}}> 
+                <Badge borderRadius='full' fontSize="14px" x p="2"colorScheme='teal' > Số lượng</Badge>
+                </div>
                     <input
                       // value={password}
                       onChange={(e) => setNumber(e.target.value)}
@@ -357,20 +368,22 @@ const JobPosting = () => {
 
               <div class="flex-container">
                 <div className="form_input flex">
-                  <label htmlFor="detailLocation">Địa điểm chi tiết</label>
-                  
+                  <div htmlFor="name" style={{display:"block",paddingTop:"7%",paddingRight:"2%"}}> 
+                <Badge borderRadius='full' fontSize="14px" x p="2"colorScheme='teal' >Vị trí tuyển dụng</Badge>
+                </div>
                     <input
                       // value={password}
-                      onChange={(e) => setDetailLocation(e.target.value)}
+                      onChange={(e) => setPosition(e.target.value)}
                       type="text"
                       name="detailLocation"
                       id="detailLocation"
                     />
                 
                 </div>
-                <div className="form_input flex">
-                  <label htmlFor="experience">Kinh nghiệm</label>
-                  
+                <div className="form_input flex" style={{marginLeft:"10px"}}>
+                <div htmlFor="name" style={{display:"block",paddingTop:"7%",paddingRight:"2%"}}> 
+                <Badge borderRadius='full' fontSize="14px" x p="2"colorScheme='teal' > Kinh nghiệm</Badge>
+                </div>
                     <input
                       // value={password}
                       onChange={(e) => setExperience(e.target.value)}
@@ -383,7 +396,10 @@ const JobPosting = () => {
               </div>
 
               <div className="form_input" >
-                <label htmlFor="detailJob">Mô tả công việc</label>
+              <div htmlFor="name" style={{display:"block",paddingTop:"5%",paddingRight:"2%",paddingBottom:"2%"}}> 
+                <Badge borderRadius='full' fontSize="14px" x p="2"colorScheme='teal' >Mô tả công việc</Badge>
+                </div>
+
                 <div className="two">
                   <textarea  style={{width:"100%"}}
                     // value={confirmpassword}
@@ -397,8 +413,10 @@ const JobPosting = () => {
               </div>
 
               <div className="form_input" >
-                <label htmlFor="requirements">Yêu cầu ứng viên</label>
-                <div className="two">
+              <div htmlFor="name" style={{display:"block",paddingTop:"2%",paddingRight:"2%",paddingBottom:"2%"}}> 
+                <Badge borderRadius='full' fontSize="14px" x p="2"colorScheme='teal' >Yêu cầu ứng   </Badge>
+                </div>
+                    <div className="two">
                   <textarea  style={{width:"100%"}}
                     // value={confirmpassword}
                     onChange={(e) => setRequirements(e.target.value)}
@@ -411,7 +429,9 @@ const JobPosting = () => {
               </div>
 
               <div className="form_input" >
-                <label htmlFor="interest">Quyền lợi</label>
+              <div htmlFor="name" style={{display:"block",paddingTop:"2%",paddingRight:"2%",paddingBottom:"2%"}}> 
+                <Badge borderRadius='full' fontSize="14px" x p="2"colorScheme='teal' > Quyền lợi</Badge>
+                </div>
                 <div className="two">
                   <textarea  style={{width:"100%"}}
                     // value={confirmpassword}
@@ -425,7 +445,9 @@ const JobPosting = () => {
               </div>
 
               <div className="form_input">
-                <label htmlFor="image">Thêm hình ảnh</label>
+              <div htmlFor="name" style={{display:"block",paddingTop:"2%",paddingRight:"2%"}}> 
+                <Badge borderRadius='full' fontSize="14px"  p="2"colorScheme='teal' > Hình ảnh</Badge>
+                </div>
                 <input
                   type="file"
                   // value={email}

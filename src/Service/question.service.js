@@ -41,9 +41,32 @@ const putQuestion = async (token, form) => {
     }
 };
 
+const getQuestionByField = async (token, field) => {
+    try {
+        let config = { headers: { Authorization: `Bearer ${token}` } };
+        const res = await axios.get(`${API_URL}/question/field?fieldName=${field}`, config);
+        return res.data.data;
+
+    } catch (error) {
+        throw error;
+    }
+};
+const getQuestionBySkill = async (token, skillId) => {
+    try {
+        let config = { headers: { Authorization: `Bearer ${token}` } };
+        const res = await axios.get(`${API_URL}/question/skill?skillIds=${skillId}`, config);
+        return res.data.data;
+
+    } catch (error) {
+        throw error;
+    }
+};
+
 export const questionService = {
     getAllquestion,
     addQuestion,
     getQuestionByID,
     putQuestion,
+    getQuestionByField,
+    getQuestionBySkill,
 };

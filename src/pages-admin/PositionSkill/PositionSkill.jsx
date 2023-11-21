@@ -21,8 +21,18 @@ import { useNavigate } from "react-router-dom";
 import { Header } from "../../Components-admin";
 
 export const PositionSkill = () => {
-    const [skills, setSkill] = useState([]);
-    const [positions, setPositions] = useState([]);
+    const [skills, setSkill] = useState([
+        {
+            id: 0,
+            skillName: "",
+        },
+    ]);
+    const [positions, setPositions] = useState([
+        {
+            id: 0,
+            positionName: "",
+        },
+    ]);
     const accessToken = JSON.parse(localStorage.getItem("data")).access_token;
     const navigate = useNavigate();
 

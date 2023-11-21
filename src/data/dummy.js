@@ -521,10 +521,11 @@ export const employeesGrid = [
 
 export const links = [
   {
-    title: 'Dashboard',
+    title: 'Admin',
     links: [
       {
         name: 'ecommerce',
+        title: 'Quản lý room',
         icon: <FiShoppingBag />,
       },
       {
@@ -532,12 +533,6 @@ export const links = [
         name: 'job-posting',
         icon: <FiShoppingBag />,
       },
-    ],
-  },
-
-  {
-    title: 'Pages',
-    links: [
       {
         title:"Event",
         name: 'event',
@@ -553,93 +548,139 @@ export const links = [
         name: 'question',
         icon: <FiBookOpen />,
       },
-     {
-      title:"orders",
-        name: 'orders',
-        icon: <AiOutlineShoppingCart />,
+      {
+        title:"Phỏng vấn",
+        name: 'interviewer-list-room',
+        icon: <FiBookOpen />,
       },
       {
-        title:"Người phỏng vấn",
-        name: 'interviewer',
-        icon: <IoMdContacts />,
-      },
-      {
-        title:"Nhà tuyển dụng",
-        name: 'reccer',
-        icon: <RiContactsLine />,
+        title:"Lịch trình của tôi",
+        name: 'calendar-admin',
+        icon: <FiBookOpen />,
       },
     ],
   },
-  {
-    title: 'Apps',
-    links: [
-      {
-        title:"Người phỏng vấn",
-        name: 'calendar',
-        icon: <AiOutlineCalendar />,
-      },
-      {
-        title:"Người phỏng vấn",
-        name: 'kanban',
-        icon: <BsKanban />,
-      },
-      {
-        title:"Người phỏng vấn",
-        name: 'editor',
-        icon: <FiEdit />,
-      },
-      {
-        title:"Người phỏng vấn",
-        name: 'color-picker',
-        icon: <BiColorFill />,
-      },
-    ],
-  },
-  {
-    title: 'Charts',
-    links: [
-      {
-        title:"Người phỏng vấn",
-        name: 'line',
-        icon: <AiOutlineStock />,
-      },
-      {
-        title:"Người phỏng vấn",
-        name: 'area',
-        icon: <AiOutlineAreaChart />,
-      },
+  // {
+  //   title: 'Reccer',
+  //   links: [
+  //     {
+  //       name: 'ecommerce',
+  //       title: 'Quản lý phòng phỏng vấn',
+  //       icon: <FiShoppingBag />,
+  //     },
+  //     {
+  //       title:'Đăng công việc',
+  //       name: 'job-posting',
+  //       icon: <FiShoppingBag />,
+  //     },
+  //     {
+  //       title:"Event",
+  //       name: 'event',
+  //       icon: <RiContactsLine/>,
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: 'Interviewer',
+  //   links: [
+  //     {
+  //       title:"Question",
+  //       name: 'question',
+  //       icon: <FiBookOpen />,
+  //     },
+  //   ],
+  // },
 
-      {
-        title:"Người phỏng vấn",
-        name: 'bar',
-        icon: <AiOutlineBarChart />,
-      },
-      {
-        title:"Người phỏng vấn",
-        name: 'pie',
-        icon: <FiPieChart />,
-      },
-      {
-        title:"Người phỏng vấn",
-        name: 'financial',
-        icon: <RiStockLine />,
-      },
-      {
-        name: 'color-mapping',
-        icon: <BsBarChart />,
-      },
-      {
-        title:"Người phỏng vấn",
-        name: 'pyramid',
-        icon: <GiLouvrePyramid />,
-      },
-      {
-        title:"Người phỏng vấn",
-        name: 'stacked',
-        icon: <AiOutlineBarChart />,
-      },
-    ],
-  },
+  // {
+  //   title: 'Pages',
+  //   links: [
+  //    {
+  //     title:"orders",
+  //       name: 'orders',
+  //       icon: <AiOutlineShoppingCart />,
+  //     },
+  //     {
+  //       title:"Người phỏng vấn",
+  //       name: 'interviewer',
+  //       icon: <IoMdContacts />,
+  //     },
+  //     {
+  //       title:"Nhà tuyển dụng",
+  //       name: 'reccer',
+  //       icon: <RiContactsLine />,
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: 'Apps',
+  //   links: [
+  //     {
+  //       title:"Người phỏng vấn",
+  //       name: 'calendar',
+  //       icon: <AiOutlineCalendar />,
+  //     },
+  //     {
+  //       title:"Người phỏng vấn",
+  //       name: 'kanban',
+  //       icon: <BsKanban />,
+  //     },
+  //     {
+  //       title:"Người phỏng vấn",
+  //       name: 'editor',
+  //       icon: <FiEdit />,
+  //     },
+  //     {
+  //       title:"Người phỏng vấn",
+  //       name: 'color-picker',
+  //       icon: <BiColorFill />,
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: 'Charts',
+  //   links: [
+  //     {
+  //       title:"Người phỏng vấn",
+  //       name: 'line',
+  //       icon: <AiOutlineStock />,
+  //     },
+  //     {
+  //       title:"Người phỏng vấn",
+  //       name: 'area',
+  //       icon: <AiOutlineAreaChart />,
+  //     },
+
+  //     {
+  //       title:"Người phỏng vấn",
+  //       name: 'bar',
+  //       icon: <AiOutlineBarChart />,
+  //     },
+  //     {
+  //       title:"Người phỏng vấn",
+  //       name: 'pie',
+  //       icon: <FiPieChart />,
+  //     },
+  //     {
+  //       title:"Người phỏng vấn",
+  //       name: 'financial',
+  //       icon: <RiStockLine />,
+  //     },
+  //     {
+  //       name: 'color-mapping',
+  //       icon: <BsBarChart />,
+  //     },
+  //     {
+  //       title:"Người phỏng vấn",
+  //       name: 'pyramid',
+  //       icon: <GiLouvrePyramid />,
+  //     },
+  //     {
+  //       title:"Người phỏng vấn",
+  //       name: 'stacked',
+  //       icon: <AiOutlineBarChart />,
+  //     },
+  //   ],
+  // },
 ];
 
 export const cartData = [

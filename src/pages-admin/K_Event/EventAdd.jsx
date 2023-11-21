@@ -171,7 +171,7 @@ export const EventAdd = () => {
                         borderRadius="10px"
                         onClick={handleUpload}
                     >
-                        Save img
+                        Save
                     </Button>
 
                     {/* <DatePickerComponent

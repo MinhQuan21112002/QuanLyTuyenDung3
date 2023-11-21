@@ -22,16 +22,19 @@ import icon from "../../Components/assets/meet.png";
 import { GoogleLogin, GoogleLogout } from "react-google-login";
 import { gapi } from "gapi-script";
 import { interviewService } from "../../Service/interview.service";
+import { compose } from "redux";
+import { format } from "date-fns";
 
 const client_id =
     "854899780211-p148qqqvv8svo8mmviv8tuf6sbmip7iq.apps.googleusercontent.com";
-export const GoogleCalendar = ({ startDate, endDate, listEmail }) => {
+export const GoogleCalendar = ({ startDate, endDate, listEmail, roomId }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const btnRef = React.useRef();
     const [responseReceived, setResponseReceived] = useState(false);
     const accessToken = JSON.parse(localStorage.getItem("data")).access_token;
     const [googleToken, setGoogleToken] = useState();
     const [formGoogle, setGoogleForm] = useState({
+        roomId: roomId,
         location: "",
         summary: "",
         description: "",
@@ -74,12 +77,33 @@ export const GoogleCalendar = ({ startDate, endDate, listEmail }) => {
         gapi.load("client:auth2", start);
     });
 
+    function formatDateTime(dateTime) {
+        const dateTimeRegex = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/;
+        if (!dateTimeRegex.test(dateTime)) {
+            throw new Error(
+                "Invalid datetime format! The format should be YYYY-MM-DDTHH:MM"
+            );
+        }
+        return dateTime + ":00+07:00";
+    }
+    
+    const formatForm = () => {
+        const formattedStartDate = formatDateTime(startDate);
+        const formattedEndDate = formatDateTime(endDate);
+        setGoogleForm({
+            ...formGoogle,
+            startTime: formattedStartDate,
+            endTime: formattedEndDate,
+        });
+    }
+
+
     const handleSendCalendar = async () => {
         if (validate()) {
             interviewService
                 .sendCalendar(formGoogle, accessToken)
                 .then((response) => toast.info(response.message))
-                .catch((error) => console.log(error.message));
+                .catch((error) => toast.error(er => er.message));
         } else {
             toast.error("invalid form");
         }
@@ -106,28 +130,9 @@ export const GoogleCalendar = ({ startDate, endDate, listEmail }) => {
         }
         return true;
     }
-
-    const formatDate = (dateTimeString) => {
-        const date = new Date(dateTimeString);
-        const year = date.getFullYear();
-        const month = `0${date.getMonth() + 1}`.slice(-2);
-        const day = `0${date.getDate()}`.slice(-2);
-        const hours = `0${date.getHours()}`.slice(-2);
-        const minutes = `0${date.getMinutes()}`.slice(-2);
-        const seconds = `0${date.getSeconds()}`.slice(-2);
-        const formattedDateTime = `${year}-${month}-${day}T${hours}:${minutes}:${seconds}`;
-        return formattedDateTime;
-    };
-
-    const handleOnTime = () => {
-        const startTime = formatDate(formGoogle.startTime);
-        const endTime = formatDate(formGoogle.endTime); 
-        setGoogleForm({
-            ...formGoogle,
-            startTime: startTime,
-            endTime: endTime,
-        });
-    }
+    useEffect(() => {
+        formatForm();
+    },[]);
 
     return (
         <>

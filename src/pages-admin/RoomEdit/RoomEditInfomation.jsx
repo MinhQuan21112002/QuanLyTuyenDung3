@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { Box } from "@chakra-ui/react";
-import { Header } from "../../Components-admin";
 import { useNavigate, useParams } from "react-router-dom";
 import {
     Heading,
@@ -15,13 +14,12 @@ import {
     Avatar,
     FormLabel,
     Input,
+    Select,
 } from "@chakra-ui/react";
 import { AssignInterviewer } from "../Assign/AssignInterviewer";
 import { AssignCandidate } from "../Assign/AssignCandidate";
 import { interviewService } from "../../Service/interview.service";
 import { toast, ToastContainer } from "react-toastify";
-import { IconButton } from "@chakra-ui/react";
-import meet from "../../Components/assets/meet.png";
 
 import { GoogleCalendar } from "../GoogleCalendar/GoogleCalendar";
 const initialRoomData = {
@@ -37,6 +35,33 @@ const initialRoomData = {
     listInterviewer: [],
     listCandidate: [],
 };
+const convertData = (initialRoomData) => {
+    const {
+        id,
+        jobPostId,
+        roomName,
+        roomSkill,
+        roomDescription,
+        startDate,
+        endDate,
+        status,
+        link,
+        listInterviewer,
+        listCandidate,
+    } = initialRoomData;
+
+    const form = {
+        roomId: id,
+        roomName: roomName,
+        skill: roomSkill,
+        description: roomDescription,
+        startDate: startDate,
+        endDate: endDate,
+        status: status,
+        linkMeet: link || "",
+    };
+    return form;
+};
 
 export const RoomEditInfomation = () => {
     const [room, setRoom] = useState(initialRoomData);
@@ -44,6 +69,16 @@ export const RoomEditInfomation = () => {
     const accessToken = JSON.parse(localStorage.getItem("data")).access_token;
     const navigate = useNavigate();
     const [listAttendee, setListAttendee] = useState([]);
+    const [form, setForm] = useState({
+        roomId: 0,
+        roomName: "",
+        skill: "",
+        description: "",
+        startDate: "",
+        endDate: "",
+        status: "",
+        linkMeet: "",
+    });
 
     useEffect(() => {
         interviewService
@@ -66,8 +101,21 @@ export const RoomEditInfomation = () => {
             .catch((er) => toast.error(er.message));
     }, []);
 
-    const handle = (e) => {
-        console.log(e.target.value);
+    const handleOnChangeForm = (event) => {
+        const { name, value } = event.target;
+        setRoom((prevForm) => ({ ...prevForm, [name]: value }));
+    };
+
+    const handleUpdateRoom = () => {
+        interviewService
+            .updateRoom(convertData(room), accessToken)
+            .then((res) => {
+                if (res.message === "SUCCESS!!") {
+                    toast.success(res.message);
+                } else {
+                    toast.error(res.message);
+                }
+            });
     };
 
     if (room.id === 0) {
@@ -127,6 +175,7 @@ export const RoomEditInfomation = () => {
                                                 roomId={params.idRoom}
                                             />
                                             <AssignCandidate
+                                                roomId={params.idRoom}
                                                 jobId={params.id}
                                                 startDate={room.startDate}
                                                 endDate={room.endDate}
@@ -214,6 +263,7 @@ export const RoomEditInfomation = () => {
                                     startDate={room.startDate}
                                     endDate={room.endDate}
                                     listEmail={listAttendee}
+                                    roomId={params.idRoom}
                                 />
                             </HStack>
                             <br />
@@ -226,6 +276,8 @@ export const RoomEditInfomation = () => {
                                 <HStack w={"100%"}>
                                     <FormLabel w={"30%"}>Room name</FormLabel>
                                     <Input
+                                        onChange={handleOnChangeForm}
+                                        name="roomName"
                                         backgroundColor={"#FFFFFF"}
                                         w={"60%"}
                                         placeholder="Room name"
@@ -235,6 +287,8 @@ export const RoomEditInfomation = () => {
                                 <HStack w={"100%"}>
                                     <FormLabel w={"30%"}>Skill</FormLabel>
                                     <Input
+                                        name="roomSkill"
+                                        onChange={handleOnChangeForm}
                                         backgroundColor={"#FFFFFF"}
                                         w={"60%"}
                                         placeholder="Room skill"
@@ -242,8 +296,27 @@ export const RoomEditInfomation = () => {
                                     />
                                 </HStack>
                                 <HStack w={"100%"}>
+                                    <FormLabel w={"30%"}>status</FormLabel>
+                                    <Select
+                                        name="status"
+                                        onChange={handleOnChangeForm}
+                                        backgroundColor={"#FFFFFF"}
+                                        w={"60%"}
+                                        size="md"
+                                        value={room.status}
+                                    >
+                                        <option value="Created">Created</option>
+                                        <option value="Processing">
+                                            Processing
+                                        </option>
+                                        <option value="Ended">Ended</option>
+                                    </Select>
+                                </HStack>
+                                <HStack w={"100%"}>
                                     <FormLabel w={"30%"}>Description</FormLabel>
                                     <Input
+                                        name="roomDescription"
+                                        onChange={handleOnChangeForm}
                                         backgroundColor={"#FFFFFF"}
                                         w={"60%"}
                                         placeholder="Room description"
@@ -254,6 +327,8 @@ export const RoomEditInfomation = () => {
                                     <FormLabel w={"30%"}>Date time</FormLabel>
                                     <HStack w="60%">
                                         <Input
+                                            onChange={handleOnChangeForm}
+                                            name="startDate"
                                             backgroundColor={"#FFFFFF"}
                                             w={"50%"}
                                             placeholder="Room description"
@@ -262,7 +337,8 @@ export const RoomEditInfomation = () => {
                                         />
                                         <Text>To</Text>
                                         <Input
-                                            onChange={handle}
+                                            onChange={handleOnChangeForm}
+                                            name="endDate"
                                             backgroundColor={"#FFFFFF"}
                                             w={"50%"}
                                             placeholder="Room description"
@@ -274,6 +350,8 @@ export const RoomEditInfomation = () => {
                                 <HStack w={"100%"}>
                                     <FormLabel w={"30%"}>Link</FormLabel>
                                     <Input
+                                        name="link"
+                                        onChange={handleOnChangeForm}
                                         backgroundColor={"#FFFFFF"}
                                         w={"60%"}
                                         placeholder="link"
@@ -293,7 +371,12 @@ export const RoomEditInfomation = () => {
                                 >
                                     Back
                                 </Button>
-                                <Button w={40} colorScheme="teal" size="lg">
+                                <Button
+                                    w={40}
+                                    colorScheme="teal"
+                                    size="lg"
+                                    onClick={handleUpdateRoom}
+                                >
                                     Save
                                 </Button>
                             </HStack>

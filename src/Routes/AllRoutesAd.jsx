@@ -41,6 +41,8 @@ import { AddQuestion } from "../pages-admin/Question/AddQuestion";
 import { EditQuestion } from "../pages-admin/Question/EditQuestion";
 import { Interview } from "../pages-admin/Interview/Interview";
 import { RoomEditInfomation } from "../pages-admin/RoomEdit/RoomEditInfomation";
+import { AdminCalendar } from "../pages-admin/GoogleCalendar/AdminCalendar";
+import { MarkCandidate } from "../pages-admin/MarkCandidate/MarkCandidate";
 
 const AllRoutesAd = () => {
     return (
@@ -54,7 +56,7 @@ const AllRoutesAd = () => {
         <Route path="/AdLogout" element={<AdLogout/>} />
         {/* <Route path="/addCandidate/:id/:idRoom" element={< RoomAddCandidate/>} /> */}
 
-        <Route path="/addCandidate/:id/:idRoom" element={< RoomEditInfomation/>} />
+   
 
         <Route path="/ecommerce" element={<Ecommerce />} />
         <Route path="/roomAdd" element={<RoomAdd/>} />
@@ -96,6 +98,12 @@ const AllRoutesAd = () => {
         <Route path="/question/add" element={<AddQuestion />} />
         <Route path="/question/edit/:id" element={<EditQuestion />} />
         <Route path="/interview" element={<Interview />} />
+
+        <Route path="/addCandidate/:id/:idRoom" element={< RoomEditInfomation/>} />
+        <Route path="/calendar-admin" element={<AdminCalendar/>} />
+        <Route path="/mark-candidate/:roomId" element={<MarkCandidate/>} />
+
+
 
 
       </Routes>

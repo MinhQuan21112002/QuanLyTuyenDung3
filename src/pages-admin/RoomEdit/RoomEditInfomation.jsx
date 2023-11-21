@@ -134,7 +134,7 @@ export const RoomEditInfomation = () => {
                     pauseOnHover
                     theme="light"
                 />
-                <Box p={30} borderRadius="lg" overflow="hidden">
+                <Box backgroundColor={"#e9f3f5"} p={30} overflow="hidden">
                     <VStack spacing={10}>
                         <Box
                             p={4}

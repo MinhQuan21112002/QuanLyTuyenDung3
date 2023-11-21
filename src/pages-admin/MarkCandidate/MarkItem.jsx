@@ -23,14 +23,10 @@ import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { QuestionMarkItem } from "./QuestionMarkItem";
 import { interviewDetailService } from "../../Service/interviewDetail.service";
 import { questionService } from "../../Service/question.service";
-
-const question = {
-    englishQuestion: [],
-    technicalQuestion: [],
-    softSkillQuestion: [],
-};
+import { toast, ToastContainer } from "react-toastify";
 
 export const MarkItem = ({ roomId, loadDetail }) => {
+    const [avg, setAvg] = useState(0);
     const [form, setForm] = useState({
         interviewDetailId: 0,
         comment: "",
@@ -40,19 +36,68 @@ export const MarkItem = ({ roomId, loadDetail }) => {
         softSkillQuestion: [],
     });
     const accessToken = JSON.parse(localStorage.getItem("data")).access_token;
+    const handleMark = async () => {
+        let data = {
+            interviewDetailId: form.interviewDetailId,
+            comment: form.comment,
+            averageMark: avg,
+            englishQuestion: JSON.stringify(form.englishQuestion),
+            technicalQuestion: JSON.stringify(form.technicalQuestion),
+            softSkillQuestion: JSON.stringify(form.softSkillQuestion),
+        };
+        await interviewDetailService
+            .markCandidate(accessToken, data)
+            .then((res) => toast.info(res.message))
+            .catch((er) => console.log(er.message));
+        console.log(JSON.stringify(data));
+    };
+   
+    useEffect(() => {
+        let totalMarks = 0;
+        let totalQuestions = 0;
+        if (form && form.englishQuestion && form.englishQuestion.length > 0) {
+            totalMarks += form.englishQuestion.reduce((acc, ques) => acc + ques.mark, 0);
+            totalQuestions += form.englishQuestion.length;
+        }
+        if (form && form.softSkillQuestion && form.softSkillQuestion.length > 0) {
+            totalMarks += form.softSkillQuestion.reduce((acc, ques) => acc + ques.mark, 0);
+            totalQuestions += form.softSkillQuestion.length;
+        }
+        if (form && form.technicalQuestion && form.technicalQuestion.length > 0) {
+            totalMarks += form.technicalQuestion.reduce((acc, ques) => acc + ques.mark, 0);
+            totalQuestions += form.technicalQuestion.length;
+        }
+        const average = totalMarks / totalQuestions;
+        setAvg(average);
+    }, [form]);
+    
 
     useEffect(() => {
-        if (loadDetail && loadDetail.candidate.status === "Đã chấm") {
-            setForm((prevDisplayQuestion) => ({
-                ...prevDisplayQuestion,
-                englishQuestion: JSON.parse(loadDetail.englishQuestion),
-                technicalQuestion: JSON.parse(loadDetail.technicalQuestion),
-                softSkillQuestion: JSON.parse(loadDetail.softSkillQuestion),
-                interviewDetailId: loadDetail.id,
-                comment:loadDetail.comment,
-                averageMark:loadDetail.averageScores,
-            }));
+        if (loadDetail ) {
+            if(loadDetail.candidate.status === "Đã chấm") {
+                setForm((prevDisplayQuestion) => ({
+                    ...prevDisplayQuestion,
+                    englishQuestion: JSON.parse(loadDetail.englishQuestion),
+                    technicalQuestion: JSON.parse(loadDetail.technicalQuestion),
+                    softSkillQuestion: JSON.parse(loadDetail.softSkillQuestion),
+                    interviewDetailId: loadDetail.id,
+                    comment: loadDetail.comment,
+                    averageMark: loadDetail.averageScores,
+                }));
+
+            }else{
+                setForm((prevDisplayQuestion) => ({
+                    ...prevDisplayQuestion,
+                    englishQuestion: [],
+                    technicalQuestion: [],
+                    softSkillQuestion: [],
+                    interviewDetailId: loadDetail.id,
+                    comment:"",
+                    averageMark: 0,
+                }));
+            }
         } else {
+            
             setForm({
                 interviewDetailId: 0,
                 comment: "",
@@ -83,6 +128,11 @@ export const MarkItem = ({ roomId, loadDetail }) => {
         }));
     };
 
+    const handleOnChangeForm = (event) => {
+        const { name, value } = event.target;
+        setForm((prevForm) => ({ ...prevForm, [name]: value }));
+    };
+
     if (roomId === 0 || loadDetail === null) return <></>;
     else
         return (
@@ -107,13 +157,13 @@ export const MarkItem = ({ roomId, loadDetail }) => {
                         w={"100%"}
                     >
                         <Text pb={30} fontWeight={"black"}>
-                            Canditate Detail with id:{" "} {loadDetail.id}
+                            Canditate Detail with id: {loadDetail.id}
                         </Text>
                         <VStack justifyContent={"flex-start"} spacing={5}>
                             <HStack w={"100%"}>
                                 <FormLabel w={"80px"}>Name</FormLabel>
                                 <Input
-                                    value={loadDetail.candidate.name}
+                                    value={loadDetail.candidate.name?loadDetail.candidate.name : ""}
                                     disabled={true}
                                     w={"400px"}
                                     placeholder="name"
@@ -145,7 +195,9 @@ export const MarkItem = ({ roomId, loadDetail }) => {
                             <HStack w={"100%"}>
                                 <FormLabel w={"20%"}>Average Mark</FormLabel>
                                 <Input
-                                    value={form.averageMark}
+                                    name="averageMark"
+                                    onChange={handleOnChangeForm}
+                                    value={avg}
                                     disabled={true}
                                     type="number"
                                     w={"80%"}
@@ -175,56 +227,34 @@ export const MarkItem = ({ roomId, loadDetail }) => {
                             <HStack w={"100%"}>
                                 <FormLabel w={"20%"}>Comment</FormLabel>
                                 <Textarea
+                                    name="comment"
+                                    onChange={handleOnChangeForm}
                                     value={form.comment}
                                     w={"80%"}
                                     placeholder="comment"
                                 />
                             </HStack>
+
+                            <HStack display={"flex"}>
+                                <Button onClick={handleMark} colorScheme="blue">
+                                    Mark
+                                </Button>
+                            </HStack>
                         </VStack>
                     </Box>
                 </VStack>
+                <ToastContainer
+                    position="bottom-right"
+                    autoClose={5000}
+                    hideProgressBar={false}
+                    newestOnTop={false}
+                    closeOnClick
+                    rtl={false}
+                    pauseOnFocusLoss
+                    draggable
+                    pauseOnHover
+                    theme="light"
+                />
             </Box>
         );
 };
-
-// useEffect(() => {
-
-// },[])
-
-// const handleAddenglishQuestion = (newQuestion, mark) => {
-//     setDisplayQuestion(prevQuestion => ({
-//         ...prevQuestion,
-//         englishQuestion: [...prevQuestion.englishQuestion,  { question: newQuestion, mark: mark }],
-//     }));
-// }
-// const handleAddsoftSkillQuestion = (newQuestion, mark) => {
-//     setDisplayQuestion(prevQuestion => ({
-//         ...prevQuestion,
-//         softSkillQuestion: [...prevQuestion.softSkillQuestion,  { question: newQuestion, mark: mark }],
-//     }));
-// }
-// const handleAddtechnicalQuestion= (newQuestion, mark) => {
-//     setDisplayQuestion(prevQuestion => ({
-//         ...prevQuestion,
-//         technicalQuestion: [...prevQuestion.technicalQuestion,{ question: newQuestion, mark: mark }],
-//     }));
-// }
-
-// const handleDeleteSoft = (questionId) => {
-//     setDisplayQuestion(prevQuestion => ({
-//         ...prevQuestion,
-//         softSkillQuestion: prevQuestion.softSkillQuestion.filter(q => q.id !== questionId),
-//     }));
-// };
-// const handleDeleteEnglish = (questionId) => {
-//     setDisplayQuestion(prevQuestion => ({
-//         ...prevQuestion,
-//         englishQuestion: prevQuestion.englishQuestion.filter(q => q.id !== questionId),
-//     }));
-// };
-// const handleDeleteTechnical = (questionId) => {
-//     setDisplayQuestion(prevQuestion => ({
-//         ...prevQuestion,
-//         technicalQuestion: prevQuestion.technicalQuestion.filter(q => q.id !== questionId),
-//     }));
-// };

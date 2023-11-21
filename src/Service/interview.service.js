@@ -27,6 +27,33 @@ const getInterviewByID = async (token, id) => {
     }
 };
 
+
+const getAllRooms = async (token) => {
+    try {
+        let config = { headers: { Authorization: `Bearer ${token}` } };
+        const res = await axios.get(
+            `${API_URL}/interview`,
+            config
+        );
+        if (res.data.status === "200 OK") {
+            return res.data.data;
+        } else {
+            throw new Error(res.data.message);
+        }
+    } catch (error) {
+        const axiosError = error;
+        if (
+            axiosError &&
+            axiosError.response &&
+            axiosError.response.status === 403
+        ) {
+            throw new Error("no_permistion");
+        } else {
+            throw error;
+        }
+    }
+};
+
 const getCandidatesByJob = async (token, id) => {
     try {
         let config = { headers: { Authorization: `Bearer ${token}` } };
@@ -160,6 +187,7 @@ const updateRoom = async (form, token) => {
 };
 
 export const interviewService = {
+    getAllRooms,
     getCandidatesByJob,
     getMyInterviewer,
     interviewerAssign,

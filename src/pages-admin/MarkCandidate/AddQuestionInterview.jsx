@@ -13,11 +13,18 @@ import {
     Text,
     Box,
     Select,
+    NumberInput,
+    NumberInputField,
+    NumberInputStepper,
+    NumberIncrementStepper,
+    NumberDecrementStepper,
+    HStack,
+    VStack,
 } from "@chakra-ui/react";
 import { questionService } from "../../Service/question.service";
 import { skillPositionService } from "../../Service/skillPosition.service";
 
-export const AddQuestionInterview = ({ field, onAddClick}) => {
+export const AddQuestionInterview = ({ field, onAddClick }) => {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const cancelRef = React.useRef();
     const accessToken = JSON.parse(localStorage.getItem("data")).access_token;
@@ -35,11 +42,11 @@ export const AddQuestionInterview = ({ field, onAddClick}) => {
     useEffect(() => {
         if (keyword === "") {
             questionService
-            .getQuestionByField(accessToken, field)
-            .then((res) => setQuestion(res))
-            .catch((er) => console.log(er.message));
+                .getQuestionByField(accessToken, field)
+                .then((res) => setQuestion(res))
+                .catch((er) => console.log(er.message));
         } else {
-            setQuestion(searchQuestionsByKeyword(keyword))
+            setQuestion(searchQuestionsByKeyword(keyword));
         }
     }, [keyword]);
 
@@ -80,14 +87,34 @@ export const AddQuestionInterview = ({ field, onAddClick}) => {
     const searchQuestionsByKeyword = (keyword) => {
         const lowerCaseKeyword = keyword.toLowerCase();
         const filteredQuestions = questions.filter((question) => {
-            return (
-                question.question.toLowerCase().includes(lowerCaseKeyword)
-            );
+            return question.question.toLowerCase().includes(lowerCaseKeyword);
         });
         return filteredQuestions;
     };
 
+    const [marks, setMarks] = useState({});
 
+    const handleMarkChange = (valueString, questionId) => {
+        const value = parseInt(valueString, 10);
+        setMarks((prevMarks) => ({
+            ...prevMarks,
+            [questionId]: value,
+        }));
+    };
+
+    const onAddClickWithMark = (question) => {
+        const mark = marks[question.id] || 0;
+        onAddClick(
+            question.id,
+            question.question,
+            mark,
+            field === "SoftSkill"
+                ? "softSkill"
+                : field === "TechSkill"
+                ? "technical"
+                : "english"
+        );
+    };
 
     return (
         <>
@@ -106,7 +133,9 @@ export const AddQuestionInterview = ({ field, onAddClick}) => {
                             Find your question
                         </AlertDialogHeader>
 
-                        <AlertDialogBody style={{ maxHeight: "500px", overflowY: "auto" }}>
+                        <AlertDialogBody
+                            style={{ maxHeight: "500px", overflowY: "auto" }}
+                        >
                             <Input
                                 onChange={handleType}
                                 value={keyword}
@@ -133,12 +162,38 @@ export const AddQuestionInterview = ({ field, onAddClick}) => {
                                           borderRadius={4}
                                           m={2}
                                           borderWidth={1}
-    
                                       >
-                                          <Text>{question.question}</Text>
-                                          <Text color={"green"}>
-                                              by: {question.creatorName}
-                                          </Text>
+                                          <Text m={3}>{question.question}</Text>
+                                          <HStack>
+                                              <NumberInput
+                                                  defaultValue={0}
+                                                  min={0}
+                                                  max={10}
+                                                  name={`mark-${question.id}`}
+                                                  onChange={(valueString) =>
+                                                      handleMarkChange(
+                                                          valueString,
+                                                          question.id
+                                                      )
+                                                  }
+                                              >
+                                                  <NumberInputField />
+                                                  <NumberInputStepper>
+                                                      <NumberIncrementStepper />
+                                                      <NumberDecrementStepper />
+                                                  </NumberInputStepper>
+                                              </NumberInput>
+                                              <Button
+                                                  onClick={() =>
+                                                      onAddClickWithMark(
+                                                          question
+                                                      )
+                                                  }
+                                                  w={"100%"}
+                                              >
+                                                  +
+                                              </Button>
+                                          </HStack>
                                       </Box>
                                   ))
                                 : questions.map((question) => (
@@ -147,13 +202,38 @@ export const AddQuestionInterview = ({ field, onAddClick}) => {
                                           borderRadius={4}
                                           m={2}
                                           borderWidth={1}
-
                                       >
-                                          <Text>{question.question}</Text>
-                                          <Text color={"green"}>
-                                              by: {question.creatorName}
-                                          </Text>
-                                          <Button  onClick={() =>onAddClick(question.id, question.question,0, field==="SoftSkill"? "softSkill" : field==="TechSkill" ? "technical" : "english")}>+</Button>
+                                          <Text m={3}>{question.question}</Text>
+                                          <HStack>
+                                              <NumberInput
+                                                  defaultValue={0}
+                                                  min={0}
+                                                  max={10}
+                                                  name={`mark-${question.id}`}
+                                                  onChange={(valueString) =>
+                                                      handleMarkChange(
+                                                          valueString,
+                                                          question.id
+                                                      )
+                                                  }
+                                              >
+                                                  <NumberInputField />
+                                                  <NumberInputStepper>
+                                                      <NumberIncrementStepper />
+                                                      <NumberDecrementStepper />
+                                                  </NumberInputStepper>
+                                              </NumberInput>
+                                              <Button
+                                                  w={"100%"}
+                                                  onClick={() =>
+                                                      onAddClickWithMark(
+                                                          question
+                                                      )
+                                                  }
+                                              >
+                                                  +
+                                              </Button>
+                                          </HStack>
                                       </Box>
                                   ))}
                         </AlertDialogBody>

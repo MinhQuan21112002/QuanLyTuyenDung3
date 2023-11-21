@@ -683,6 +683,73 @@ export const links = [
   },
 ];
 
+
+export const reccerLink = [
+  {
+    title: 'RECRUITER',
+    links: [
+      {
+        name: 'ecommerce',
+        title: 'Quản lý room',
+        icon: <FiShoppingBag />,
+      },
+      {
+        title:'Đăng công việc',
+        name: 'job-posting',
+        icon: <FiShoppingBag />,
+      },
+      {
+        title:"Event",
+        name: 'event',
+        icon: <RiContactsLine/>,
+      },
+      {
+        title:"Position Skill",
+        name: 'skill-position',
+        icon: <RiContactsLine/>,
+      },
+      {
+        title:"Question",
+        name: 'question',
+        icon: <FiBookOpen />,
+      },
+      {
+        title:"Phỏng vấn",
+        name: 'interviewer-list-room',
+        icon: <FiBookOpen />,
+      },
+      {
+        title:"Lịch trình của tôi",
+        name: 'calendar-admin',
+        icon: <FiBookOpen />,
+      },
+    ],
+  },
+]
+
+export const interviewerLink = [
+  {
+    title: 'Interviewer',
+    links: [
+      {
+        title:"Question",
+        name: 'question',
+        icon: <FiBookOpen />,
+      },
+      {
+        title:"Phỏng vấn",
+        name: 'interviewer-list-room',
+        icon: <FiBookOpen />,
+      },
+      {
+        title:"Lịch trình của tôi",
+        name: 'calendar-admin',
+        icon: <FiBookOpen />,
+      },
+    ],
+  },
+]
+
 export const cartData = [
   {
     image:

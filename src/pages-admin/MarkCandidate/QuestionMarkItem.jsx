@@ -23,10 +23,7 @@ export const QuestionMarkItem = ({
     onAddClick,
     onDeleteClick,
 }) => {
-
-    useEffect(() => {
-
-    }, [field])
+    useEffect(() => {}, [field]);
     return (
         <HStack w={"100%"}>
             <FormLabel w={"20%"}>{field}</FormLabel>
@@ -50,32 +47,34 @@ export const QuestionMarkItem = ({
                                     <Text
                                         borderRadius={5}
                                         borderWidth={1}
-                                        w={"90%"}
+                                        w={"100%"}
                                         fontSize="lg"
                                         p={1}
                                     >
                                         {question.question}
-                                        <Button
-                                            ml={2}
-                                            onClick={() =>
-                                                onDeleteClick(question.id, field==="SoftSkill"? "softSkill" : field==="TechSkill" ? "technical" : "english")
-                                            }
-                                        >
-                                            x
-                                        </Button>
+                                        <HStack>
+                                            <Text fontWeight={"bold"}>
+                                                {" "}
+                                                Mark: {question.mark}
+                                            </Text>
+                                            <Button
+                                                ml={2}
+                                                onClick={() =>
+                                                    onDeleteClick(
+                                                        question.id,
+                                                        field === "SoftSkill"
+                                                            ? "softSkill"
+                                                            : field ===
+                                                              "TechSkill"
+                                                            ? "technical"
+                                                            : "english"
+                                                    )
+                                                }
+                                            >
+                                                x
+                                            </Button>
+                                        </HStack>
                                     </Text>
-                                    <NumberInput
-                                        defaultValue={question.mark}
-                                        min={0}
-                                        max={10}
-                                        w={"10%"}
-                                    >
-                                        <NumberInputField />
-                                        <NumberInputStepper>
-                                            <NumberIncrementStepper />
-                                            <NumberDecrementStepper />
-                                        </NumberInputStepper>
-                                    </NumberInput>
                                 </HStack>
                             ))}
                         </VStack>

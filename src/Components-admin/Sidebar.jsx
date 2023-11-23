@@ -16,14 +16,17 @@ const Sidebar = () => {
     useEffect(() => {
       if(data.data.role==="RECRUITER") {
         setLink(reccerLink);
-      }
+      } 
+      else{
       if(data.data.role==="ADMIN") {
         setLink(links)
       }
       else{
         setLink(interviewerLink);
       }
+    }
     },[])
+    
     const { currentColor, activeMenu, setActiveMenu, screenSize } =
         useStateContext();
 

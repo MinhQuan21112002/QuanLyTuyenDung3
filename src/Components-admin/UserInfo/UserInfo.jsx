@@ -113,27 +113,27 @@ const UserInfo = () => {
       // console.log("test CV null",CV.length==0?"bi null":"ko null")
       // console.log("test CV ",CV.length)
       //    console.log("test CV2 ",testCV)
-      if(testCV!=null&&!window.testCV)
-      {
-        console.log("vao dc r")
-      const formDataCV = new FormData()
-      formDataCV.append("file", testCV)
+    //   if(testCV!=null&&!window.testCV)
+    //   {
+    //     console.log("vao dc r")
+    //   const formDataCV = new FormData()
+    //   formDataCV.append("file", testCV)
       
-      const imageResponseCV = await axios.post(
-          "http://localhost:8080/file/upload",
-          formDataCV,
-          {
-              headers: {
-                  Authorization: `Bearer ${accessToken}`,
-              },
-          }
-      )
-     CV.push(imageResponseCV.data.data)
-     console.log("CV goi ve ",CV.at(0))
-        }
-        else{
-          console.log("cv bi null r ")
-        }
+    //   const imageResponseCV = await axios.post(
+    //       "http://localhost:8080/file/upload",
+    //       formDataCV,
+    //       {
+    //           headers: {
+    //               Authorization: `Bearer ${accessToken}`,
+    //           },
+    //       }
+    //   )
+    //  CV.push(imageResponseCV.data.data)
+    //  console.log("CV goi ve ",CV.at(0))
+    //     }
+    //     else{
+    //       console.log("cv bi null r ")
+    //     }
 
 
         
@@ -168,7 +168,7 @@ const UserInfo = () => {
         "gender": gender,
         "address": address ,
         "dob": "",
-        "cv_pdf": CV.length==0?user.cv_pdf:CV.at(0),
+        "cv_pdf": "",
         "avatar": ImageAva.length==0?user.avatar:ImageAva.at(0),
         "language": language,
         "skill": skill,
@@ -353,7 +353,7 @@ const UserInfo = () => {
                 />
               </div>    
 
-              <div className="form_input">
+              {/* <div className="form_input">
               
               <label htmlFor="phone">    <p style={{marginRight: "5px" ,width:"130px"}}></p>
               <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' > CV </Badge></label>
@@ -366,7 +366,7 @@ const UserInfo = () => {
                   id="cv_pdf"
                   
                 />
-              </div>    
+              </div>     */}
               
               
               <div className="form_input">

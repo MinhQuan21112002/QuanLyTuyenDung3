@@ -7,8 +7,11 @@ import "./style3.css";
 import { useDispatch,useSelector } from "react-redux";
 import { useEffect } from "react";
 import { loadJob } from '../../redux/Job-posting/Action';
-import uuid from "react-uuid";
-import { Link} from "react-router-dom";
+import {
+
+  Input,
+  Select,
+} from "@chakra-ui/react";
 
 const RoomAdd = () => {
 
@@ -140,24 +143,23 @@ const RoomAdd = () => {
               
               <div className="form_input">
                 <label htmlFor="name" style={{display:"block"}}>Tên công việc</label>
-                <select style={{marginTop:"10px",marginBottom:"10px"}} onChange={(e) => 
+                <Select color={'#8292b4'} borderColor={'#8292b4'} placeholder='Tên công việc'  mt="10px" mb="10px"onChange={(e) => 
                  { console.log(e.target.value)
-                  setJObName(e.target.value)}}
-                  
-                  >
-                  {data.map((i)=>{
+                  setJObName(e.target.value)}}>
+              {data.map((i)=>{
                     return <option value={i.id}>{i.name}</option>
                   })
                   }
                   <option></option>
-                </select>
-                
+            </Select>
+              
               </div>
               
 
               <div className="form_input">
                 <label htmlFor="position">Tên phòng họp</label>
-                <input
+                <input 
+                style={{width:"100%"}}
                   type="text"
                   // value={username}
                   onChange={(e) => setRoomName(e.target.value)}
@@ -166,8 +168,9 @@ const RoomAdd = () => {
                 />
               </div>
               <div className="form_input">
-                <label htmlFor="position">Kỹ năng</label>
+                <label htmlFor="position">Kỹ năng (Skill)</label>
                 <input
+                  style={{width:"100%"}}
                   type="text"
                   // value={username}
                   onChange={(e) => setRoomSkill(e.target.value)}
@@ -180,6 +183,7 @@ const RoomAdd = () => {
                 <label htmlFor="position">Mô tả phòng</label>
                 <input
                   type="text"
+                  style={{width:"100%"}}
                   // value={username}
                   onChange={(e) => setRoomDescription(e.target.value)}
                   name="position"
@@ -190,13 +194,14 @@ const RoomAdd = () => {
 
               <div className="form_input">
                 <label htmlFor="position">Ngày bắt đầu </label>
-                <input
-                  type="text"
-                  // value={username}
-                  onChange={(e) => setStartDate(e.target.value)}
-                  name="position"
-                  id="position"
-                />
+                <Input 
+                    onChange={(e) => setStartDate(e.target.value)}
+                  name="startDate"
+                  backgroundColor={"#FFFFFF"}
+                  minW="100%"
+                  placeholder="Room description"
+                  type="datetime-local"
+                  />
               </div>
 
               
@@ -205,18 +210,20 @@ const RoomAdd = () => {
 
               <div className="form_input">
                 <label htmlFor="position">Ngày kết thúc</label>
-                <input
-                  type="text"
-                  // value={username}
-                  onChange={(e) => setEndDate(e.target.value)}
-                  name="position"
-                  id="position"
-                />
+                <Input 
+                    onChange={(e) => setEndDate(e.target.value)}
+                  name="startDate"
+                  backgroundColor={"#FFFFFF"}
+                  minW="100%"
+                  placeholder="Room description"
+                  type="datetime-local"
+                  />
               </div>
 
               <div className="form_input">
                 <label htmlFor="position">Link Meet phòng</label>
                 <input
+                  style={{width:"100%"}}
                   type="text"
                   // value={username}
                   onChange={(e) => setLinkmeet(e.target.value)}
@@ -225,7 +232,7 @@ const RoomAdd = () => {
                 />
               </div>
              
-              <button onClick={handleSubmit} className="btn3">
+              <button onClick={handleSubmit} style={{backgroundColor:"#03C9D7"}}className="btn3">
                 Thêm phòng
               </button>
             </form>

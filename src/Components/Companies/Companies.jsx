@@ -4,13 +4,13 @@ import CompaniesContainer from "./CompaniesContainer";
 import FiltersContainer from "./FiltersContainer";
 
 const Companies = () => (
-  <VStack>
+  <VStack backgroundColor={"#e9f3f5"}>
     <SlideFade in={true} offsetY={20}>
       <Heading size={"lg"} m={"6"} mt={24}>
       </Heading>
     </SlideFade>
     <HStack align={"flex-start"} w={"80vw"} >
-      <CompaniesContainer />
+      <CompaniesContainer />  
     </HStack>
   </VStack>
 );

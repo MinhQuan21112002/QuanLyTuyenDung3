@@ -13,7 +13,6 @@ export const ItemJobInCompany = ({
     salary,
     workingForm,
 }) => {
-
     const navigate = useNavigate();
     return (
         <>

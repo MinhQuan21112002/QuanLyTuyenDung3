@@ -21,6 +21,7 @@ const CompaniesCard = ({ id, name, avatar, website, address, phone, info }) => {
     const navigate = useNavigate();
     return (
         <Box
+            backgroundColor={"#ffffff"}
             maxW="700px"
             borderWidth="1px"
             borderRadius="lg"

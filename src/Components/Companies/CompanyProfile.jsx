@@ -39,15 +39,10 @@ const CompanyProfile = () => {
     const params = useParams();
     const [company, setCompany] = useState();
     const [listJob, setListJob] = useState([]);
-
-
     useEffect(() => {
         companyService.getCompanyById(params.id).then((res) => setCompany(res));
         companyService.getJobByCompany(params.id).then((res) => setListJob(res));
     }, []);
-
-
-
     if (!company) {
         return (
             <Center h={"100vh"} direction="row" spacing={4}>
@@ -57,7 +52,7 @@ const CompanyProfile = () => {
     } else {
         return (
             <>
-                <VStack fontFamily={"sans-serif"}>
+                <VStack backgroundColor={"#e9f3f5"} fontFamily={"sans-serif"}>
                     <SlideFade in={true} offsetY={20}>
                         <Heading size={"lg"} m={"6"} mt={24}></Heading>
                     </SlideFade>
@@ -71,7 +66,7 @@ const CompanyProfile = () => {
                             align={"flex-start"}
                             w={"100vw"}
                             m={2}
-                            backgroundColor={"#99d3e9"}
+                            backgroundColor={"#FFFFFF"}
                         >
                             <Image
                                 src={company.avatar}

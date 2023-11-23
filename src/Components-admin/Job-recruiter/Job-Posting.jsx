@@ -194,7 +194,7 @@ const JobPosting = () => {
     <>
       <session>
         <div className="main">
-          <div className="left_session3">
+          {/* <div className="left_session3">
             <div
               style={{
                 marginTop: "1px",
@@ -235,7 +235,8 @@ const JobPosting = () => {
               </button>
               </Box>
              </div>
-          </div>
+          </div> */}
+          
           <div className="form_data1" >
             <div className="form_heading">
               <h2

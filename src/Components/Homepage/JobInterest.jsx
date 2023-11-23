@@ -20,30 +20,12 @@ const JobInterest = () => {
   console.log('job list', jobList)
   return (
     <>
-      <Container
-        h={'356px'}
-        maxW={'75%'}
-        m={'auto'}
-        // border={'1px'}
-        // borderColor={'black'}
-        pt={'32px'}
-        pb={'12px'}>
+      <Container h={'356px'} maxW={'75%'} m={'auto'} pt={'32px'} pb={'12px'}>
         <Heading textAlign={'center'} fontWeight={'700'} fontSize={'27px'} lineHeight={'40px'} mb={'6px'}>
           Việc làm tốt nhất
         </Heading>
-        <Box
-          h={'272px'}
-          maxW={'100%'}
-          py={'20px'}
-          // border={'1px'}
-          // borderColor={'blue'}
-        >
-          <Swiper
-            slidesPerView={4}
-            // spaceBetween={30}
-            navigation={true}
-            modules={[Navigation]}
-            className='mySwiper'>
+        <Box h={'272px'} maxW={'100%'} py={'20px'}>
+          <Swiper slidesPerView={4} navigation={true} modules={[Navigation]} className='mySwiper'>
             {jobList.map((i) => {
               return i.status === true ? (
                 <Box key={uuid()}>
@@ -66,43 +48,21 @@ const JobInterest = () => {
                         pr={'20px'}
                         py={'20px'}
                         mr={'16px'}>
-                        <Box
-                          w={'100%'}
-                          h={'72px'}
-                          // border={'1px'}
-                          // borderColor={'blue'}
-                          pr={'145px'}>
-                          <Image src={`${i.image}`} />
+                        <Box w={'100%'} h={'72px'} pr={'145px'}>
+                          <Image src={`${i.image}`} borderRadius={10} />
                         </Box>
                         <Text pt={'10px'} fontWeight={'600'} fontSize={'17px'} lineHeight={'23px'}>
                           {i.name}
                         </Text>
-                        <Flex
-                          direction={'row'}
-                          pt={'4px'}
-                          h={'18px'}
-                          w={'100%'}
-                          // border={'1px'}
-                          // borderColor={'green'}
-                        >
+                        <Flex direction={'row'} pt={'4px'} h={'18px'} w={'100%'}>
                           <Text fontSize={'15px'} pr={'7px'} lineHeight={'18px'}>
                             {i.salary}
                           </Text>
-                          <Image src='https://static.naukimg.com/s/7/0/assets/images/src/widgets/popular-jobs-wdgt/v5/resources/star-icon.c892ce05.svg' />
+                          {/* <Image src='https://static.naukimg.com/s/7/0/assets/images/src/widgets/popular-jobs-wdgt/v5/resources/star-icon.c892ce05.svg' />
                           <Text fontSize={'15px'} lineHeight={'18px'}>
-                            5.0
-                          </Text>
+                          </Text> */}
                         </Flex>
-                        <Box
-                          display={'flex'}
-                          alignItems={'center'}
-                          flexDirection={'row'}
-                          mt={'48px'}
-                          h={'18px'}
-                          w={'100%'}
-                          // border={'1px'}
-                          // borderColor={'green'}
-                        >
+                        <Box display={'flex'} alignItems={'center'} flexDirection={'row'} mt={'48px'} h={'18px'} w={'100%'}>
                           <Image mr={'4px'} src='https://static.naukimg.com/s/7/0/assets/images/src/widgets/popular-jobs-wdgt/v5/resources/location-icon.f29c9d1c.svg' />
                           <Text mr={'4px'} color={'#445578'} fontSize={'13px'} fontWeight={'400'} lineHeight={'18px'}>
                             {i.location}

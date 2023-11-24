@@ -13,6 +13,7 @@ import { loadRoom } from '../redux/Room/Action';
 import axios from "axios";
 import { toast, ToastContainer } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { hostName } from "../global";
 const RoomList = () => {
 
   const navigate = useNavigate();
@@ -30,7 +31,7 @@ const RoomList = () => {
       let config = {
         method: 'delete',
         maxBodyLength: Infinity,
-        url: `http://localhost:8080/job-posting/${id}`,
+        url: `${hostName}/job-posting/${id}`,
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${accessToken}`

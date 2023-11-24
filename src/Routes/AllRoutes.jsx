@@ -16,7 +16,9 @@ import UserInfo from "../Components/UserInfo/UserInfo";
 import { Events } from "../Components/Events/Event";
 import { EventDetailHome } from "../Components/Events/EventDetailHome";
 import { CurriculumVitae } from "../Components/CVBuild/CurriculumVitae";
-
+import ResetPassword from "../Components/ResetPassword/ResetPassword";
+import VerifyPassword from "../Components/ResetPassword/verify";
+import ChangePassword from "../Components/ResetPassword/ChangePassword";
 // import JobPosting from "../Components/Job-recruiter/Job-Posting";
 // import JobDetailRecruiter from "../Components/Job-recruiter/JobDetail";
 // import AllJob from  "../Components/Job-recruiter/AllJob";
@@ -28,7 +30,9 @@ const AllRoutes = () => {
       <Route path='/job-posting/' element={<JobPosting/>} /> */}
 
             <Route path="/userInfo/" element={<UserInfo />} />
-            <Route path="/verify/" element={<Verify />} />
+            <Route path="/verify/:email/" element={<Verify />} />
+            <Route path="/verifyResetPW/:email/" element={<VerifyPassword />} />
+            <Route path="/changePassword/:id/:otp/" element={<ChangePassword />} />
             <Route path="/jobDetail/:id" element={<JobDetail />} />
             <Route path="/logout" element={<Logout />} />
             {/* Don't Touch it Starts*/}
@@ -40,6 +44,7 @@ const AllRoutes = () => {
 
             <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
+            <Route path="/resetPassword" element={<ResetPassword />} />
             <Route path="/mainhome" element={<MainHomepage />} />
             <Route path="/jobpage" element={<JobPage />} />
             <Route path="/jobpage/:jobId" element={<JobDetail />} />

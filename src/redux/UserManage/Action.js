@@ -1,3 +1,4 @@
+import { hostName } from '../../global';
 import {
     USER_MANAGE_REQUERST,
     USER_MANAGE_SUCCESS,
@@ -17,7 +18,7 @@ export const loadUserManage=(id)=>async (dispatch)=>{
             let config = {
               method: 'get',
               maxBodyLength: Infinity,
-              url: "http://localhost:8080/user",
+              url: `${hostName}/user`,
               headers: { 
                 'Content-Type': 'application/json', 
                 'Authorization': `Bearer ${accessToken}`

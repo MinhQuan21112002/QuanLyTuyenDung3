@@ -1,5 +1,6 @@
 import axios, { AxiosError } from "axios";
-const API_URL = "http://localhost:8080"
+import { hostName } from "../global";
+const API_URL = hostName
 
 const getEvent = async () => {
     try {

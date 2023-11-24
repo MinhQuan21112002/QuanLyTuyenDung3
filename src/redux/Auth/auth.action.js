@@ -5,12 +5,13 @@ import {
   LOGIN_SUCCESS,
   LOGOUT,
 } from "./auth.types";
+import { hostName } from "../../global";
 
 export const login = (creds) => async (dispatch) => {
   
   dispatch({ type: LOGIN_LOADING });
   try {
-    let res = await axios.post("http://localhost:8080/auth/login", creds);
+    let res = await axios.post(`${hostName}/auth/login`, creds);
     dispatch({ type: LOGIN_SUCCESS, payload: res.data });
     console.log(res.data);
   } catch (e) {

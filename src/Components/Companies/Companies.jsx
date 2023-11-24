@@ -1,7 +1,6 @@
 import { Heading, HStack, SlideFade, VStack } from "@chakra-ui/react";
 import React from "react";
 import CompaniesContainer from "./CompaniesContainer";
-import FiltersContainer from "./FiltersContainer";
 
 const Companies = () => (
   <VStack backgroundColor={"#e9f3f5"}>

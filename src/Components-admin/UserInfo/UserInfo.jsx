@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 // import "react-toastify/dist/ReactToastify.css";
 import { useDispatch,useSelector } from "react-redux";
 import { loadUserInfo } from '../../redux/UserInfo/Action';
+import { hostName } from "../../global";
 const UserInfo = () => {
   const navigate = useNavigate();
 
@@ -80,7 +81,7 @@ const UserInfo = () => {
     let config = {
       method: 'put',
       maxBodyLength: Infinity,
-      url: `http://localhost:8080/user/password`,
+      url: `${hostName}/user/password`,
       headers: { 
         'Content-Type': 'application/json', 
         'Authorization': `Bearer ${accessToken}`
@@ -146,7 +147,7 @@ const UserInfo = () => {
         formDataAva.append("file", testAva)
         
         const imageResponseAva = await axios.post(
-            "http://localhost:8080/file/upload",
+            `${hostName}/file/upload`,
             formDataAva,
             {
                 headers: {
@@ -179,7 +180,7 @@ const UserInfo = () => {
       let config = {
         method: 'put',
         maxBodyLength: Infinity,
-        url: `http://localhost:8080/profile`,
+        url: `${hostName}/profile`,
         headers: { 
           'Content-Type': 'application/json', 
           'Authorization': `Bearer ${accessToken}`

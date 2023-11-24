@@ -7,7 +7,9 @@ import axios from "axios";
 import "./styleLogin.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { hostName } from "../../global";
+import { hostName, webHost } from "../../global";
+
+
 const Login = () => {
   const [passShow, setPassShow] = useState(false);
   const [email, setEmail] = useState("");
@@ -41,8 +43,8 @@ const Login = () => {
           },
         };
         setLoading(true);
-        
-        const { data} = await axios.post(
+
+        const { data } = await axios.post(
           `${hostName}/auth/login`,
           {
             email,
@@ -50,20 +52,41 @@ const Login = () => {
           },
           config
         );
-        
-        localStorage.setItem("data", JSON.stringify(data));
-        localStorage.setItem("avatar", JSON.stringify(data.data.userInfo.avatar));
-        console.log("user login succesfully done");
-        
-        if(JSON.parse(localStorage.getItem("data")).data!==null)
-        {toast.success("User Login Successfuly", {
-          position: "top-center",
-        });
-        window.location.replace('http://localhost:3000/');}
-        else{
-          toast.error("User Login Failed", {
+
+        console.log("data", data)
+
+        if (data.data !== null) {
+          toast.success("User Login Successfuly", {
             position: "top-center",
           });
+          localStorage.setItem("data", JSON.stringify(data));
+          localStorage.setItem("avatar", JSON.stringify(data.data.userInfo.avatar));
+          console.log("user login succesfully done");
+          window.location.replace(`${webHost}`);
+        }
+        else {
+          if (data.message === 'Your account is not activate!!!') {
+            toast.error(data.message, {
+              position: "top-center",
+            });
+            const { data1 } = await axios.post(
+              `${hostName}/auth/send-otp`,
+              {
+                email
+              },
+              config
+            );
+            setTimeout(() => {
+              navigate(`/verify/${email}`);
+            }, 2000);
+          }
+          else {
+            toast.error(data.message, {
+              position: "top-center",
+            });
+          }
+
+
         }
 
         setLoading(false);
@@ -83,23 +106,20 @@ const Login = () => {
       <div style={{ display: "flex" }}>
         <Box className="left_section" elevation={4}>
           <div style={{ marginLeft: "10px" }}>
-            <h2>New to Naukri?</h2>
+            <h2>Ưu điểm của Website</h2>
 
             <p>
-              <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} /> One
-              click apply using naukri profile.
+              <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} /> Tìm kiếm công việc dễ dàng
             </p>
             <p>
-              <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} /> Get
-              relevant job recommendations.
+              <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} /> Gợi ý công việc liên quan
             </p>
             <p>
               <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} />{" "}
-              Showcase profile to top companies and consultants.
+              Thông tin được gửi nhanh chóng cho bên tuyển dụng
             </p>
             <p>
-              <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} /> Know
-              application status on applied jobs.
+              <DoneIcon style={{ color: "#4a90e2", marginTop: "2%" }} />Dễ dàng tạo CV
             </p>
           </div>
           <div style={{ marginLeft: "0%", marginTop: "5%" }}>
@@ -150,28 +170,14 @@ const Login = () => {
                 </div>
               </div>
             </div>
-            <button className="btn" onClick={submitHandler}>
+            <button className="btn" style={{ marginTop: "20px" }} onClick={submitHandler}>
               Login
             </button>
-            <button className="btn1">Login With OTP </button>
-            <div>
-              <hr
-                style={{
-                  width: "120%",
-                  marginLeft: "-20px",
-                  marginTop: "30px",
-                }}
-              />
-              <button className="btn2 ">
-                {" "}
-                <img
-                  style={{ width: "5%", marginTop: "1%" }}
-                  src="https://www.freepnglogos.com/uploads/google-logo-png/google-logo-png-google-icon-logo-png-transparent-svg-vector-bie-supply-14.png"
-                  alt=""
-                />{" "}
-                Login With Google{" "}
-              </button>
-            </div>
+
+            <Link to={`/resetPassword`}>
+              <button className="btn1" style={{ marginTop: "20px" }}>Quên tài khoản </button>
+            </Link>
+
           </form>
           <ToastContainer />
         </div>

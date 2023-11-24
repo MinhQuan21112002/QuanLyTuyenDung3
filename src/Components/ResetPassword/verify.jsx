@@ -12,7 +12,7 @@ import { useNavigate } from "react-router-dom";
 import "./Both.css";
 import { hostName } from "../../global"
 import { useParams } from 'react-router-dom'
-const Verify = () => {
+const VerifyPassword = () => {
 
 
   const params=useParams()
@@ -43,7 +43,7 @@ const Verify = () => {
 
         const email = params.email
         const { data } = await axios.post(
-          `${hostName}/auth/verify`,
+          `${hostName}/recover/verify`,
           { email, otp },
           config
         );
@@ -52,9 +52,9 @@ const Verify = () => {
           toast.success(data.message, {
             position: "top-center",
           });
-          console.log(data)
+          console.log(data.data)
           setTimeout(() => {
-            navigate("/");
+            navigate(`/changePassword/${data.data.userId}/${otp}`);
           }, 2000);
         }
         else {
@@ -182,7 +182,7 @@ const Verify = () => {
                   onChange={(e) => setCodeVerify(e.target.value)}
                   name="verify"
                   id="verify"
-                  placeholder="Enter Your Name "
+                  placeholder="Enter Your OTP "
                 />
               </div>
 
@@ -198,4 +198,4 @@ const Verify = () => {
   );
 };
 
-export default Verify;
+export default VerifyPassword;

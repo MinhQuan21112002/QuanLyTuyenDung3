@@ -1,23 +1,11 @@
-import { StarIcon } from "@chakra-ui/icons";
 import {
-    Badge,
     Box,
-    Card,
-    CardBody,
-    Flex,
-    Heading,
-    HStack,
-    Image,
-    SlideFade,
-    Stack,
-    Text,
-    Wrap,
-    WrapItem,
+    Image
 } from "@chakra-ui/react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-const CompaniesCard = ({ id, name, avatar, website, address, phone, info }) => {
+const CompaniesCard = ({ id, name, avatar, info }) => {
     const navigate = useNavigate();
     return (
         <Box

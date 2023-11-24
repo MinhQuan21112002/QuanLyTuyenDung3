@@ -1,34 +1,43 @@
 import React, { useState } from "react";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import FormHelperText from "@mui/material/FormHelperText";
-import CoPresentIcon from "@mui/icons-material/CoPresent";
-import BadgeIcon from "@mui/icons-material/Badge";
-import { Checkbox } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import "./Both.css";
 import { hostName } from "../../global"
 import { useParams } from 'react-router-dom'
-const Verify = () => {
+const ChangePassword = () => {
 
 
-  const params=useParams()
-  const [passShow, setPassShow] = useState(false);
-  const [cpassShow, setCPassShow] = useState(false);
+  const params = useParams()
   const navigate = useNavigate();
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
   // =============================================================================================================
 
-  const [otp, setCodeVerify] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, SetConfirmPassword] = useState("");
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (otp === "") {
-      toast.warning("codeVerify is required!", {
+    if (password === "") {
+      toast.warning("Password is required!", {
+        position: "top-center",
+      });
+    }
+    else if (password.length < 8) {
+      toast.warning("password must be 8 char!", {
+        position: "top-center",
+      });
+    }
+    else if (confirmPassword === "") {
+      toast.warning("Comfirm Password is required!", {
+        position: "top-center",
+      });
+    }
+    else if (confirmPassword !== password) {
+      toast.warning("Comfirm Password must be same with Password", {
         position: "top-center",
       });
     }
@@ -41,21 +50,23 @@ const Verify = () => {
         };
         setLoading(true);
 
-        const email = params.email
-        const { data } = await axios.post(
-          `${hostName}/auth/verify`,
-          { email, otp },
+        console.log("password",password)
+        console.log("comfirm password",confirmPassword)
+        const { data } = await axios.put(
+          `${hostName}/recover/password?uid=${params.id}&o=${params.otp}`,
+          { password,confirmPassword},
           config
         );
 
-        if (data.data !== null) {
-          toast.success(data.message, {
+        if (data.message === "Success !") {
+          toast.success("Đổi mật khẩu mới thành công", {
             position: "top-center",
           });
-          console.log(data)
+          console.log(data.data)
           setTimeout(() => {
-            navigate("/");
+            navigate("/login");
           }, 2000);
+
         }
         else {
           toast.error(data.message, {
@@ -176,13 +187,24 @@ const Verify = () => {
             </div>
             <form>
               <div className="form_input_name">
-                <label htmlFor="name">Please Enter verify code</label>
+                <label htmlFor="name">Please Enter new Password</label>
                 <input
                   type="verify"
-                  onChange={(e) => setCodeVerify(e.target.value)}
+                  onChange={(e) => setPassword(e.target.value)}
                   name="verify"
                   id="verify"
-                  placeholder="Enter Your Name "
+                  placeholder="Enter Your new Password "
+                />
+              </div>
+
+              <div className="form_input_name">
+                <label htmlFor="name">Please comfirm new Password</label>
+                <input
+                  type="verify"
+                  onChange={(e) => SetConfirmPassword(e.target.value)}
+                  name="verify"
+                  id="verify"
+                  placeholder="Enter Your new Password again "
                 />
               </div>
 
@@ -198,4 +220,4 @@ const Verify = () => {
   );
 };
 
-export default Verify;
+export default ChangePassword;

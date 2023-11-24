@@ -14,6 +14,7 @@ import { Text} from "@chakra-ui/react";
 import { loadRoom } from '../../redux/Room/Action';
 import { loadJobDetail } from '../../redux/JobDetail/Action';
 import { loadInterviewer } from '../../redux/Interviewer/Action';
+import { hostName, webHost } from "../../global";
 const RoomAddCandidate = () => {
 
 
@@ -88,7 +89,7 @@ const RoomAddCandidate = () => {
       let config = {
         method: 'put',
         maxBodyLength: Infinity,
-        url: "http://localhost:8080/interview",
+        url: `${hostName}/interview`,
         headers: { 
           'Content-Type': 'application/json', 
           'Authorization': `Bearer ${accessToken}`
@@ -110,7 +111,7 @@ const RoomAddCandidate = () => {
       toast.success("Update Room Successfuly", {
         position: "top-center",
       });
-      window.location.replace(`http://localhost:3000/roomList`);
+      window.location.replace(`${webHost}/roomList`);
     } catch (error) {
      
     }
@@ -134,7 +135,7 @@ const RoomAddCandidate = () => {
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: `http://localhost:8080/interview/candidateAssign`,
+          url: `${hostName}/interview/candidateAssign`,
           headers: { 
             'Content-Type': 'application/json', 
             'Authorization': `Bearer ${accessToken}`
@@ -156,7 +157,7 @@ const RoomAddCandidate = () => {
         toast.success("Upload Candidate Successfuly", {
           position: "top-center",
         });
-        window.location.replace(`http://localhost:3000/roomList`);
+        window.location.replace(`${webHost}/roomList`);
       } catch (error) {
        
       }
@@ -179,7 +180,7 @@ const RoomAddCandidate = () => {
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: `http://localhost:8080/interview/interviewerAssign`,
+          url: `${hostName}/interview/interviewerAssign`,
           headers: { 
             'Content-Type': 'application/json', 
             'Authorization': `Bearer ${accessToken}`
@@ -201,7 +202,7 @@ const RoomAddCandidate = () => {
         toast.success("Upload Interviewer Successfuly", {
           position: "top-center",
         });
-        window.location.replace(`http://localhost:3000/roomList`);
+        window.location.replace(`${webHost}/roomList`);
       } catch (error) {
        
       }

@@ -3,11 +3,11 @@ import React, { useState } from "react"
 import { useEffect } from "react"
 import {useParams} from "react-router-dom"
 import { loadJobDetail } from '../../redux/JobDetail/Action';
-
   import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
+import { hostName } from "../../global";
 
 function JobDetailRecruiter() {
     const params = useParams()
@@ -50,7 +50,7 @@ function JobDetailRecruiter() {
       formData.append("file", testImage)
 
       const imageResponse = await axios.post(
-          "http://localhost:8080/file/upload",
+          `${hostName}/file/upload`,
           formData,
           {
               headers: {
@@ -85,7 +85,7 @@ function JobDetailRecruiter() {
       let config = {
         method: 'put',
         maxBodyLength: Infinity,
-        url: `http://localhost:8080/job-posting/${params.id}`,
+        url: `${hostName}/job-posting/${params.id}`,
         headers: { 
           'Content-Type': 'application/json', 
           'Authorization': `Bearer ${accessToken}`

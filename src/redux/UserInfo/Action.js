@@ -1,3 +1,4 @@
+import { hostName } from '../../global';
 import {
     USER_INFO_REQUERST,
     USER_INFO_SUCCESS,
@@ -18,7 +19,7 @@ export const loadUserInfo=(id)=>async (dispatch)=>{
             let config = {
               method: 'get',
               maxBodyLength: Infinity,
-              url: "http://localhost:8080/profile",
+              url: `${hostName}/profile`,
               headers: { 
                 'Content-Type': 'application/json', 
                 'Authorization': `Bearer ${accessToken}`

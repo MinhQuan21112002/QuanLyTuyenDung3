@@ -1,16 +1,11 @@
 import React, { useState } from "react";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-import FormHelperText from "@mui/material/FormHelperText";
-import CoPresentIcon from "@mui/icons-material/CoPresent";
-import BadgeIcon from "@mui/icons-material/Badge";
-import { Checkbox } from "@mui/material";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
-import Form from "react-bootstrap/Form";
 import { useNavigate } from "react-router-dom";
 import "./Both.css";
-
+import { hostName, webHost } from "../../global";
 const Signup = () => {
   const [passShow, setPassShow] = useState(false);
   const [cpassShow, setCPassShow] = useState(false);
@@ -72,31 +67,14 @@ const Signup = () => {
         setLoading(true);
 
         const { data } = await axios.post(
-          "http://localhost:8080/auth/register",
+          `${hostName}/auth/register`,
           { username, email, password },
           config
         );
         console.log(data);
-        if(data.data===null)
-        toast.error(data.message, {
-          position: "top-center",
-        });
-        else{
-          const { verify } = await axios.post(
-            "http://localhost:8080/auth/send-otp",
-            { email },
-            config
-          );
-          localStorage.setItem("userInfo", JSON.stringify(data));
-          toast.success(data.message, {
-            position: "top-center",
-          });
-          setTimeout(() => {
-            navigate("/verify");
-       }, 2000);
-         
-        }
-        setLoading(false);
+        setTimeout(() => {
+          navigate(`/verify/${email}`);
+     }, 2000);
       } catch (error) {
         setError(error.response.data.message);
         const FError = error.response.data.message;
@@ -113,7 +91,7 @@ const Signup = () => {
     <>
       <session>
         <div className="main">
-          <div className="left_session">
+          <div className="left_sessionSingUp">
             <div
               style={{
                 marginTop: "1px",
@@ -193,7 +171,7 @@ const Signup = () => {
               </div>
             </div>
           </div>
-          <div className="form_data1">
+          <div className="form_data3" >
             <div className="form_heading">
               <h2
                 style={{

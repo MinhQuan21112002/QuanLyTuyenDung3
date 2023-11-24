@@ -1,3 +1,4 @@
+import { hostName } from '../../global';
 import {
     JOB_REQUERST,
     JOB_SUCCESS,
@@ -11,7 +12,7 @@ export const loadJob=()=>async (dispatch)=>{
     dispatch({type:JOB_REQUERST});
        
         try {
-            let response = await axios.get("http://localhost:8080/job-posting");
+            let response = await axios.get(`${hostName}/job-posting`);
             console.log("in the logi func try",response.data.data);
             dispatch({type:JOB_SUCCESS,payload : response.data.data});
       

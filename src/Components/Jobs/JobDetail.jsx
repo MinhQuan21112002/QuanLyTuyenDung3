@@ -1,16 +1,14 @@
 import { Alert, AlertIcon, Box, Button, Image, Text, useDisclosure, SimpleGrid, Badge } from '@chakra-ui/react'
-import React, { useState } from 'react'
+import React from 'react'
 import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { BsBag, BsFillStarFill } from 'react-icons/bs'
 import { CiLocationOn } from 'react-icons/ci'
 import { loadJobDetail } from '../../redux/JobDetail/Action'
-import { AlertTitle, AlertDescription } from '@chakra-ui/react'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay } from '@chakra-ui/react'
-
 import { ToastContainer, toast } from 'react-toastify'
+import { hostName, webHost } from "../../global";
 
 function JobDetail() {
   const accessToken = JSON.parse(localStorage.getItem('data')) !== null ? JSON.parse(localStorage.getItem('data')).access_token : null
@@ -18,13 +16,12 @@ function JobDetail() {
     console.log(e.target.value)
     const jobId = e.target.value
     try {
-      const { Data } = await axios.post('http://localhost:8080/apply-job', jobId, {
+      const { Data } = await axios.post(`${hostName}/apply-job`, jobId, {
         headers: {
           Authorization: `Bearer ${accessToken}`,
           'Content-Type': 'application/json',
         },
       })
-      console.log('user login succesfully done')
 
       toast.success('Apply Job Successfully', {
         position: 'top-center',
@@ -36,9 +33,6 @@ function JobDetail() {
     }
   }
   const params = useParams()
-  const { isOpen, onOpen, onClose } = useDisclosure()
-  const cancelRef = React.useRef()
-
   const dispatch = useDispatch()
 
   useEffect(() => {

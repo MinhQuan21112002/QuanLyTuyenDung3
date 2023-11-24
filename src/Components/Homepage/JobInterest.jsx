@@ -18,6 +18,7 @@ const JobInterest = () => {
 
   const jobList = useSelector((store) => store.job.data)
   console.log('job list', jobList)
+  if(jobList!==null)
   return (
     <>
       <Container h={'356px'} maxW={'75%'} m={'auto'} pt={'32px'} pb={'12px'}>

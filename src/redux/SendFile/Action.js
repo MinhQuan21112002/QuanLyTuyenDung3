@@ -18,7 +18,7 @@ export const sendFile=(file)=>async (dispatch)=>{
               let config = {
                 method: 'post',
                 maxBodyLength: Infinity,
-                url: "http://localhost:8080/file/uploadw",
+                url: `${hostName}/file/uploadw`,
                 headers: { 
                   'Content-Type': 'application/json', 
                   'Authorization': `Bearer ${accessToken}`

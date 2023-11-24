@@ -1,35 +1,22 @@
-import { Box, Flex, Text, Badge, Image, SimpleGrid } from '@chakra-ui/react'
-import { StarIcon } from '@chakra-ui/icons'
+import { Box ,Badge, Image, SimpleGrid } from '@chakra-ui/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { BsBag } from 'react-icons/bs'
-import { CiLocationOn } from 'react-icons/ci'
-import { BsFillStarFill } from 'react-icons/bs'
-
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { loadJob } from '../../redux/Job-posting/Action'
-import jobData from './jobData'
+
 
 const JobPage = () => {
-  const property = {
-    imageUrl: 'https://bit.ly/2Z4KKcF',
-    imageAlt: 'Rear view of modern home with pool',
-    beds: 3,
-    baths: 2,
-    title: 'Modern home in city center in the heart of historic Los Angeles',
-    formattedPrice: '$1,900.00',
-    reviewCount: 34,
-    rating: 4,
-  }
-
+ 
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(loadJob())
   }, [])
 
+  
   const jobList = useSelector((store) => store.job.data)
-  const jobdatas = jobList.map((job) => {
+  console.log("list",jobList)
+  const jobdatas = jobList!==null?jobList.map((job) => {
     return job.status === true ? (
       <Link to={`/jobDetail/${job.id}`}>
         <Box maxHeight='140px' display='flex' alignContent='center' maxW='100%' w='100%' borderWidth='1px' borderRadius='lg' overflow='hidden'>
@@ -54,12 +41,14 @@ const JobPage = () => {
       <></>
     )
   })
+  :
+  <></>
 
   return (
     <>
       <h1></h1>
       <Box ml='10' mt='120px' fontWeight='bold' width='60%' fontSize='20px'>
-        {jobData.length} Jobs Based on your interest
+        {jobdatas.length} Jobs Based on your interest
       </Box>
       <Box display='flex' justifyContent='space-between'>
         <SimpleGrid w='100%' top='50' left='50' ml='10' mt='50px' mr='10' columns={3} spacing={'10'}>

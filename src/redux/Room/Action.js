@@ -23,7 +23,7 @@ export const loadRoom=()=>async (dispatch)=>{
               let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: "http://localhost:8080/interview",
+                url: `${hostName}/interview`,
                 headers: { 
                   'Content-Type': 'application/json', 
                   'Authorization': `Bearer ${accessToken}`

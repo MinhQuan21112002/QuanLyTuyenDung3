@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
-import { useParams, useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import {
-    Avatar,
     Box,
     Center,
     Flex,
@@ -12,27 +10,17 @@ import {
     IconButton,
     Image,
     Link,
-    ListItem,
-    OrderedList,
-    SimpleGrid,
-    Slide,
     SlideFade,
     Spinner,
-    Stack,
     Text,
-    VStack,
-    Wrap,
-    WrapItem,
+    VStack
 } from "@chakra-ui/react";
 import {
     EmailIcon,
     InfoOutlineIcon,
-    LinkIcon,
-    SearchIcon,
-    StarIcon,
+    SearchIcon
 } from "@chakra-ui/icons";
 import { companyService } from "../../Service/company.service";
-import { blue } from "@mui/material/colors";
 import { ItemJobInCompany } from "./ItemJobInCompany";
 
 const CompanyProfile = () => {

@@ -10,6 +10,7 @@ import { loadJob } from '../../redux/Job-posting/Action';
 import axios from "axios";
 import { toast , ToastContainer} from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { hostName, webHost } from "../../global";
 const AllJob = () => {
   
   const navigate = useNavigate();
@@ -27,7 +28,7 @@ const AllJob = () => {
       let config = {
         method: 'delete',
         maxBodyLength: Infinity,
-        url: `http://localhost:8080/job-posting/${id}`,
+        url: `${hostName}/job-posting/${id}`,
         headers: { 
           'Content-Type': 'application/json', 
           'Authorization': `Bearer ${accessToken}`

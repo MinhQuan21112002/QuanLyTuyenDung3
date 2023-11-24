@@ -1,3 +1,4 @@
+import { hostName } from '../../global';
 import {
     INTERVIEWER_REQUERST,
     INTERVIEWER_SUCCESS,
@@ -18,7 +19,7 @@ export const loadInterviewer=()=>async (dispatch)=>{
               let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: "http://localhost:8080/interview/interviewers",
+                url: `${hostName}/interview/interviewers`,
                 headers: { 
                   'Content-Type': 'application/json', 
                   'Authorization': `Bearer ${accessToken}`

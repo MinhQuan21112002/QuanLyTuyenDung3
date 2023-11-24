@@ -12,6 +12,7 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
+import { hostName } from "../../global";
 
 const RoomAdd = () => {
 
@@ -90,7 +91,7 @@ const RoomAdd = () => {
         let config = {
           method: 'post',
           maxBodyLength: Infinity,
-          url: `http://localhost:8080/interview/create-interview`,
+          url: `${hostName}/interview/create-interview`,
           headers: { 
             'Content-Type': 'application/json', 
             'Authorization': `Bearer ${accessToken}`

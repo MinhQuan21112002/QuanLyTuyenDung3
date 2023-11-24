@@ -17,18 +17,12 @@ const HomePage = () => {
   }
   return (
     <Box>
-      <Container
-        mb={'28px'}
-        h={'80px'}
-        maxW={'100%'}
-        // border={'1px'}
-        // borderColor={'black'}
-      >
+      <Container mb={'28px'} h={'80px'} maxW={'100%'}>
         <Heading color={'#5bc8de'} textAlign={'center'} fontWeight={'700'} fontSize={'35px'} lineHeight={'50px'} mb={'6px'} mt={'104px'}>
-          Tìm việc làm nhanh 24h, việc làm mới nhất trên toàn quốc
+          Tìm việc làm nhanh 24h, việc làm mới nhất
         </Heading>
         <Text textAlign={'center'} fontWeight={'400'} fontSize={'17px'} lineHeight={'24px'} color={'#8292b4'}>
-          Tiếp cận 40,000+ tin tuyển dụng việc làm mỗi ngày từ hàng nghìn doanh nghiệp uy tín tại Việt Nam
+          Tiếp cận 40 tin tuyển dụng việc làm mỗi ngày từ  nghiệp uy tín tại Việt Nam
         </Text>
       </Container>
       <Container h={'70px'} maxW={'100%'}>
@@ -55,7 +49,7 @@ const HomePage = () => {
               <option value='option2'>3 năm</option>
               <option value='option2'>4 năm</option>
               <option value='option2'>5 năm</option>
-              <option value='option2'>trên 5 năm</option>    
+              <option value='option2'>trên 5 năm</option>
             </Select>
           </Box>
           <Box w={'223px'} h={'100%'} pr={'0px'} pt={'4px'} pl={'10px'} pb={'6px'}>

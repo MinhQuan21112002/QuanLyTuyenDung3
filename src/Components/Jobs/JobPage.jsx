@@ -1,4 +1,4 @@
-import { Box ,Badge, Image, SimpleGrid } from '@chakra-ui/react'
+import { Box, Badge, Image, SimpleGrid, Center, Spinner } from '@chakra-ui/react'
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
@@ -7,16 +7,16 @@ import { loadJob } from '../../redux/Job-posting/Action'
 
 
 const JobPage = () => {
- 
+
   const dispatch = useDispatch()
   useEffect(() => {
     dispatch(loadJob())
   }, [])
 
-  
+
   const jobList = useSelector((store) => store.job.data)
-  console.log("list",jobList)
-  const jobdatas = jobList!==null?jobList.map((job) => {
+  console.log("list", jobList)
+  const jobdatas = jobList !== null ? jobList.map((job) => {
     return job.status === true ? (
       <Link to={`/jobDetail/${job.id}`}>
         <Box maxHeight='140px' display='flex' alignContent='center' maxW='100%' w='100%' borderWidth='1px' borderRadius='lg' overflow='hidden'>
@@ -41,8 +41,11 @@ const JobPage = () => {
       <></>
     )
   })
-  :
-  <></>
+    : (
+      <Center direction="row" spacing={4} w={"80vw"} h={"20vw"}>
+        <Spinner color="blue.500" size="xl" />
+      </Center>
+    )
 
   return (
     <>

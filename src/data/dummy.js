@@ -31,6 +31,7 @@ import { loadInterviewer } from '../redux/Interviewer/Action';
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { hostName, webHost } from '../global';
 export const gridOrderImage = (props) => (
   <div>
     <img
@@ -154,7 +155,6 @@ const customerGridStatus = (props) => (
 );
 const ButtonAddBlackList = (props) => {
   const accessToken = JSON.parse(localStorage.getItem("data"))!==null?JSON.parse(localStorage.getItem("data")).access_token:null;
-  const navigate = useNavigate();
   const HandleOnClick=(e)=>{
     console.log("ga qua",e.target.value);
 
@@ -167,7 +167,7 @@ const ButtonAddBlackList = (props) => {
     let config = {
       method: 'post',
       maxBodyLength: Infinity,
-      url: 'http://localhost:8080/blacklist',
+      url: `${hostName}/blacklist`,
       headers: { 
         'Content-Type': 'application/json', 
         'Authorization': `Bearer ${accessToken}`
@@ -188,13 +188,53 @@ const ButtonAddBlackList = (props) => {
     // toast.success("Add BList Successfully", {
     //   position: "top-center",
     // });
-    window.location.replace('http://localhost:3000/reccer');
+    window.location.replace(`${webHost}/reccer`);
   }
+  const HandleOnClickDelteBList=(e)=>{
+    console.log("ga qua",e.target.value);
+
+    let data =JSON.stringify({
+
+      "userId": e.target.value,
+      "description": "string"
+      
+    });
+    let config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: `${hostName}/blacklist/remove/${props.id}`,
+      headers: { 
+        'Content-Type': 'application/json', 
+        'Authorization': `Bearer ${accessToken}`
+      },
+      data:data
+    };
+    
+    axios.request(config)
+    .then((response) => {
+    })
+    .catch((error) => {
+      console.log(error);
+      // toast.error("Add BList Failed", {
+      //   position: "top-center",
+      // });
+    });
+
+    window.location.replace(`${webHost}/reccer`);
+  }
+  if(props.status==="INPROCESS")
   return(
-   <Button value={props.id} onClick={HandleOnClick}>
+   <Button bgColor={'#8BE78B'} w="100%" value={props.id} onClick={HandleOnClick}>
    Add BList
   </Button>
   )
+  else{
+    return(
+      <Button bgColor={'#FF0000'} w="100%"  value={props.id} onClick={HandleOnClickDelteBList}>
+      Delete BList
+     </Button>
+    )
+  }
   };
 export const areaPrimaryXAxis = {
   valueType: 'DateTime',
@@ -470,7 +510,7 @@ export const customersGrid = [
     textAlign: 'Center' }
   ,{
     field: 'button',
-    headerText: 'Thêm bào BList',
+    headerText: 'Thêm vào BList',
     width: '100',
     format: 'C2',
     textAlign: 'Center' ,

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Header } from '../../Components-admin'
-import { Box, IconButton, List, ListIcon, ListItem, Text } from '@chakra-ui/react'
+import { Box, IconButton, List, ListIcon, ListItem, Skeleton, Text, VStack } from '@chakra-ui/react'
 import { MdCheckCircle, MdSettings } from 'react-icons/md'
 import { questionService } from '../../Service/question.service'
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns'
@@ -100,7 +100,36 @@ export const Question = () => {
       </div>
     )
   }
-  return (
+
+  if (allQuestions.length===0) {
+    return (
+      <Box backgroundColor={'#e9f3f5'} p={30} overflow='hidden'>
+        <VStack spacing={10}>
+          <Skeleton w={'70%'}>
+            <div>contents wrapped</div>
+            <div>won't be visible</div>
+          </Skeleton>
+          <Skeleton h={300} w={'70%'}>
+            <div>contents wrapped</div>
+            <div>won't be visible</div>
+          </Skeleton>
+          <Skeleton w={'70%'}>
+            <div>contents wrapped</div>
+            <div>won't be visible</div>
+          </Skeleton>
+          <Skeleton h={300} w={'70%'}>
+            <div>contents wrapped</div>
+            <div>won't be visible</div>
+          </Skeleton>
+          <Skeleton w={'70%'}>
+            <div>contents wrapped</div>
+            <div>won't be visible</div>
+          </Skeleton>
+        </VStack>
+      </Box>
+    )
+  }
+  else return (
     <>
       <div className='m-4 md:m-10 mt-24 p-10 bg-white dark:bg-secondary-dark-bg rounded-3xl'>
         <Header category='App' title='Question' />

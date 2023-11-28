@@ -700,7 +700,7 @@ export const reccerLink = [
       },
       {
         title:'Đội ngũ tuyển dụng',
-        name: 'interviewers',
+        name: 'manage-interviewer',
         icon: <AiOutlineTeam />
       },
       {
@@ -734,12 +734,12 @@ export const interviewerLink = [
       {
         title:"Phỏng vấn",
         name: 'interviewer-list-room',
-        icon: <FiBookOpen />,
+        icon: <BiVideo />,
       },
       {
         title:"Lịch trình của tôi",
         name: 'calendar-admin',
-        icon: <FiBookOpen />,
+        icon: <BiCalendarCheck />,
       },
     ],
   },

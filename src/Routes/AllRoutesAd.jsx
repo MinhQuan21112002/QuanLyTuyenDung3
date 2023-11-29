@@ -6,17 +6,10 @@ import {
     Orders,
     Calendar,
     Interviewer,
-    Stacked,
-    Pyramid,
     Customers,
     Kanban,
     Line,
-    Area,
-    Bar,
-    Pie,
-    Financial,
     ColorPicker,
-    ColorMapping,
     Editor,
     RoomList
   } from "../pages-admin";
@@ -61,7 +54,7 @@ const AllRoutesAd = () => {
 
 
 
-        <Route path="/ecommerce" element={<Ecommerce />} />
+        <Route path="/interviews" element={<Interview />} />
         <Route path="/roomAdd" element={<RoomAdd/>} />
         <Route path="/roomList" element={<RoomList />} />
         <Route path="/roomListInterviewer" element={<RoomListInterviewer />} />
@@ -78,16 +71,6 @@ const AllRoutesAd = () => {
         <Route path="/editor" element={<Editor />} />
         <Route path="/calendar" element={<Calendar />} />
         <Route path="/color-picker" element={<ColorPicker />} />
-
-        {/* charts  */}
-        <Route path="/line" element={<Line />} />
-        <Route path="/area" element={<Area />} />
-        <Route path="/bar" element={<Bar />} />
-        <Route path="/pie" element={<Pie />} />
-        <Route path="/financial" element={<Financial />} />
-        <Route path="/color-mapping" element={<ColorMapping />} />
-        <Route path="/pyramid" element={<Pyramid />} />
-        <Route path="/stacked" element={<Stacked />} />
 
         {/* khanh */}
         <Route path="/event" element={<K_Event />} />

@@ -704,7 +704,7 @@ export const reccerLink = [
         icon: <AiOutlineTeam />
       },
       {
-        name: 'ecommerce',
+        name: 'interviews',
         title: 'Phòng phỏng vấn',
         icon: <BiVideo />,
       },

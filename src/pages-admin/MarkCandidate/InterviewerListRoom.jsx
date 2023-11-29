@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { MdOutlineSupervisorAccount } from 'react-icons/md'
 import { useNavigate } from 'react-router-dom'
 import { interviewService } from '../../Service/interview.service'
-import { Pie } from '../../Components-admin'
+
 
 export default function InterviewerListRoom() {
   const navigate = useNavigate()
@@ -82,7 +82,7 @@ export default function InterviewerListRoom() {
                 <Text fontFamily={''} fontWeight={'black'}>
                   10 Buổi phỏng vấn
                 </Text>
-                <Pie id='pie-chart' data={ecomPieChartData} legendVisiblity={false} height='160px' />
+                {/* <Pie id='pie-chart' data={ecomPieChartData} legendVisiblity={false} height='160px' /> */}
               </Box>
               <Box p={5} borderRadius='lg' backgroundColor={'#FFFFFF'} w={'33%'} h={'190px'}>
                 <Text fontWeight={'black'}>30 ứng viên</Text>

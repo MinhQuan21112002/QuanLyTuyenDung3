@@ -699,12 +699,17 @@ export const reccerLink = [
         icon: <BiBriefcase />,
       },
       {
+        title:'Post tuyển dụng',
+        name: 'allJob_Recruiter',
+        icon: <BiBriefcase />,
+      },
+      {
         title:'Đội ngũ tuyển dụng',
         name: 'manage-interviewer',
         icon: <AiOutlineTeam />
       },
       {
-        name: 'ecommerce',
+        name: 'roomList',
         title: 'Phòng phỏng vấn',
         icon: <BiVideo />,
       },

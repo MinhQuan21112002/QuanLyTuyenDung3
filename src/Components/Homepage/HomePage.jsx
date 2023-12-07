@@ -18,7 +18,7 @@ const HomePage = () => {
   return (
     <Box>
       <Container mb={'28px'} h={'80px'} maxW={'100%'}>
-        <Heading color={'#5bc8de'} textAlign={'center'} fontWeight={'700'} fontSize={'35px'} lineHeight={'50px'} mb={'6px'} mt={'104px'}>
+        <Heading textAlign={'center'} fontWeight={'700'} fontSize={'35px'} lineHeight={'50px'} mb={'6px'} mt={'104px'}>
           Tìm việc làm nhanh 24h, việc làm mới nhất
         </Heading>
         <Text textAlign={'center'} fontWeight={'400'} fontSize={'17px'} lineHeight={'24px'} color={'#8292b4'}>
@@ -71,10 +71,12 @@ const HomePage = () => {
       </Container>
       <JobInterest />
       <JobButton />
-      <JobSlider />
       <FeatureCompony />
-      <DiscoverJob />
-      <JobOption />
+
+      {/* event */}
+      <JobSlider />
+      {/* <DiscoverJob />
+      <JobOption /> */}
     </Box>
   )
 }

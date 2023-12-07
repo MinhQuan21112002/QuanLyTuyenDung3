@@ -23,7 +23,7 @@ const JobInterest = () => {
     <>
       <Container h={'356px'} maxW={'75%'} m={'auto'} pt={'32px'} pb={'12px'}>
         <Heading textAlign={'center'} fontWeight={'700'} fontSize={'27px'} lineHeight={'40px'} mb={'6px'}>
-          Việc làm tốt nhất
+          Việc làm mới nhất
         </Heading>
         <Box h={'272px'} maxW={'100%'} py={'20px'}>
           <Swiper slidesPerView={4} navigation={true} modules={[Navigation]} className='mySwiper'>

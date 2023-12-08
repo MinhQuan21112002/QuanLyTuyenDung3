@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Container, Flex, Heading, Image, Text } from '@chakra-ui/react'
+import { Box, Center, Container, Flex, Heading, Image, Spinner, Text } from '@chakra-ui/react'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
@@ -27,7 +27,8 @@ const JobInterest = () => {
         </Heading>
         <Box h={'272px'} maxW={'100%'} py={'20px'}>
           <Swiper slidesPerView={4} navigation={true} modules={[Navigation]} className='mySwiper'>
-            {jobList.map((i) => {
+            {jobList!==null?jobList.map((i) => 
+            {
               return i.status === true ? (
                 <Box key={uuid()}>
                   <SwiperSlide>
@@ -80,7 +81,14 @@ const JobInterest = () => {
               ) : (
                 <div></div>
               )
-            })}
+            }):
+            ( 
+              <Center direction="row" spacing={4} w={"80vw"} h={"20vw"}>
+                <Spinner color="blue.500" size="xl" />
+              </Center>
+            
+            )
+            }
           </Swiper>
         </Box>
       </Container>

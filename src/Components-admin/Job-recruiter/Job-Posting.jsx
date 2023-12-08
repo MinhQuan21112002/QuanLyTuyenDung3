@@ -18,17 +18,21 @@ import { hostName } from '../../global.js'
 const JobPosting = () => {
   const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(loadJob())
-  }, [])
 
-  const data = useSelector((store) => store.job.data)
+    // getData(typeOfProduct).then((res) => setProductArr(res));
+    dispatch(loadJob());
+  }, []);
+  
+  const data = useSelector((store) => store.job.data);
+  if(data!==null)
+  {
   console.log(data.length)
-  const jobList = data.slice(data.length - 3, data.length)
-  const [passShow, setPassShow] = useState(false)
-  const [cpassShow, setCPassShow] = useState(false)
-  const navigate = useNavigate()
+  }
+  const jobList=data!==null?data.slice(data.length-3,data.length):[];
+  const [passShow, setPassShow] = useState(false);
+  const [cpassShow, setCPassShow] = useState(false);
+  const navigate = useNavigate();
 
-  // =============================================================================================================
 
   const accessToken = JSON.parse(localStorage.getItem('data')).access_token
   const [name, setName] = useState('')
@@ -180,14 +184,61 @@ const JobPosting = () => {
   return (
     <>
       <session>
-        <div className='main'>
-          <div className='form_data1'>
-            <div className='form_heading'>
+
+        <div className="main2">
+          <div className="left_session4">
+            <div
+            >
+              
+               <h2
+                style={{
+                  color: "#000000",
+                  fontSize: "30px",
+                  marginLeft:"15px",
+                  marginRight:"25px",
+                  backgroundImage: "linear-gradient(to left, #553c9a, #b393d3)",
+                  padding:"10px",
+                  borderRadius:'10px'
+                }}
+              >Công việc gần đây </h2>
+              <Box ml='10' width='60%'>
+              
+             
+                {jobList.map((i) => 
+                 {return i.status===true?
+                       
+                  <Box key={uuid()}>
+                    <Link to={`/jobDetail_Recruiter/${i.id}`}>
+                      <Box key={i.id} mt='50px'ml='10px'  p='20px'borderRadius="5%" boxShadow= 'teal 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px'  mb='30px' >
+                      <Badge  borderRadius='full' fontSize="13px" p="4"colorScheme='teal' mb="20px"> {i.name} </Badge>
+                      <Image boxShadow= 'teal 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px' src={i.image} />
+                      </Box> 
+                    </Link>
+                  </Box>
+                  :<div></div>
+                 })}
+
+              <button className="btn4" style={{marginLeft:'5px'}}>
+              <Link to={`/allJob_Recruiter`}>
+               Xem thêm
+               </Link>
+              </button>
+              </Box>
+             </div>
+          </div>
+          
+          <div className="form_data6" >
+            <div className="form_heading">
               <h2
                 style={{
-                  color: '#000000',
-                  fontSize: '30px',
-                }}>
+                  color: "#000000",
+                  fontSize: "30px",
+                  backgroundImage: "linear-gradient(to left, #553c9a, #b393d3)",
+                  padding:"10px",
+                  borderRadius:'10px'
+                }}
+              >
+
                 Đăng tin tuyển dụng
               </h2>
             </div>

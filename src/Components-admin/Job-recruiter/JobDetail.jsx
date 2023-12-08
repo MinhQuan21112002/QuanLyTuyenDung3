@@ -115,19 +115,19 @@ function JobDetailRecruiter() {
     return (
         <Box >
             <Box display='flex' justifyContent='space-evenly'>
-                <Box w='850px' >
+                <Box w='950px'>
               
-            <Box mt='30px' ml='50px'  p='20px' boxShadow= 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em' color='RGBA(0, 0, 0, 0.76)' backgroundColor="rgb(3, 201, 215)">
-            <Text fontSize="30px" fontWeight='bold'>Thông tin chỉ tiết công việc</Text>
+            <Box mt='30px'    p='20px' pr="0"  backgroundColor="rgb(3, 201, 215)"boxShadow= 'rgba(67, 71, 85, 0.27) 0px 0px 0.25em, rgba(90, 125, 188, 0.05) 0px 0.25em 1em' color='RGBA(0, 0, 0, 0.76)' >
+            <Text fontSize="30px"ml="15%" fontWeight='bold'>Thông tin chỉ tiết công việc</Text>
             <Text width='60%' lineHeight='30px'>{data.dis}</Text>
 
-            <Box mt="30px">
+            <Box mt="30px" ml="15%">
 
             <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px"  mt="20px" mb="10px"> Tên công việc </Badge>
          
             <div className="form_input" >
                 <div className="two">
-                  <input  style={{width:"80%" ,fontSize:"20px"}}
+                  <input  style={{width:"80%", borderRadius:"10px" ,fontSize:"20px"}}
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                     type="text"
@@ -146,6 +146,7 @@ function JobDetailRecruiter() {
          
             <div className="two">
             <input
+            style={{borderRadius:"20px",marginRight:"20px",marginTop:"10px",marginBottom:"10px"}}
                   type="file"
                   onChange={(e) => setTestImage(e.target.files[0])}
                   name="avatar"
@@ -157,7 +158,7 @@ function JobDetailRecruiter() {
  
             <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Địa điểm</Badge>
             <div className="two">
-                  <input  style={{width:"80%" ,fontSize:"20px"}}
+                  <input  style={{width:"80%", borderRadius:"10px"  ,fontSize:"20px"}}
                     value={location}
                     onChange={(e) => setLocation(e.target.value)}
                     type="text"
@@ -169,7 +170,7 @@ function JobDetailRecruiter() {
             <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Vị trí</Badge>
            
             <div className="two">
-                  <input  style={{width:"80%" ,fontSize:"20px"}}
+                  <input  style={{width:"80%", borderRadius:"10px"  ,fontSize:"20px"}}
                     value={position}
                     onChange={(e) => setPosition(e.target.value)}
                     type="text"
@@ -181,7 +182,7 @@ function JobDetailRecruiter() {
 
                 <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Số lượng </Badge>
             <div className="two">
-                  <input  style={{width:"80%" ,fontSize:"20px"}}
+                  <input  style={{width:"80%", borderRadius:"10px"  ,fontSize:"20px"}}
                     value={number}
                     onChange={(e) => setNumber(e.target.value)}
                     type="text"
@@ -193,7 +194,7 @@ function JobDetailRecruiter() {
 
                 <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Giới tính </Badge>
             <div className="two">
-                  <input  style={{width:"80%" ,fontSize:"20px"}}
+                  <input  style={{width:"80%" , borderRadius:"10px" ,fontSize:"20px"}}
                     value={sex}
                     onChange={(e) => setSex(e.target.value)}
                     type="text"
@@ -204,7 +205,7 @@ function JobDetailRecruiter() {
 
                 <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Kỹ năng </Badge>
             <div className="two">
-                  <input  style={{width:"80%" ,fontSize:"20px"}}
+                  <input  style={{width:"80%", borderRadius:"10px"  ,fontSize:"20px"}}
                     value={requirements}
                     onChange={(e) =>setRequirements(e.target.value)}
                     type="text"
@@ -216,7 +217,7 @@ function JobDetailRecruiter() {
       
             <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Địa chỉ doanh nghiệp </Badge>
             <div className="two">
-                  <input  style={{width:"80%" ,fontSize:"20px"}}
+                  <input  style={{width:"80%" , borderRadius:"10px" ,fontSize:"20px"}}
                     value={detailLocation}
                     onChange={(e) =>setDetailLocation(e.target.value)}
                     type="text"
@@ -227,7 +228,7 @@ function JobDetailRecruiter() {
                 <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px">Hình thưc công việc </Badge>
 
             <div className="two">
-                  <input  style={{width:"80%" ,fontSize:"20px"}}
+                  <input  style={{width:"80%", borderRadius:"10px"  ,fontSize:"20px"}}
                     value={workingForm}
                     onChange={(e) =>setWorkingForm(e.target.value)}
                     type="text"
@@ -240,7 +241,7 @@ function JobDetailRecruiter() {
                 <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px">Chi tiết công việc</Badge>
       
             <div className="two">
-                  <input  style={{width:"80%" ,fontSize:"20px"}}
+                  <input  style={{width:"80%", borderRadius:"10px"  ,fontSize:"20px"}}
                     value={detailJob}
                     onChange={(e) =>setDetailJob(e.target.value)}
                     type="text"
@@ -252,7 +253,7 @@ function JobDetailRecruiter() {
 
             <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px">Kinh nghiệm </Badge>
                       <div className="two">
-                  <input  style={{width:"80%" ,fontSize:"20px"}}
+                  <input  style={{width:"80%", borderRadius:"10px"  ,fontSize:"20px"}}
                     value={experience}
                     onChange={(e) =>setExperience(e.target.value)}
                     type="text"
@@ -266,7 +267,7 @@ function JobDetailRecruiter() {
 
   <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px">  Mức lương </Badge>
                      <div className="two">
-                  <input  style={{width:"80%" ,fontSize:"20px"}}
+                  <input  style={{width:"80%" , borderRadius:"10px" ,fontSize:"20px"}}
                     value={salary}
                     onChange={(e) =>setSalary(e.target.value)}
                     type="text"
@@ -278,7 +279,7 @@ function JobDetailRecruiter() {
                 <Badge borderRadius='full' fontSize="14px"px='2' colorScheme='teal' ml="2px" mt="20px" mb="10px"> Lợi ích </Badge>
             
             <div className="two">
-                  <input  style={{width:"80%" ,fontSize:"20px"}}
+                  <input  style={{width:"80%", borderRadius:"10px"  ,fontSize:"20px"}}
                     value={interest}
                     onChange={(e) =>setInterest(e.target.value)}
                     type="text"
@@ -292,7 +293,7 @@ function JobDetailRecruiter() {
     const [image, setImage] = useState(data.image);
     */
     }
-      <Button width='80%' bg='blue.400' mt="30px" onClick={onOpen}>Cập nhật</Button>
+      <Button width='80%' bg='blue.400' mt="30px" onClick={onOpen}>Đăng bài</Button>
             </Box>
                     </Box>
                    

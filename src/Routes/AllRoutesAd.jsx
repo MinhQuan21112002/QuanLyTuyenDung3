@@ -47,6 +47,7 @@ import { MarkCandidate } from "../pages-admin/MarkCandidate/MarkCandidate";
 import InterviewerListRoom from "../pages-admin/MarkCandidate/InterviewerListRoom";
 import { MyCompany } from "../pages-admin/MyCompany/MyCompany";
 import { ManageInterviewer } from "../pages-admin/ManageInterviewer/ManageInterviewer";
+import { ListJob } from "../pages-admin/Job-recruiter/ListJob";
 
 const AllRoutesAd = () => {
     return (
@@ -56,6 +57,8 @@ const AllRoutesAd = () => {
         <Route path='/jobDetail_Recruiter/:id' element={<JobDetailRecruiter/>} />
         <Route path='/allJob_Recruiter/' element={<AllJob/>} />
         <Route path='/job-posting/' element={<JobPosting/>} />
+        <Route path='/list-job/' element={<ListJob/>} />
+
         <Route path="/" element={<Ecommerce/>} />
         <Route path="/AdLogout" element={<AdLogout/>} />
 
@@ -109,6 +112,8 @@ const AllRoutesAd = () => {
         <Route path="/interviewer-list-room" element={<InterviewerListRoom/>} />
         <Route path="/my-company" element={<MyCompany/>} />
         <Route path="/manage-interviewer" element={<ManageInterviewer/>} />
+
+        
 
 
       </Routes>

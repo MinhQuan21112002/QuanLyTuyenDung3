@@ -54,10 +54,10 @@ const AllJob = () => {
     // getData(typeOfProduct).then((res) => setProductArr(res));
     dispatch(loadJob())
   }, [])
-
+  const userId = JSON.parse(localStorage.getItem('data')).data.userInfo.id
   const jobData = useSelector((store) => store.job.data)
   const jobdatas = jobData.map((job) => {
-    return job.status === true ? (
+    return (job.status === true && job.user_id===userId)  ? (
       <Box key={job.id} mt='50px' boxShadow='rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px' mb='30px' p='20px'>
         <Link to={`/jobDetail_Recruiter/${job.id}`}>
           <Text fontSize='20px'>{job.name}</Text>
@@ -101,52 +101,6 @@ const AllJob = () => {
       <Box display='flex' justifyContent='space-between'>
         <Box ml='10' width='60%'>
           {jobdatas}
-        </Box>
-        <Box mr='10' mt='80px' width='30%'>
-          <Box width='400px' boxShadow='rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px' p='10px'>
-            <Text fontSize='18px' fontWeight='bold'>
-              {' '}
-              Recommended courses for you
-            </Text>
-            <Text fontSize='12px' mb='30px'>
-              Suggested Certifications to help you Earn Higher Salary, Better Jobs
-            </Text>
-            <Text fontSize='15px' fontWeight='bold'>
-              Microsoft Office 2007 Bunder{' '}
-            </Text>
-
-            <Box display='flex' mt='2' alignItems='center'>
-              {Array(5)
-                .fill('')
-                .map((_, i) => (
-                  <BsFillStarFill key={i} color={i < 3 ? 'RGBA(0, 0, 0, 0.36)' : 'RGBA(0, 0, 0, 0.36)'} />
-                ))}{' '}
-              (132 reviews)
-            </Box>
-            <Box p='20px' fontSize='14px'>
-              <ul>
-                <li>Microsoft Office 2007 is the Windows version of the Microsoft Office System, Microsofts productivity...</li>
-                <li style={{ marginTop: '15px' }}>With the help of Microsoft Office experts, you all learn valuable and time saving techniques for work...</li>
-              </ul>
-            </Box>
-            <Text fontSize='15px' fontWeight='bold'>
-              Microsoft Excel for Data analyst{' '}
-            </Text>
-
-            <Box display='flex' mt='2' alignItems='center'>
-              {Array(5)
-                .fill('')
-                .map((_, i) => (
-                  <BsFillStarFill key={i} color={i < 3 ? 'RGBA(0, 0, 0, 0.36)' : 'RGBA(0, 0, 0, 0.36)'} />
-                ))}{' '}
-              (1341 reviews)
-            </Box>
-            <br />
-            <hr />
-            <Text mt='20px' fontWeight='bold' color='blue.500'>
-              View All
-            </Text>
-          </Box>
         </Box>
       </Box>
     </>

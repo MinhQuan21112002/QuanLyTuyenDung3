@@ -1,291 +1,159 @@
-import { Box, Container, Flex, Text,
-    Image,
-    Heading,
-    Button
-    } from '@chakra-ui/react'
-    import { ChevronRightIcon, StarIcon } from '@chakra-ui/icons'
+import { Box, Container, Flex, Text, Image, Heading, Button } from '@chakra-ui/react'
+import { ChevronRightIcon, StarIcon } from '@chakra-ui/icons'
 
-import React from 'react'
-import {Swiper,SwiperSlide} from 'swiper/react'
+import React, { useEffect, useState } from 'react'
+import { Swiper, SwiperSlide } from 'swiper/react'
 import { FreeMode } from 'swiper'
 import 'swiper/css'
-import 'swiper/css/free-mode';
+import 'swiper/css/free-mode'
 import 'bootstrap/dist/css/bootstrap.min.css'
+import { useNavigate } from 'react-router-dom'
+import { companyService } from '../../Service/company.service'
 
+const data = [
+  {
+    id: 1,
+    name: 'CÔNG TY TNHH BUYMED',
+    avatar: 'https://firebasestorage.googleapis.com/v0/b/quanlytuyendung-4fb2c.appspot.com/o/files%2Fcong-ty-tnhh-buymed-f95dc7cac15325af4367f3c8cf5ee0f6-5ff7dd182c9d8.jpg?alt=media&token=31f94198-61ac-4e6a-896b-3a94017bbcd7',
+    website: 'https://thuocsi.vn/',
+    address: 'Tầng 8, Tòa nhà Vincom Center Đồng Khởi, 72 Lê Thánh Tôn - Phường Bến Nghé - Quận 1 - TP Hồ Chí Minh. ',
+    phone: '0123456776',
+    info: 'thuocsi.vn được thành lập từ năm 2018, là một trong những startup thành công trong lĩnh vực công nghệ về y tế',
+    userId: 3,
+  },
+  {
+    id: 2,
+    name: 'CÔNG TY TNHH BUYMED',
+    avatar: 'https://firebasestorage.googleapis.com/v0/b/quanlytuyendung-4fb2c.appspot.com/o/files%2Fcong-ty-tnhh-buymed-f95dc7cac15325af4367f3c8cf5ee0f6-5ff7dd182c9d8.jpg?alt=media&token=31f94198-61ac-4e6a-896b-3a94017bbcd7',
+    website: 'https://thuocsi.vn/',
+    address: 'Tầng 8, Tòa nhà Vincom Center Đồng Khởi, 72 Lê Thánh Tôn - Phường Bến Nghé - Quận 1 - TP Hồ Chí Minh. ',
+    phone: '0123456776',
+    info: 'thuocsi.vn được thành lập từ năm 2018, là một trong những startup thành công trong lĩnh vực công nghệ về y tế',
+    userId: 3,
+  },
+  {
+    id: 3,
+    name: 'CÔNG TY TNHH BUYMED',
+    avatar: 'https://firebasestorage.googleapis.com/v0/b/quanlytuyendung-4fb2c.appspot.com/o/files%2Fcong-ty-tnhh-buymed-f95dc7cac15325af4367f3c8cf5ee0f6-5ff7dd182c9d8.jpg?alt=media&token=31f94198-61ac-4e6a-896b-3a94017bbcd7',
+    website: 'https://thuocsi.vn/',
+    address: 'Tầng 8, Tòa nhà Vincom Center Đồng Khởi, 72 Lê Thánh Tôn - Phường Bến Nghé - Quận 1 - TP Hồ Chí Minh. ',
+    phone: '0123456776',
+    info: 'thuocsi.vn được thành lập từ năm 2018, là một trong những startup thành công trong lĩnh vực công nghệ về y tế',
+    userId: 3,
+  },
+  {
+    id: 4,
+    name: 'CÔNG TY TNHH BUYMED',
+    avatar: 'https://firebasestorage.googleapis.com/v0/b/quanlytuyendung-4fb2c.appspot.com/o/files%2Fcong-ty-tnhh-buymed-f95dc7cac15325af4367f3c8cf5ee0f6-5ff7dd182c9d8.jpg?alt=media&token=31f94198-61ac-4e6a-896b-3a94017bbcd7',
+    website: 'https://thuocsi.vn/',
+    address: 'Tầng 8, Tòa nhà Vincom Center Đồng Khởi, 72 Lê Thánh Tôn - Phường Bến Nghé - Quận 1 - TP Hồ Chí Minh. ',
+    phone: '0123456776',
+    info: 'thuocsi.vn được thành lập từ năm 2018, là một trong những startup thành công trong lĩnh vực công nghệ về y tế',
+    userId: 3,
+  },
+  {
+    id: 5,
+    name: 'CÔNG TY TNHH BUYMED',
+    avatar: 'https://firebasestorage.googleapis.com/v0/b/quanlytuyendung-4fb2c.appspot.com/o/files%2Fcong-ty-tnhh-buymed-f95dc7cac15325af4367f3c8cf5ee0f6-5ff7dd182c9d8.jpg?alt=media&token=31f94198-61ac-4e6a-896b-3a94017bbcd7',
+    website: 'https://thuocsi.vn/',
+    address: 'Tầng 8, Tòa nhà Vincom Center Đồng Khởi, 72 Lê Thánh Tôn - Phường Bến Nghé - Quận 1 - TP Hồ Chí Minh. ',
+    phone: '0123456776',
+    info: 'thuocsi.vn được thành lập từ năm 2018, là một trong những startup thành công trong lĩnh vực công nghệ về y tế',
+    userId: 3,
+  },
+  {
+    id: 6,
+    name: 'CÔNG TY TNHH BUYMED',
+    avatar: 'https://firebasestorage.googleapis.com/v0/b/quanlytuyendung-4fb2c.appspot.com/o/files%2Fcong-ty-tnhh-buymed-f95dc7cac15325af4367f3c8cf5ee0f6-5ff7dd182c9d8.jpg?alt=media&token=31f94198-61ac-4e6a-896b-3a94017bbcd7',
+    website: 'https://thuocsi.vn/',
+    address: 'Tầng 8, Tòa nhà Vincom Center Đồng Khởi, 72 Lê Thánh Tôn - Phường Bến Nghé - Quận 1 - TP Hồ Chí Minh. ',
+    phone: '0123456776',
+    info: 'thuocsi.vn được thành lập từ năm 2018, là một trong những startup thành công trong lĩnh vực công nghệ về y tế',
+    userId: 3,
+  },
+  {
+    id: 7,
+    name: 'CÔNG TY TNHH BUYMED',
+    avatar: 'https://firebasestorage.googleapis.com/v0/b/quanlytuyendung-4fb2c.appspot.com/o/files%2Fcong-ty-tnhh-buymed-f95dc7cac15325af4367f3c8cf5ee0f6-5ff7dd182c9d8.jpg?alt=media&token=31f94198-61ac-4e6a-896b-3a94017bbcd7',
+    website: 'https://thuocsi.vn/',
+    address: 'Tầng 8, Tòa nhà Vincom Center Đồng Khởi, 72 Lê Thánh Tôn - Phường Bến Nghé - Quận 1 - TP Hồ Chí Minh. ',
+    phone: '0123456776',
+    info: 'thuocsi.vn được thành lập từ năm 2018, là một trong những startup thành công trong lĩnh vực công nghệ về y tế',
+    userId: 3,
+  },
+]
 
 const FeatureCompony = () => {
+  const navigate = useNavigate()
+  const [companies, setCompanies] = useState([])
+  useEffect(() => {
+    companyService
+      .getAllCompany()
+      .then((res) => setCompanies(res))
+      .catch((er) => console.log(er.message))
+  }, [])
   return (
     <div>
-      <Heading mt={10} mb={10} textAlign='center'>Featured companies actively hiring</Heading>
+      <Heading mt={10} mb={10} textAlign='center'>
+        Featured companies actively hiring
+      </Heading>
       <Box className='container py-4 px-4 justify-conten-center '>
         <Swiper
-            freeMode={true}
-            grabCursor={true}
-            modules={[FreeMode]}
-            className='mySwiper'
-            slidesPerView={5}
-            spaceBetween={30}
-            breakpoints={{
-                0:{
-                    slidesPerView:1,
-                    spaceBetween:10,
-                },
-                480:{
-                    slidesPerView:2,
-                    spaceBetween:10,
-                },
-                768:{
-                    slidesPerView:3,
-                    spaceBetween:10,
-                },
-                1024:{
-                    slidesPerView:4,
-                    spaceBetween:10,
-                },
-                1280:{
-                    slidesPerView:4,
-                    spaceBetween:10,
-                }
-            }}
-        >
+          freeMode={true}
+          grabCursor={true}
+          modules={[FreeMode]}
+          className='mySwiper'
+          slidesPerView={5}
+          spaceBetween={30}
+          breakpoints={{
+            0: {
+              slidesPerView: 1,
+              spaceBetween: 10,
+            },
+            480: {
+              slidesPerView: 2,
+              spaceBetween: 10,
+            },
+            768: {
+              slidesPerView: 3,
+              spaceBetween: 10,
+            },
+            1024: {
+              slidesPerView: 4,
+              spaceBetween: 10,
+            },
+            1280: {
+              slidesPerView: 4,
+              spaceBetween: 10,
+            },
+          }}>
+          {companies.map((company) => (
             <SwiperSlide>
-               
-                <div>
-             <Box  
-   
-                w={250}
-                h={320}
-                border='1px solid RGBA(0, 0, 0, 0.06)'
-                justifyContent='center'
-                textAlign='center'
-                alignItems='center'
-                ml={30}
-
-                >
-                    <Container margin='auto'  justifyContent='center' >
-                    <Image src='https://img.naukimg.com/logo_images/groups/v2/13832.gif ' ml={12} mt={3}  height={38}/>
-                    </Container>
-                    <Container width='80%'   padding={5} mt={5} bg='green.50' borderRadius='15%'>
-                        <Text fontSize={20} fontWeight='bold' >Infosys </Text>
-                        <Text><StarIcon height={4} mt={-1} color='orange.400'/> 3.9 | 27.4K+ reviews</Text>
-                    </Container>
-                    <Container mt={3}>
-                        <Text lineHeight={5}>global leader in next-gen digital services</Text>
-                        <Button mt={3} borderRadius='25%' color='teal' >View Jobs</Button>
-                    </Container>
-
+              <div>
+                <Box w={250} h={320} border='1px solid RGBA(0, 0, 0, 0.06)' justifyContent='center' textAlign='center' alignItems='center' ml={30}>
+                  <Container margin='auto' justifyContent='center'>
+                    <Image mt={5} src={company.avatar} w={'100%'} borderRadius={20} />
+                  </Container>
+                  <Container width='90%' padding={5} mt={5} bg='green.50' borderRadius='15%'>
+                    <Text fontSize={20} fontWeight='bold'>
+                      {company.name}
+                    </Text>
+                  </Container>
+                  <Container mt={3}>
+                    <Button mt={3} borderRadius='25%' color='teal'>
+                      View Jobs
+                    </Button>
+                  </Container>
                 </Box>
-                </div>
+              </div>
             </SwiperSlide>
-            <SwiperSlide>
-               
-               <div>
-            <Box  
-  
-               w={250}
-               h={320}
-               border='1px solid RGBA(0, 0, 0, 0.06)'
-               justifyContent='center'
-               textAlign='center'
-               alignItems='center'
-               ml={30}
-
-               >
-                   <Container margin='auto'  justifyContent='center' >
-                   <Image src='https://img.naukimg.com/logo_images/groups/v2/1527726.gif' ml={12} mt={3}  height={38}/>
-                   </Container>
-                   <Container width='80%'   padding={5} mt={5} bg='green.50' borderRadius='15%'>
-                       <Text fontSize={20} fontWeight='bold' >incedo </Text>
-                       <Text><StarIcon height={4} mt={-1} color='orange.400'/> 4.0| 400 reviews</Text>
-                   </Container>
-                   <Container mt={3}>
-                       <Text lineHeight={5}>US-based consulting & technology services firm.</Text>
-                       <Button mt={3} borderRadius='25%' color='teal' >View Jobs</Button>
-                   </Container>
-
-               </Box>
-               </div>
-           </SwiperSlide>
-           <SwiperSlide>
-               
-               <div>
-            <Box  
-  
-               w={250}
-               h={320}
-               border='1px solid RGBA(0, 0, 0, 0.06)'
-               justifyContent='center'
-               textAlign='center'
-               alignItems='center'
-               ml={30}
-
-               >
-                   <Container margin='auto'  justifyContent='center' >
-                   <Image src='https://img.naukimg.com/logo_images/groups/v2/44512.gif ' ml={12} mt={3}  height={38}/>
-                   </Container>
-                   <Container width='80%'   padding={5} mt={5} bg='green.50' borderRadius='15%'>
-                       <Text fontSize={20} fontWeight='bold' >ICIC Bank </Text>
-                       <Text><StarIcon height={4} mt={-1} color='orange.400'/> 4.0|34.1K+  reviews</Text>
-                   </Container>
-                   <Container mt={3}>
-                       <Text lineHeight={5}>Leading Private sector bank in India</Text>
-                       <Button mt={3} borderRadius='25%' color='teal' >View Jobs</Button>
-                   </Container>
-
-               </Box>
-               </div>
-           </SwiperSlide>
-           <SwiperSlide>
-               
-               <div>
-            <Box  
-  
-               w={250}
-               h={320}
-               border='1px solid RGBA(0, 0, 0, 0.06)'
-               justifyContent='center'
-               textAlign='center'
-               alignItems='center'
-               ml={30}
-
-               >
-                   <Container margin='auto'  justifyContent='center' >
-                   <Image src='https://img.naukimg.com/logo_images/groups/v2/240936.gif ' ml={12} mt={3}  height={38}/>
-                   </Container>
-                   <Container width='80%'   padding={5} mt={5} bg='green.50' borderRadius='15%'>
-                       <Text fontSize={20} fontWeight='bold' >JPMorgan Chase Bank </Text>
-                       <Text><StarIcon height={4} mt={-1} color='orange.400'/>4.2| 3.5K+ reviews  reviews</Text>
-                   </Container>
-                   <Container mt={3}>
-                       <Text lineHeight={5}>Leader in financial services </Text>
-                       <Button mt={3} borderRadius='25%' color='teal' >View Jobs</Button>
-                   </Container>
-
-               </Box>
-               </div>
-           </SwiperSlide>
-           <SwiperSlide>
-              
-              <div>
-           <Box  
- 
-              w={250}
-              h={320}
-              border='1px solid RGBA(0, 0, 0, 0.06)'
-              justifyContent='center'
-              textAlign='center'
-              alignItems='center'
-              ml={30}
-
-              >
-                  <Container margin='auto'  justifyContent='center' >
-                  <Image src='https://img.naukimg.com/logo_images/groups/v2/4156.gif ' ml={12} mt={3}  height={38}/>
-                  </Container>
-                  <Container width='80%'   padding={5} mt={5} bg='green.50' borderRadius='15%'>
-                      <Text fontSize={20} fontWeight='bold' >Cognizant </Text>
-                      <Text><StarIcon height={4} mt={-1} color='orange.400'/> 3.9 | 28.8K+ reviews</Text>
-                  </Container>
-                  <Container mt={3}>
-                      <Text lineHeight={5}> Leading ITeS compony with globle presence</Text>
-                      <Button mt={3} borderRadius='25%' color='teal' >View Jobs</Button>
-                  </Container>
-
-              </Box>
-              </div>
-          </SwiperSlide>
-          <SwiperSlide>
-              
-              <div>
-           <Box  
- 
-              w={250}
-              h={320}
-              border='1px solid RGBA(0, 0, 0, 0.06)'
-              justifyContent='center'
-              textAlign='center'
-              alignItems='center'
-              ml={30}
-
-              >
-                  <Container margin='auto'  justifyContent='center' >
-                  <Image src='https://img.naukimg.com/logo_images/groups/v2/42932.gif ' ml={12} mt={3}  height={38}/>
-                  </Container>
-                  <Container width='80%'   padding={5} mt={5} bg='green.50' borderRadius='15%'>
-                      <Text fontSize={20} fontWeight='bold' >Genpact </Text>
-                      <Text><StarIcon height={4} mt={-1} color='orange.400'/> 3.9 | 27.4K+ reviews</Text>
-                  </Container>
-                  <Container mt={3}>
-                      <Text lineHeight={5}>global Professional services Film</Text>
-                      <Button mt={3} borderRadius='25%' color='teal' >View Jobs</Button>
-                  </Container>
-
-              </Box>
-              </div>
-          </SwiperSlide>
-          <SwiperSlide>
-              
-              <div>
-           <Box  
- 
-              w={250}
-              h={320}
-              border='1px solid RGBA(0, 0, 0, 0.06)'
-              justifyContent='center'
-              textAlign='center'
-              alignItems='center'
-              ml={30}
-
-              >
-                  <Container margin='auto'  justifyContent='center' >
-                  <Image src='https://img.naukimg.com/logo_images/groups/v2/4577755.gif' ml={12} mt={3}  height={38}/>
-                  </Container>
-                  <Container width='80%'   padding={5} mt={5} bg='green.50' borderRadius='15%'>
-                      <Text fontSize={20} fontWeight='bold' >Accolite Digital </Text>
-                      <Text><StarIcon height={4} mt={-1} color='orange.400'/> 3.9 | 27.4K+ reviews</Text>
-                  </Container>
-                  <Container mt={3}>
-                      <Text lineHeight={5}>Applied Materials</Text>
-                      <Button mt={3} borderRadius='25%' color='teal' >View Jobs</Button>
-                  </Container>
-
-              </Box>
-              </div>
-          </SwiperSlide>
-          <SwiperSlide>
-              
-              <div>
-           <Box  
- 
-              w={250}
-              h={320}
-              border='1px solid RGBA(0, 0, 0, 0.06)'
-              justifyContent='center'
-              textAlign='center'
-              alignItems='center'
-              ml={30}
-
-              >
-                  <Container margin='auto'  justifyContent='center' >
-                  <Image src='https://img.naukimg.com/logo_images/groups/v2/1574056.gif' ml={12} mt={3}  height={38}/>
-                  </Container>
-                  <Container width='80%'   padding={5} mt={5} bg='green.50' borderRadius='15%'>
-                      <Text fontSize={20} fontWeight='bold' >Applied material  </Text>
-                      <Text><StarIcon height={4} mt={-1} color='orange.400'/> 3.9 | 27.4K+ reviews</Text>
-                  </Container>
-                  <Container mt={3}>
-                      <Text lineHeight={5}> Leading in material engineering solutaion</Text>
-                      <Button mt={3} borderRadius='25%' color='teal' >View Jobs</Button>
-                  </Container>
-
-              </Box>
-              </div>
-          </SwiperSlide>
-            
-           
-
+          ))}
         </Swiper>
-        <Container textAlign='center' mt={10} ><Button border='1px solid teal' p={7} borderRadius='30%' bg='white' color='teal' fontWeight='bold'>View All compony</Button></Container>
-
+        <Container textAlign='center' mt={10}>
+          <Button onClick={() => navigate('/companies')} border='1px solid teal' p={7} borderRadius='30%' bg='white' color='teal' fontWeight='bold'>
+            View All compony
+          </Button>
+        </Container>
       </Box>
     </div>
   )

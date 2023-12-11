@@ -1,10 +1,10 @@
-import { AlertDialog, AlertDialogBody, AlertDialogFooter, AlertDialogHeader, AlertDialogContent, AlertDialogOverlay, AlertDialogCloseButton, useDisclosure, Button, FormControl, FormLabel, Input, FormErrorMessage, FormHelperText, Spinner } from '@chakra-ui/react'
+import { AlertDialog, AlertDialogBody, AlertDialogContent, AlertDialogFooter, AlertDialogHeader, AlertDialogOverlay, Button, FormControl, FormLabel, Input, Spinner, useDisclosure } from '@chakra-ui/react'
 import React, { useState } from 'react'
+import { toast, ToastContainer } from 'react-toastify'
 import { interviewerService } from '../../Service/interviewer.service'
-import { ToastContainer, toast } from 'react-toastify'
-import { Add } from '@mui/icons-material'
+import { companyService } from '../../Service/company.service'
 
-export const AddInterviewer = () => {
+export const AddCompany = () => {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const cancelRef = React.useRef()
   const accessToken = JSON.parse(localStorage.getItem('data')).access_token
@@ -21,8 +21,8 @@ export const AddInterviewer = () => {
 
   const handleAddClick = () => {
     setIsLoad(true)
-    interviewerService
-      .addInterviewer(accessToken, input)
+    companyService
+      .registerReccer(accessToken, input)
       .then((res) => {
         if (res.message === 'Success') {
           toast.success('Success')
@@ -33,11 +33,10 @@ export const AddInterviewer = () => {
       })
       .catch((err) => console.log(err))
   }
-
   return (
     <>
       <ToastContainer position='bottom-right' autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover theme='light' />
-      <Button color='white' backgroundColor='rgb(3, 201, 215)' onClick={onOpen}>
+      <Button ml={"8%"} color='white' backgroundColor='rgb(3, 201, 215)' onClick={onOpen}>
         + Thêm thành viên
       </Button>
 
@@ -45,7 +44,7 @@ export const AddInterviewer = () => {
         <AlertDialogOverlay>
           <AlertDialogContent>
             <AlertDialogHeader fontSize='lg' fontWeight='bold'>
-              Add interviewers
+              Add Reccer Account
             </AlertDialogHeader>
 
             <AlertDialogBody>

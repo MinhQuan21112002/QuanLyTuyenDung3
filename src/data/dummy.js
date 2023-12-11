@@ -464,6 +464,11 @@ export const links = [
         icon: <IoMdContacts />,
       },
       {
+        name: 'skill-position',
+        title: 'Position Skill',
+        icon: <IoMdContacts />,
+      },
+      {
         name: 'line',
         title: 'Thống kê',
         icon: <IoMdContacts />,

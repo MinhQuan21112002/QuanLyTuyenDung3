@@ -244,14 +244,7 @@ const JobPosting = () => {
                     Tên công việc
                   </Badge>
                 </label>
-                <input
-                  style={{ width: '100%' }}
-                  type='text'
-                  // value={email}
-                  onChange={(e) => setName(e.target.value)}
-                  name='name'
-                  id='Name'
-                />
+                <input style={{ width: '100%' }} type='text' onChange={(e) => setName(e.target.value)} name='name' id='Name' />
               </div>
 
               <div className='form_input'>
@@ -261,14 +254,7 @@ const JobPosting = () => {
                   </Badge>
                 </label>
 
-                <input
-                  style={{ width: '100%' }}
-                  type='position'
-                  // value={username}
-                  onChange={(e) => setDetailLocation(e.target.value)}
-                  name='position'
-                  id='position'
-                />
+                <input style={{ width: '100%' }} type='position' onChange={(e) => setDetailLocation(e.target.value)} name='position' id='position' />
               </div>
               <div class='flex-container'>
                 <div className='form_input flex' style={{ heigth: '20% !important' }}>
@@ -277,15 +263,8 @@ const JobPosting = () => {
                       Mức lương
                     </Badge>
                   </div>
-                  {/* 
-                  <input
-                    // value={password}
-                    onChange={(e) => setSalary(e.target.value)}
-                    type='text'
-                    name='salary'
-                    id='salary'
-                  /> */}
-                  <Select mt={6} onChange={(e) => setSalary(e.target.value)} border={'none'} defaultValue={7}>
+                  <Select mt={6} onChange={(e) => setSalary(e.target.value)} border={'none'} defaultValue='all'>
+                    <option value='all'>Mức lương</option>
                     <option value='Dưới 10 triệu'>Dưới 10 triệu</option>
                     <option value='10 -15 triệu'>10 -15 triệu</option>
                     <option value='15 -20 triệu'>15 -20 triệu</option>
@@ -302,13 +281,7 @@ const JobPosting = () => {
                       Hình thức làm việc
                     </Badge>
                   </div>
-                  <input
-                    // value={password}
-                    onChange={(e) => setWorkingForm(e.target.value)}
-                    type='text'
-                    name='workingForm'
-                    id='workingForm'
-                  />
+                  <input onChange={(e) => setWorkingForm(e.target.value)} type='text' name='workingForm' id='workingForm' />
                 </div>
               </div>
 
@@ -319,8 +292,8 @@ const JobPosting = () => {
                       Địa điểm
                     </Badge>
                   </div>
-                  {/* <input onChange={(e) => setLocation(e.target.value)} type='text' name='location' id='location' /> */}
-                  <Select mt={6} defaultValue={'Hồ Chí Minh'} onChange={(e) => setLocation(e.target.value)}>
+                  <Select mt={6} defaultValue='all' onChange={(e) => setLocation(e.target.value)}>
+                    <option value='all'>Địa điểm</option>
                     <option value='Hồ Chí Minh'>Hồ Chí Minh</option>
                     <option value='Đà Nẵng'>Đà Nẵng</option>
                     <option value='Hà Nội'>Hà Nội</option>
@@ -332,13 +305,7 @@ const JobPosting = () => {
                       Ngôn ngữ
                     </Badge>
                   </div>
-                  <input
-                    // value={password}
-                    onChange={(e) => setLanguage(e.target.value)}
-                    type='text'
-                    name='language'
-                    id='language'
-                  />
+                  <input onChange={(e) => setLanguage(e.target.value)} type='text' name='language' id='language' />
                 </div>
               </div>
 
@@ -349,13 +316,11 @@ const JobPosting = () => {
                       Giới tính
                     </Badge>
                   </div>
-                  <input
-                    // value={password}
-                    onChange={(e) => setSex(e.target.value)}
-                    type='text'
-                    name='sex'
-                    id='sex'
-                  />
+                  <Select mt={6} onChange={(e) => setSex(e.target.value)} defaultValue='NONE'>
+                    <option value='MALE'>Nam</option>
+                    <option value='FEMALE'>Nữ</option>
+                    <option value='NONE'>Không yêu cầu</option>
+                  </Select>
                 </div>
                 <div className='form_input flex' style={{ marginLeft: '10px' }}>
                   <div htmlFor='name' style={{ display: 'block', paddingTop: '7%', paddingRight: '2%' }}>
@@ -380,13 +345,7 @@ const JobPosting = () => {
                       Vị trí tuyển dụng
                     </Badge>
                   </div>
-                  <input
-                    // value={password}
-                    onChange={(e) => setPosition(e.target.value)}
-                    type='text'
-                    name='detailLocation'
-                    id='detailLocation'
-                  />
+                  <input onChange={(e) => setPosition(e.target.value)} type='text' name='detailLocation' id='detailLocation' />
                 </div>
                 <div className='form_input flex' style={{ marginLeft: '10px' }}>
                   <div htmlFor='name' style={{ display: 'block', paddingTop: '7%', paddingRight: '2%' }}>
@@ -395,22 +354,16 @@ const JobPosting = () => {
                       Kinh nghiệm
                     </Badge>
                   </div>
-                  {/* <input
-                    // value={password}
-                    onChange={(e) => setExperience(e.target.value)}
-                    type='text'
-                    name='experience'
-                    id='experience'
-                  /> */}
                   <Select onChange={(e) => setExperience(e.target.value)} mt={6} border={'none'} defaultValue={'Chưa có'}>
-                    <option value='option2'>chưa có</option>
-                    <option value='option2'>dưới 1 năm</option>
-                    <option value='option2'>1 năm</option>
-                    <option value='option2'>2 năm</option>
-                    <option value='option2'>3 năm</option>
-                    <option value='option2'>4 năm</option>
-                    <option value='option2'>5 năm</option>
-                    <option value='option2'>trên 5 năm</option>
+                    <option value='all'>Kinh nghiệm</option>
+                    <option value='chưa có'>chưa có</option>
+                    <option value='dưới 1 năm'>dưới 1 năm</option>
+                    <option value='1 năm'>1 năm</option>
+                    <option value='2 năm'>2 năm</option>
+                    <option value='3 năm'>3 năm</option>
+                    <option value='4 năm'>4 năm</option>
+                    <option value='5 năm'>5 năm</option>
+                    <option value='trên 5 năm'>trên 5 năm</option>
                   </Select>
                 </div>
               </div>

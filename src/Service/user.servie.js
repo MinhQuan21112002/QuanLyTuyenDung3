@@ -31,7 +31,7 @@ const removeBlacklist = async (token, id) => {
         'Content-Type': 'application/json',
       },
     }
-    const res = await axios.post(`${API_URL}/blacklist/remove/4`,null, config)
+    const res = await axios.post(`${API_URL}/blacklist/remove/${id}`,null, config)
     return res.data
   } catch (error) {
     const axiosError = error

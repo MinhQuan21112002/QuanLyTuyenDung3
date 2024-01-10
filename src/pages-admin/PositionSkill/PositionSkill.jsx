@@ -40,18 +40,18 @@ export const PositionSkill = () => {
         skillPositionService
             .getSkill(accessToken)
             .then((response) => setSkill(response))
-            .catch((error) => toast.error(error.message));
+            .catch((error) => toast.error("something went wrong"));
         skillPositionService
             .getPosition(accessToken)
             .then((response) => setPositions(response))
-            .catch((error) => toast.error(error.message));
+            .catch((error) => toast.error("something went wrong"));
     }, []);
 
     const handleOnDeleteSkill = (id) => {
         skillPositionService
             .deleteSkill(accessToken, id)
-            .then((res) => toast.info("cc"))
-            .catch((er) => toast.error(er.message));
+            .then((res) => toast.info("ok"))
+            .catch((er) => toast.error("something went wrong"));
     };
 
     return (

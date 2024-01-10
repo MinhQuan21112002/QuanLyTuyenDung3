@@ -84,7 +84,9 @@ export const AssignCandidate = ({ jobId, roomId, startDate, endDate }) => {
       } else {
         toast.error(response.message)
       }
-    })
+    }).catch(
+      toast.error("something went wrong")
+    )
   }
 
   return (

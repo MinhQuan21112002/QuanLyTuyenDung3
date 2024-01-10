@@ -67,7 +67,7 @@ const ChangePassword = () => {
         setError(error.response.data.message)
         const FError = error.response.data.message
         console.log(FError)
-        toast.success(FError, {
+        toast.error("something went wrong", {
           position: 'top-center',
         })
         setLoading(false)

@@ -21,7 +21,7 @@ export const AddPosition = () => {
     const handdleAdd =() => {
         skillPositionService.addPosition(accessToken, position)
         .then(res => toast.info(res.message))
-        .catch(err => toast.error(err))
+        .catch(err => toast.error("something went wrong"))
     }
 
 

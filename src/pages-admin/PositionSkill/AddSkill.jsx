@@ -24,7 +24,7 @@ export const AddSkill = () => {
         await skillPositionService
             .addSkill(accessToken, skill)
             .then((response) => toast.info(response.message))
-            .catch((error) => toast.error(error.message));
+            .catch((error) => toast.error("something went wrong"));
     };
     return (
         <>

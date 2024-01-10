@@ -73,7 +73,7 @@ export const EventAdd = () => {
             await eventService
                 .postEvent(form, accessToken)
                 .then((response) => toast.success(response.message))
-                .catch((error) => toast.error(error.message));
+                .catch((error) => toast.error("something went wrong"));
         } else {
             Object.values(errors).forEach((error) => {
                 toast.error(error);

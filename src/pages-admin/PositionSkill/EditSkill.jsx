@@ -25,7 +25,7 @@ export const EditSkill = () => {
         skillPositionService
             .updateSkill(accessToken, skill, params.id)
             .then((res) => toast.info(res.message))
-            .catch(err => toast.success(err));
+            .catch(err => toast.error("something went wrong"));
     };
 
     useEffect(() => {
@@ -34,7 +34,7 @@ export const EditSkill = () => {
             .then((res) => {
                 setSkill(res);
             })
-            .catch((er) => toast.error(er.message));
+            .catch((er) => toast.error("something went wrong"));
     }, []);
 
     return (

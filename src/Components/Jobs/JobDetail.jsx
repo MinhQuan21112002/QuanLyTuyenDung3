@@ -46,7 +46,6 @@ function JobDetail() {
         position: 'top-center',
       })
     } else {
-      console.log(e.target.value)
       const jobId = e.target.value
       try {
         const { Data } = await axios.post(`${hostName}/apply-job`, jobId, {
@@ -60,7 +59,7 @@ function JobDetail() {
           position: 'top-center',
         })
       } catch (error) {
-        toast.error(error, {
+        toast.error("something went wrong", {
           position: 'top-center',
         })
       }

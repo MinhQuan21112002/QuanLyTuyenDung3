@@ -36,7 +36,7 @@ export const K_Event = () => {
         const response = await eventService.getMyEvent(accessToken)
         setEvents(response)
       } catch (error) {
-        toast.error(error.message)
+        toast.error("something went wrong")
       }
     }
     fetchData()
@@ -46,7 +46,7 @@ export const K_Event = () => {
     eventService
       .DeleteEvent(e, accessToken)
       .then((response) => toast.info(response.message))
-      .catch((error) => toast.error(error.message))
+      .catch((error) => toast.error("something went wrong"))
   }
 
   function formatDate(inputDate) {

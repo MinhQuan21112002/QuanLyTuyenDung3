@@ -77,7 +77,7 @@ export const EventEdit = () => {
             await eventService
                 .putEvent(form, accessToken, form.id)
                 .then((response) => toast.success(response.message))
-                .catch((error) => toast.error(error.message));
+                .catch((error) => toast.error("something went wrong"));
         } else {
             Object.values(errors).forEach((error) => {
                 toast.error(error);
@@ -111,7 +111,7 @@ export const EventEdit = () => {
         eventService
             .getEventById(params.id)
             .then((response) => setForm(response))
-            .catch((error) => toast.error(error.message));
+            .catch((error) => toast.error("something went wrong"));
     }, []);
 
     return (

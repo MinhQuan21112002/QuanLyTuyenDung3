@@ -69,24 +69,24 @@ export const EditQuestion = () => {
     questionService
       .putQuestion(accessToken, form)
       .then((res) => toast.info(res.message))
-      .catch((er) => toast.error(er.message))
+      .catch((er) => toast.error("something went wrong"))
   }
 
   useEffect(() => {
     skillPositionService
       .getSkill(accessToken)
       .then((res) => setSkill(res))
-      .catch((er) => toast.error(er.message))
+      .catch((er) => toast.error("something went wrong"))
     skillPositionService
       .getPosition(accessToken)
       .then((res) => setPosition(res))
-      .catch((er) => toast.error(er.message))
+      .catch((er) => toast.error("something went wrong"))
     questionService
       .getQuestionByID(accessToken, params.id)
       .then((response) => {
         setForm(response)
       })
-      .catch((error) => toast.error(error.message))
+      .catch((error) => toast.error("something went wrong"))
   }, [])
 
   // console.log(JSON.stringify(form));

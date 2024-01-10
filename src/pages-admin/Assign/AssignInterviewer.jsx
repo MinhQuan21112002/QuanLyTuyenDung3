@@ -39,7 +39,7 @@ export const AssignInterviewer = ({ roomId }) => {
         }
       })
       .catch((er) => {
-        toast.error(er.message)
+        toast.error("something went wrong")
       })
   }
 

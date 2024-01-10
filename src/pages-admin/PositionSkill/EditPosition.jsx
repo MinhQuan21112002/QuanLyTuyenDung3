@@ -25,13 +25,13 @@ export const EditPosition = () => {
         skillPositionService
             .updatePosition(accessToken, form, position.id)
             .then((res) => toast.info(res.message))
-            .catch((err) => toast.error(err));
+            .catch((err) => toast.error("something went wrong"));
     };
 
     useEffect(()=> {
         skillPositionService.getPositionById(accessToken, params.id)
         .then(res => setPosition(res))
-        .catch(er => toast.error(er.message))
+        .catch(er => toast.error("something went wrong"))
     },[])
 
     return (

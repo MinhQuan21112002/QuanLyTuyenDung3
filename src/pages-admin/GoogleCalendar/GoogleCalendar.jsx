@@ -96,7 +96,7 @@ export const GoogleCalendar = ({ startDate, endDate, listEmail, roomId }) => {
       interviewService
         .sendCalendar(formGoogle, accessToken)
         .then((response) => toast.info(response.message))
-        .catch((error) => toast.error((er) => er.message))
+        .catch((error) => toast.error("something went wrong"))
     } else {
       toast.error('invalid form')
     }

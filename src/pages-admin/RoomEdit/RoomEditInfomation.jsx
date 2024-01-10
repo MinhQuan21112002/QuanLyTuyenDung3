@@ -91,7 +91,7 @@ export const RoomEditInfomation = () => {
         const uniqueEmails = [...new Set(combinedEmails)]
         setListAttendee(uniqueEmails)
       })
-      .catch((er) => toast.error(er.message))
+      .catch((er) => toast.error("something went wrong"))
   }, [])
 
   const handleOnChangeForm = (event) => {
@@ -106,7 +106,9 @@ export const RoomEditInfomation = () => {
       } else {
         toast.error(res.message)
       }
-    })
+    }).catch(
+      toast.error("something went wrong")
+    )
   }
 
   if (room.id === 0) {

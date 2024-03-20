@@ -19,6 +19,7 @@ import { CurriculumVitae } from "../Components/CVBuild/CurriculumVitae";
 import ResetPassword from "../Components/ResetPassword/ResetPassword";
 import VerifyPassword from "../Components/ResetPassword/verify";
 import ChangePassword from "../Components/ResetPassword/ChangePassword";
+import Message from "../Components/Message/Message";
 // import JobPosting from "../Components/Job-recruiter/Job-Posting";
 // import JobDetailRecruiter from "../Components/Job-recruiter/JobDetail";
 // import AllJob from  "../Components/Job-recruiter/AllJob";
@@ -56,6 +57,9 @@ const AllRoutes = () => {
             <Route path="/events" element={<Events />} />
             <Route path="/event/:id" element={<EventDetailHome />} />
             <Route path="/cv-build" element={<CurriculumVitae />} />
+
+
+            <Route path="/messages" element={<Message />} />
         </Routes>
     );
 };

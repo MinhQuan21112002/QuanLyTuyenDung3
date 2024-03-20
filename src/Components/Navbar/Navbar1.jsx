@@ -1,7 +1,24 @@
 import React from 'react'
-import { Box, Button, Container, Divider, Flex, Image, Menu, MenuButton, MenuItem, MenuList, Stack, useDisclosure } from '@chakra-ui/react'
+import {
+  Box,
+  Button,
+  Container,
+  Divider,
+  Flex,
+  IconButton,
+  Image,
+  Menu,
+  MenuButton,
+  MenuItem,
+  MenuList,
+  Stack,
+  useDisclosure,
+} from '@chakra-ui/react'
 import mainlogo from '../../Components/req/jobpandacom-logo.png'
 import { Link, useNavigate } from 'react-router-dom'
+import { ChatIcon, PhoneIcon } from '@chakra-ui/icons'
+import { ChatList } from 'react-chat-engine'
+import { MessageList } from '../Message/MessageList'
 
 const Navbar1 = () => {
   const navigate = useNavigate()
@@ -13,9 +30,24 @@ const Navbar1 = () => {
   const data = JSON.parse(localStorage.getItem('data'))
 
   return (
-    <Box fontFamily={'Montserrat'} as={Container} zIndex='3' top='0' maxW='100%' h={'72px'} position='fixed' bgColor='white' mb='150px'>
+    <Box
+      fontFamily={'Montserrat'}
+      as={Container}
+      zIndex='3'
+      top='0'
+      maxW='100%'
+      h={'72px'}
+      position='fixed'
+      bgColor='white'
+      mb='150px'>
       <Flex direction='row' w='80%' h='100%' m='auto' display='flex'>
-        <Box w={'150px'} h={'100%'} display={'flex'} alignItems={'center'} justifyContent={'center'} cursor={'pointer'}>
+        <Box
+          w={'150px'}
+          h={'100%'}
+          display={'flex'}
+          alignItems={'center'}
+          justifyContent={'center'}
+          cursor={'pointer'}>
           <Link to='/'>
             <Image w={'90%'} src={mainlogo} alt='Logo' alignItems={'center'} cursor={'pointer'} />
           </Link>
@@ -39,7 +71,16 @@ const Navbar1 = () => {
             </Menu>
           </Box> */}
 
-          <Box h={'100%'} display={'flex'} w={'33.3%'} alignItems={'center'} justifyContent={'center'} fontWeight={'500'} lineHeight={'20px'} color={'#445578'} cursor={'pointer'}>
+          <Box
+            h={'100%'}
+            display={'flex'}
+            w={'33.3%'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            fontWeight={'500'}
+            lineHeight={'20px'}
+            color={'#445578'}
+            cursor={'pointer'}>
             <Menu isOpen={services.isOpen}>
               <MenuButton
                 onClick={() => navigate('/jobpage')}
@@ -56,7 +97,16 @@ const Navbar1 = () => {
             </Menu>
           </Box>
 
-          <Box h={'100%'} display={'flex'} w={'auto'} alignItems={'center'} justifyContent={'center'} fontWeight={'500'} lineHeight={'20px'} color={'#445578'} cursor={'pointer'}>
+          <Box
+            h={'100%'}
+            display={'flex'}
+            w={'auto'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            fontWeight={'500'}
+            lineHeight={'20px'}
+            color={'#445578'}
+            cursor={'pointer'}>
             <Menu isOpen={companies.isOpen}>
               <MenuButton
                 onClick={() => navigate('/companies')}
@@ -85,7 +135,16 @@ const Navbar1 = () => {
             </Menu>
           </Box>
 
-          <Box h={'100%'} display={'flex'} w={'33.3%'} alignItems={'center'} justifyContent={'center'} fontWeight={'500'} lineHeight={'20px'} color={'#445578'} cursor={'pointer'}>
+          <Box
+            h={'100%'}
+            display={'flex'}
+            w={'33.3%'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            fontWeight={'500'}
+            lineHeight={'20px'}
+            color={'#445578'}
+            cursor={'pointer'}>
             <Menu isOpen={services.isOpen}>
               <MenuButton
                 onClick={() => navigate('/events')}
@@ -102,7 +161,16 @@ const Navbar1 = () => {
             </Menu>
           </Box>
 
-          <Box h={'100%'} display={'flex'} w={'auto'} alignItems={'center'} justifyContent={'center'} fontWeight={'500'} lineHeight={'20px'} color={'#445578'} cursor={'pointer'}>
+          <Box
+            h={'100%'}
+            display={'flex'}
+            w={'auto'}
+            alignItems={'center'}
+            justifyContent={'center'}
+            fontWeight={'500'}
+            lineHeight={'20px'}
+            color={'#445578'}
+            cursor={'pointer'}>
             <Menu isOpen={services.isOpen}>
               <MenuButton
                 onClick={() => navigate('/cv-build')}
@@ -194,7 +262,14 @@ const Navbar1 = () => {
           </Box> */}
         </Stack>
 
-        <Stack display={'flex'} ml={'340px'} direction={'row'} h={'100%'} w={'350px'} alignItems={'center'} justifyContent={'space-between'}>
+        <Stack
+          display={'flex'}
+          ml={'340px'}
+          direction={'row'}
+          h={'100%'}
+          w={'350px'}
+          alignItems={'center'}
+          justifyContent={'space-between'}>
           {data !== null ? (
             <div style={{ width: '100%', display: 'flex' }}>
               <Button
@@ -205,11 +280,31 @@ const Navbar1 = () => {
                 bg={'white'}
                 h={'40px'}
                 w={'auto'}
-                fontWeight={'600'}
-              >
+                fontWeight={'600'}>
                 <Link to='/userInfo'>{data.data.username}</Link>
               </Button>
-              <Button ml={2} border={'none'} borderRadius={'50px'} color={'white'} borderColor={'#ff7555'} bgColor={'#ff7555'} w={'100px'}>
+              <IconButton
+                onClick={() => navigate('/messages')}
+                border={'1px'}
+                borderColor={'#457eff'}
+                borderRadius={'50px'}
+                aria-label='Call Segun'
+                h={'40px'}
+                w={'auto'}
+                size='lg'
+                ml={2}
+                icon={<ChatIcon color={'#457eff'} />}
+              />
+              {/* 
+              <MessageList/> */}
+              <Button
+                ml={2}
+                border={'none'}
+                borderRadius={'50px'}
+                color={'white'}
+                borderColor={'#ff7555'}
+                bgColor={'#ff7555'}
+                w={'100px'}>
                 <Link to='/logout'>Log Out</Link>
               </Button>
             </div>
@@ -223,11 +318,17 @@ const Navbar1 = () => {
                 bg={'white'}
                 h={'40px'}
                 w={'80px'}
-                fontWeight={'600'}
-              >
+                fontWeight={'600'}>
                 <Link to='/login'>Login</Link>
               </Button>
-              <Button ml={2} border={'none'} borderRadius={'50px'} color={'white'} borderColor={'#ff7555'} bgColor={'#ff7555'} w={'100px'}>
+              <Button
+                ml={2}
+                border={'none'}
+                borderRadius={'50px'}
+                color={'white'}
+                borderColor={'#ff7555'}
+                bgColor={'#ff7555'}
+                w={'100px'}>
                 <Link to='/signup'>Register</Link>
               </Button>
             </div>
@@ -236,7 +337,13 @@ const Navbar1 = () => {
           <Divider borderColor={'#445578'} orientation='vertical' h={'30%'} />
 
           {data !== null && data.data.role === 'RECRUITER' ? (
-            <Button border={'none'} borderRadius={'50px'} color={'white'} borderColor={'#ff7555'} bgColor={'#33CC33'} w={'100px'}>
+            <Button
+              border={'none'}
+              borderRadius={'50px'}
+              color={'white'}
+              borderColor={'#ff7555'}
+              bgColor={'#33CC33'}
+              w={'100px'}>
               <Link to='/job-posting'>Đăng bài</Link>
             </Button>
           ) : (
